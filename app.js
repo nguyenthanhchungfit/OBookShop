@@ -21,7 +21,7 @@ app.use('/', route);
 
 // config
 var host = config.get("server.host");
-var port = config.get("server.post");
+var port = config.get("server.port");
 
 app.listen(port, host, function(){
     console.log("Server is running on port", port);
