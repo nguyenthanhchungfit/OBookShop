@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chi tiết sách</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="static/css/1512055.css" />
+</head>
+<body>
+    <!-- Cửa sổ tiêu đề -->
+    <div id="CUA_SO_TIEU_DE" style="margin:10px; background-color:aliceblue; height:100px">
+        <h1 style="text-align: center;color: blue; font-weight: bold; font-family: Arial, Helvetica, sans-serif; padding: 15px">CHI TIẾT SÁCH</h1>
+    </div>
+
+    <div class="d-flex flex-row" id="CUA_SO_HIEN_THI_THONG_TIN" style="height:500px">
+        <!-- Hình ảnh và nút xem trước nội dung sách -->
+        <div id="CUA_SO_HINH" style="background-color:rgb(240, 240, 240); width: 600px;  margin-left: 20px;">
+           <div id="ANH_SACH" style="height:440px;"></div>
+           <button id="NUT_XEM_THU" class="btn btn-success" style="margin-left:250px;">Đọc thử</button>
+        </div>
+        <!-- Thông tin sách -->
+        <div id="THONG_TIN_SACH" style="background-color:rgb(240, 240, 240); width: 700px; margin-left: 20px;">
+            
+            <div>
+                <!-- Tên sách -->
+                <div class="d-flex flex-row">
+                    <p style="font-family: Arial, Helvetica, sans-serif;font-size: 30px;margin-left:20px; margin-top:10px;">Tên sách: </p>
+                    <p id="TEN_SACH" style="font-family: Arial, Helvetica, sans-serif;font-size: 30px; margin-top:10px; margin-left:15px"></p>
+                </div>
+                <!-- Tác giả -->
+                <div class="d-flex flex-row">
+                    <p style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:20px;">Tác giả: </p>
+                    <p id="TAC_GIA" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:10px"></p>
+                </div>
+                <hr>
+                <!-- Giá -->
+                <div class="d-flex flex-row">
+                        <p style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:20px;">Giá: </p>
+                        <p id="GIA" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:10px"></p>
+                    </div>
+                <hr>
+                <!-- Năm xuất bản -->
+                <div class="d-flex flex-row">
+                    <p style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:20px;">Năm xuất bản: </p>
+                    <p id="NAM_XUAT_BAN" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:10px"></p>
+                </div>
+                <!-- Thể loại -->
+                <div class="d-flex flex-row">
+                    <p style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:20px;">Thể loại: </p>
+                    <p id="THE_LOAI" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:10px"></p>
+                </div>
+                <!-- Nhà xuất bản -->
+                <div class="d-flex flex-row">
+                    <p style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:20px;">Nhà xuất bản: </p>
+                    <p id="NHA_XUAT_BAN" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:10px"></p>
+                </div>
+                <hr>
+                
+                <button id="NUT_THEM_GIO_HANG" class="btn btn-success" style="background-color:rgb(224, 82, 39);margin-top:40px; margin-left:250px">Thêm vào giỏ hàng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cửa sổ kết quả -->
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
