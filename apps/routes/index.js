@@ -11,4 +11,12 @@ router.get("/", function(req, res){
     res.json({message : "index"});
 });
 
+router.get("/signup", function(req, res){
+    res.render("signup", {data: {}});
+});
+
+router.get("/signup", function(req, res){
+
+});
+
 module.exports = router;
