@@ -17,72 +17,78 @@
                     <div class="panel-title">Sign Up</div>
                 </div>
                 <div class="panel-body" >
-                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/admin/signup">
+                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/signup">
 
-                        <div id="signupalert" style="<%if (!data || !data.error){%>display:none"<%}%> 
+                        <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" 
                         class="alert alert-danger">
-                            <p>Error:</p>
+                            <p><strong>Error:</strong></p>
                             <%if (data && data.error){%>
-                            <span><%= data.error%></span>
+                            <p><%- data.error%></p>
                             <%}%>
                         </div>
 
+                        <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
+                        class="alert alert-success">
+                            <p><strong>Success:</strong></p>
+                            <p><%= data.success%></p>
+                        </div>
+
                         <div class="form-group">
-                            <label for="username" class="col-md-3 control-label">Username</label>
+                            <label for="username" class="col-md-3 control-label">Tài khoản</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="username" placeholder="Username">
+                                <input type="text" class="form-control" name="username" placeholder="Tài khoản">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="password" class="col-md-3 control-label">Password</label>
+                            <label for="password" class="col-md-3 control-label">Mật khẩu</label>
                             <div class="col-md-9">
-                                <input type="password" class="form-control" name="passwd" placeholder="Password">
+                                <input type="password" class="form-control" name="password" placeholder="Mật khẩu">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="repassword" class="col-md-3 control-label">Re-Type</label>
+                            <label for="repassword" class="col-md-3 control-label">Nhập lại mật khẩu</label>
                             <div class="col-md-9">
-                                <input type="repassword" class="form-control" name="repasswd" placeholder="Re-Type Password">
+                                <input type="password" class="form-control" name="repassword" placeholder="Nhập lại mật khẩu">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="email" class="col-md-3 control-label">Email</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="email" placeholder="Email Address">
+                                <input type="text" class="form-control" name="email" placeholder="Nhập Email">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="fullname" class="col-md-3 control-label">Full Name</label>
+                            <label for="ho_ten" class="col-md-3 control-label">Họ tên</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="fullname" placeholder="Full Name">
+                                <input type="text" class="form-control" name="ho_ten" placeholder="Nhập họ tên">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="birthday" class="col-md-3 control-label">Birthday</label>
-                            <div class="col-md-4">
-                                <input type="date" name="birthday" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="sex" class="col-md-3 control-label">Sex</label>
+                            <label for="gioi_tinh" class="col-md-3 control-label">Giới tính</label>
                             <div class="col-md-3">
-                                <select name="sex" class="form-control">
-                                    <option value="male">Male</option>
-                                    <option value="male">Female</option>
+                                <select name="gioi_tinh" class="form-control">
+                                    <option value="nam">Nam</option>
+                                    <option value="nữ">Nữ</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="address" class="col-md-3 control-label">Address</label>
+                            <label for="so_dien_thoai" class="col-md-3 control-label">Số điện thoại</label>
+                            <div class="col-md-4">
+                                <input type="number" name="so_dien_thoai" class="form-control" placeholder="Nhập số điện thoại">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dia_chi" class="col-md-3 control-label">Địa chỉ</label>
                             <div class="col-md-9">
-                                <input type = "text" class="form-control" name="address" placeholder="Address">
+                                <input type = "text" class="form-control" name="dia_chi" placeholder="Nhập địa chỉ">
                             </div>
                         </div>
 

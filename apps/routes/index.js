@@ -1,6 +1,7 @@
 var express = require("express");
 
 var router = express.Router();
+var homeController = require("../controllers/homeController");
 
 router.use("/catalog", require(__dirname + "/catalog.js"));
 router.use("/customer", require(__dirname + "/customer.js"));
@@ -11,12 +12,8 @@ router.get("/", function(req, res){
     res.json({message : "index"});
 });
 
-router.get("/signup", function(req, res){
-    res.render("signup", {data: {}});
-});
+router.get("/signup", homeController.get_signup);
 
-router.get("/signup", function(req, res){
-
-});
+router.post("/signup", homeController.post_signup);
 
 module.exports = router;
