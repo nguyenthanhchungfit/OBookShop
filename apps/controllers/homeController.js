@@ -1,10 +1,15 @@
 var customerModel = require("../models/customerModel");
+var categoryModel = require("../models/categoryModel");
+var bookModel = require("../models/bookModel");
 var validator = require("../helpers/validator");
+
+exports.index = function(req, res){
+    res.render("home.ejs");
+}
 
 exports.get_signup = function(req, res){
     res.render("signup", {data: {}});
 }
-
 
 exports.post_signup = function(req, res){
     //*********** Xử lý dữ liệu từ client
@@ -110,3 +115,5 @@ exports.post_signup = function(req, res){
     }
     
 }
+
+
