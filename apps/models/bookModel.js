@@ -12,6 +12,45 @@ function getInfor(){
     });
 }
 
+// Lấy sách từ ID sách
+function getBookbyID(ID){
+    if(ID){
+        var defer = q.defer();
+        
+        var query = connection.query("SELECT * FROM sach WHERE ?",{id_sach: ID}, function(err, result){
+            if(err){
+                defer.reject(err)
+            }
+            else
+            {
+                defer.resolve(result)
+            }
+        })
+        return defer.promise
+    }
+    return false
+}
+
+// Lấy danh sách sách theo ID thể loại
+function getBookbyIDCategory(ID){
+    if(ID){
+        var defer = q.defer();
+        var query = connection.query("SELECT * FROM sach WHERE ?", {the_loai: ID}, function(err, result){
+            if(err){
+                defer.reject(err)
+            }
+            else
+            {
+                defer.resolve(result)
+            }
+        })
+        return defer.promise
+    }
+    return false
+}
+
 module.exports = {
-    getInfor : getInfor
+    getInfor : getInfor,
+    getBookbyID: getBookbyID,
+    getBookbyIDCategory: getBookbyIDCategory
 }
