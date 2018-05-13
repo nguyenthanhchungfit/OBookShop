@@ -9,4 +9,5 @@ router.get("/", book_controller.index);
 
 router.get("/author", author_controller.author_list);
 
+router.get("/books", book_controller.books_list);
 module.exports = router;
