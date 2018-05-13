@@ -5,67 +5,97 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Chi tiết sách</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="static/css/1512055.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style2.css" />
 </head>
 <body>
-    <!-- Cửa sổ tiêu đề -->
-    <div id="CUA_SO_TIEU_DE" style="margin:10px; background-color:aliceblue; height:100px">
-        <h1 style="text-align: center;color: blue; font-weight: bold; font-family: Arial, Helvetica, sans-serif; padding: 15px">CHI TIẾT SÁCH</h1>
-    </div>
-
-    <div class="d-flex flex-row" id="CUA_SO_HIEN_THI_THONG_TIN" style="height:500px">
-        <!-- Hình ảnh và nút xem trước nội dung sách -->
-        <div id="CUA_SO_HINH" style="background-color:rgb(240, 240, 240); width: 600px;  margin-left: 20px;">
-           <div id="ANH_SACH" style="height:440px;"></div>
-           <button id="NUT_XEM_THU" class="btn btn-success" style="margin-left:250px;">Đọc thử</button>
+    <div style="background-color:rgb(240, 240, 240)">
+        <!-- Cửa sổ tiêu đề -->
+        <div id="CUA_SO_TIEU_DE">
+            <h1>CHI TIẾT SÁCH</h1>
         </div>
-        <!-- Thông tin sách -->
-        <div id="THONG_TIN_SACH" style="background-color:rgb(240, 240, 240); width: 700px; margin-left: 20px;">
-            
-            <div>
-                <!-- Tên sách -->
-                <div class="d-flex flex-row">
-                    <p style="font-family: Arial, Helvetica, sans-serif;font-size: 30px;margin-left:20px; margin-top:10px;">Tên sách: </p>
-                    <p id="TEN_SACH" style="font-family: Arial, Helvetica, sans-serif;font-size: 30px; margin-top:10px; margin-left:15px"></p>
-                </div>
-                <!-- Tác giả -->
-                <div class="d-flex flex-row">
-                    <p style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:20px;">Tác giả: </p>
-                    <p id="TAC_GIA" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:10px"></p>
-                </div>
-                <hr>
-                <!-- Giá -->
-                <div class="d-flex flex-row">
-                        <p style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:20px;">Giá: </p>
-                        <p id="GIA" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:10px"></p>
+
+        <div class="d-flex flex-row" id="CUA_SO_HIEN_THI_THONG_TIN">
+            <!-- Hình ảnh và nút xem trước nội dung sách -->
+            <div id="CUA_SO_HINH">
+            <div style="height:440px;">
+                    <img id="ANH_SACH" src="/static/imgs/category/books/<%= data.Sach.image_sach_url%>"/>
+            </div>
+            <button id="NUT_XEM_THU" class="btn btn-success" style="margin-left:250px;">Đọc thử</button>
+            </div>
+            <!-- Thông tin sách -->
+            <div id="THONG_TIN_SACH">
+                <div>
+                    <!-- Tên sách -->
+                    <div class="d-flex flex-row" style="heiht: 300px">
+                        <p id="Tieu_de_ten_sach">Tên sách: </p>
+                        <p id="TEN_SACH">
+                            <%= data.Sach.ten_sach%>
+                        </p>
                     </div>
-                <hr>
-                <!-- Năm xuất bản -->
-                <div class="d-flex flex-row">
-                    <p style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:20px;">Năm xuất bản: </p>
-                    <p id="NAM_XUAT_BAN" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:10px"></p>
+                    <!-- Tác giả -->
+                    <div class="d-flex flex-row">
+                        <p class="Chitiet">Tác giả: </p>
+                        <p id="TAC_GIA" class="Chitiet">
+                            <%= data.tacgia.ten_tac_gia%>
+                        </p>
+                    </div>
+                    <hr>
+                    <!-- Giá -->
+                    <div class="d-flex flex-row">
+                            <p class="Chitiet">Giá: </p>
+                            <p id="GIA" class="Chitiet">
+                                <%= data.Sach.gia%> (Khuyến mãi <%= data.Sach.khuyen_mai%>%)
+                            </p>
+                        </div>
+                    <hr>
+                    <!-- Năm xuất bản -->
+                    <div class="d-flex flex-row">
+                        <p class="Chitiet">Năm xuất bản: </p>
+                        <p id="NAM_XUAT_BAN" class="Chitiet">
+                            <%= data.Sach.nam_xuat_ban%>
+                        </p>
+                    </div>
+                    <!-- Thể loại -->
+                    <div class="d-flex flex-row">
+                        <p class="Chitiet">Thể loại: </p>
+                        <p id="THE_LOAI" class="Chitiet">
+                            <%= data.theloai.ten_the_loai%>
+                        </p>
+                    </div>
+                    <!-- Nhà xuất bản -->
+                    <div class="d-flex flex-row">
+                        <p class="Chitiet">Nhà xuất bản: </p>
+                        <p id="NHA_XUAT_BAN" class="Chitiet">
+                            <%= data.Sach.nha_xuat_ban%>
+                        </p>
+                    </div>
+                    <hr/>                    
+                    <button id="NUT_THEM_GIO_HANG" class="btn btn-success" style="background-color:rgb(224, 82, 39); margin-left:250px;margin-bottom: 10px">Thêm vào giỏ hàng</button>
                 </div>
-                <!-- Thể loại -->
-                <div class="d-flex flex-row">
-                    <p style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:20px;">Thể loại: </p>
-                    <p id="THE_LOAI" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:10px"></p>
-                </div>
-                <!-- Nhà xuất bản -->
-                <div class="d-flex flex-row">
-                    <p style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:20px;">Nhà xuất bản: </p>
-                    <p id="NHA_XUAT_BAN" style="font-family: Arial, Helvetica, sans-serif;font-size: 20px;margin-left:10px"></p>
-                </div>
-                <hr>
-                
-                <button id="NUT_THEM_GIO_HANG" class="btn btn-success" style="background-color:rgb(224, 82, 39);margin-top:40px; margin-left:250px">Thêm vào giỏ hàng</button>
             </div>
         </div>
+        <hr/>
+        <p class="Chitiet">Các sách cùng thể loại</p>
+        <div class="row" style="background-color:white; margin:20px">
+             <%for(var i = 0; i < data.sachcungtheloai.length; i++){%>
+                <%if(data.sachcungtheloai[i].id_sach != data.Sach.id_sach){%>
+                <div class="col-md-3">
+                    <a href="<%= data.sachcungtheloai[i].id_sach%>">
+                        <img src="/static/imgs/category/books/<%= data.sachcungtheloai[i].image_sach_url%>"
+                        style="height: 250px; margin-top: 10px" href="/Sach/data.sachcungtheloai[i].id_sach"/>
+                    </a>
+                    <div>
+                        <a id="linkSach" href="<%= data.sachcungtheloai[i].id_sach%>">
+                            <%= data.sachcungtheloai[i].ten_sach%>
+                        </a>
+                    </div>
+                </div>
+                <%}%>
+            <%}%>
+        </div>
     </div>
-
-    <!-- Cửa sổ kết quả -->
-
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
