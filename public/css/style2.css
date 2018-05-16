@@ -1,0 +1,59 @@
+h1{
+    text-align: center;
+    color: blue; 
+    font-weight: bold; 
+    font-family: Arial, Helvetica, sans-serif; 
+    padding: 15px
+}
+
+#CUA_SO_TIEU_DE{
+    margin:20px; 
+    background-color:aliceblue; 
+    height:100px;
+}
+#CUA_SO_HINH{
+    background-color:white; 
+    width: 600px;  
+    margin-left: 20px;
+}
+#ANH_SACH{
+    height:400px;
+    margin-top: 20px; 
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+#THONG_TIN_SACH{
+    background-color:white; 
+    width: 705px; 
+    margin-left: 10px;
+    margin-right:20px;
+}
+#Tieu_de_ten_sach{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    margin-left:20px; 
+    margin-top:10px;
+}
+#TEN_SACH{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    margin-left:20px; 
+    margin-top:10px;
+    width: 500px;
+}
+
+.Chitiet{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin-left:20px; 
+    margin-top:10px;
+}
+#linkSach{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    width:220px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
