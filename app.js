@@ -23,7 +23,7 @@ app.use('/', route);
 var host = config.get("server.host");
 var port = config.get("server.port");
 
-app.listen(port, host, function(){
+app.listen(process.env.PORT || port, host, function(){
     console.log("Server is running on port", port);
 })
 

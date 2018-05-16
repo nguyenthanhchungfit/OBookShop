@@ -52,3 +52,16 @@ $(document).ready(function () {
         xhttp.send();
     });
 });
+
+$("#accordian").on("click","h4", function () {
+    var itemID = $(this).attr('id'); // or var clickedBtnID = this.id
+    var query = "/category" + "/?the_loai=" + itemID;
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        $('#book_items').html(this.responseText);
+    }
+    };
+    xhttp.open("GET", query, true);
+    xhttp.send();
+ });

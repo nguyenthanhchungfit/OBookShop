@@ -12,6 +12,5 @@ exports.getBooksForHomeByCategory = function(req, res){
         categoryModel.getCategories().then(function(data){
             res.render("home_category_book", {items : data.arr});
         })
-        res.render
     }
 }
