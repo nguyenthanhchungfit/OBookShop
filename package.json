@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/nguyenthanhchungfit/OBookShop#readme",
   "dependencies": {
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.2", 
     "config": "^1.30.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
