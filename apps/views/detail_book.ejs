@@ -81,15 +81,18 @@
         <div class="row" style="background-color:white; margin:20px">
              <%for(var i = 0; i < data.sachcungtheloai.length; i++){%>
                 <%if(data.sachcungtheloai[i].id_sach != data.Sach.id_sach){%>
-                <div class="col-md-3">
-                    <a href="<%= data.sachcungtheloai[i].id_sach%>">
-                        <img src="/static/imgs/category/books/<%= data.sachcungtheloai[i].image_sach_url%>"
-                        style="height: 250px; margin-top: 10px" href="/Sach/data.sachcungtheloai[i].id_sach"/>
-                    </a>
-                    <div>
-                        <a id="linkSach" href="<%= data.sachcungtheloai[i].id_sach%>">
-                            <%= data.sachcungtheloai[i].ten_sach%>
-                        </a>
+                <div class="product-image-wrapper">
+                    <div class="single-products">
+                         <div class="productinfo text-center">
+                            <a href="/Sach/<%= data.sachcungtheloai[i].id_sach%>">
+                                 <img src="/static/imgs/category/books/<%= data.sachcungtheloai[i].image_sach_url%>"
+                                    style="height: 250px; margin-top: 10px"/>
+                            </a>
+                            <h3><%= data.sachcungtheloai[i].gia%></h3>
+                            <p><%= data.sachcungtheloai[i].ten_sach%></p>
+                            <p><%= data.sachcungtheloai[i].so_luong_ton%></p>
+                         </div>
+
                     </div>
                 </div>
                 <%}%>
