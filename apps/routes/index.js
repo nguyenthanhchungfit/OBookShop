@@ -3,6 +3,7 @@ var express = require("express");
 var router = express.Router();
 
 var bookController = require("../controllers/booksController")
+var authorController = require("../controllers/authorsController");
 
 router.use("/catalog", require(__dirname + "/catalog.js"));
 router.use("/customer", require(__dirname + "/customer.js"));
@@ -14,5 +15,6 @@ router.get("/", function(req, res){
 });
 
 router.get("/Sach/:id", bookController.getBookbyID)
+router.get("/Author/:id", authorController.GetAuthorbyID)
 
 module.exports = router;

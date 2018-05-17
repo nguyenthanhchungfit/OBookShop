@@ -10,9 +10,10 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style2.css" />
 </head>
 <body>
+
     <div style="background-color:rgb(240, 240, 240)">
         <!-- Cửa sổ tiêu đề -->
-        <div id="CUA_SO_TIEU_DE">
+        <div class="CUA_SO_TIEU_DE">
             <h1>CHI TIẾT SÁCH</h1>
         </div>
 
@@ -37,9 +38,12 @@
                     <!-- Tác giả -->
                     <div class="d-flex flex-row">
                         <p class="Chitiet">Tác giả: </p>
-                        <p id="TAC_GIA" class="Chitiet">
-                            <%= data.tacgia.ten_tac_gia%>
-                        </p>
+                        <a href="/Author/<%= data.tacgia.id_tac_gia%>">
+                            <p id="TAC_GIA" class="Chitiet">
+                                <%= data.tacgia.ten_tac_gia%>
+                            </p>
+                        </a>
+                        
                     </div>
                     <hr>
                     <!-- Giá -->
@@ -82,14 +86,17 @@
              <%for(var i = 0; i < data.sachcungtheloai.length; i++){%>
                 <%if(data.sachcungtheloai[i].id_sach != data.Sach.id_sach){%>
                 <div class="col-md-3">
-                    <a href="<%= data.sachcungtheloai[i].id_sach%>">
-                        <img src="/static/imgs/category/books/<%= data.sachcungtheloai[i].image_sach_url%>"
-                        style="height: 250px; margin-top: 10px" href="/Sach/data.sachcungtheloai[i].id_sach"/>
-                    </a>
-                    <div>
-                        <a id="linkSach" href="<%= data.sachcungtheloai[i].id_sach%>">
-                            <%= data.sachcungtheloai[i].ten_sach%>
-                        </a>
+                    <div class="product-image-wrapper">
+                        <div class="single-products">
+                            <div class="productinfo text-center">
+                                <a href="<%= data.sachcungtheloai[i].id_sach%>">
+                                    <img src="/static/imgs/category/books/<%= data.sachcungtheloai[i].image_sach_url%>"
+                                    style="height: 250px; margin-top: 10px"/>
+                                </a>
+                                <h2><%= data.sachcungtheloai[i].gia%></h2>
+                                <p><%= data.sachcungtheloai[i].ten_sach%></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <%}%>
