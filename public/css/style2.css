@@ -60,13 +60,13 @@ h5{
     margin-top:10px;
     color: black;
 }
-#ThongTinTacGia{
+#ThongTinTacGia, #ThongTinNXB{
     width: 260px;
 }
-#TacPhamTacGia{
+#TacPhamTacGia, #TacPhamNXB{
     width: 870px;
 }
-#DanhSachTacGia{
+#DanhSachTacGia, #DanhSachNXB{
     width: 220px;
 }
 .ThuocTinhTacGia{
@@ -74,4 +74,7 @@ h5{
 }
 .GiaTriTacGia{
     font-weight: bold;
+}
+#NamThanhLapNXB{
+    width:130px;
 }

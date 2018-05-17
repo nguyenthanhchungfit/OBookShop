@@ -109,6 +109,24 @@ function getBookbyIDAuthor(ID){
     }
     return false
 }
+// Lấy danh sách sách có tên nhà xuất bản Name
+function getBookbyNamePublihser(Name){
+    if(Name){
+        var defer = q.defer();
+        
+        var query = connection.query("SELECT * FROM sach WHERE ?",{nha_xuat_ban: Name}, function(err, result){
+            if(err){
+                defer.reject(err)
+            }
+            else
+            {
+                defer.resolve(result)
+            }
+        })
+        return defer.promise
+    }
+    return false
+}
 
 
 module.exports = {
@@ -116,5 +134,6 @@ module.exports = {
     getInforBooksForHomeByCategory : getInforBooksForHomeByCategory,
     getBookbyID: getBookbyID,
     getBookbyIDCategory: getBookbyIDCategory,
-    getBookbyIDAuthor: getBookbyIDAuthor
+    getBookbyIDAuthor: getBookbyIDAuthor,
+    getBookbyNamePublihser: getBookbyNamePublihser
 }

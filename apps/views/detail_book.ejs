@@ -54,6 +54,15 @@
                             </p>
                         </div>
                     <hr>
+                    <!-- Nhà xuất bản -->
+                    <div class="d-flex flex-row">
+                        <p class="Chitiet">Nhà xuất bản: </p>
+                        <a href="/Publisher/<%= data.Sach.nha_xuat_ban%>">
+                            <p id="NHA_XUAT_BAN" class="Chitiet">
+                                <%= data.Sach.nha_xuat_ban%>
+                            </p>
+                        </a>
+                    </div>
                     <!-- Năm xuất bản -->
                     <div class="d-flex flex-row">
                         <p class="Chitiet">Năm xuất bản: </p>
@@ -68,13 +77,7 @@
                             <%= data.theloai.ten_the_loai%>
                         </p>
                     </div>
-                    <!-- Nhà xuất bản -->
-                    <div class="d-flex flex-row">
-                        <p class="Chitiet">Nhà xuất bản: </p>
-                        <p id="NHA_XUAT_BAN" class="Chitiet">
-                            <%= data.Sach.nha_xuat_ban%>
-                        </p>
-                    </div>
+                    
                     <hr/>                    
                     <button id="NUT_THEM_GIO_HANG" class="btn btn-success" style="background-color:rgb(224, 82, 39); margin-left:250px;margin-bottom: 10px">Thêm vào giỏ hàng</button>
                 </div>
