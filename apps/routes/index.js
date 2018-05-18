@@ -17,6 +17,6 @@ router.post("/signup", homeController.post_signup);
 
 router.get("/books", bookController.index);
 
-router.get("/Sach/:id", bookController.getBookbyID)
+router.get("/book/:id", bookController.getBookbyID)
 
 module.exports = router;
