@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thanh toán</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div id="signupbox" style="margin-top:50px" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Thanh toán</div>
+                </div>
+                <div class="panel-body" >
+                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/Pay">
+
+                        <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>"
+                        class="alert alert-danger">
+                            <p><strong>Error:</strong></p>
+                            <%if(data && data.error){%>
+                                <p><%= data.error%></p>
+                            <%}%>
+                        </div>
+
+                        <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>"
+                        class="alert alert-success">
+                            <p><strong>Success:</strong></p>
+                            <%if(data && data.success){%>
+                                <p><%= data.success%></p>
+                            <%}%>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-md-3 control-label">Người nhận</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="nguoinhan" placeholder="Người nhận">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-md-3 control-label">Người gửi</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="nguoigui" placeholder="Người gửi">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-md-3 control-label">Số điện thoại</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="sdt" placeholder="Số điện thoại">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="repassword" class="col-md-3 control-label">Tỉnh/Thành phố</label>
+                            <div class="col-md-9">
+                                <input type="password" class="form-control" name="tinhTP" placeholder="Tỉnh/Thành phố">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="col-md-3 control-label">Quận/Huyện</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="quanhuyen" placeholder="Quận/Huyện">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ho_ten" class="col-md-3 control-label">Phường/Xã</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="phuongxa" placeholder="Phường/Xã">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ho_ten" class="col-md-3 control-label">Địa chỉ</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="diachi" placeholder="Địa chỉ">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <!-- Button -->
+                            <div class="col-md-offset-3 col-md-9">
+                                <input id="btn-signup" type="submit" class="btn btn-info" value="Thanh toán" />
+                            </div>
+                        </div>
+
+                    </form>
+                 </div>
+            </div>
+
+         </div>
+    </div>
+
+</body>
+</html>
