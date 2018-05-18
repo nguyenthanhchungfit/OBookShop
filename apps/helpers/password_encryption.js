@@ -14,7 +14,7 @@ function comparePassword(password, passwordDB){
     return bcrypt.compareSync(password, passwordDB);
 }
 
-
+    
 module.exports = {
     encrypt_password : encrypt_password,
     comparePassword : comparePassword
