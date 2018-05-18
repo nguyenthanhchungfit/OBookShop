@@ -1,0 +1,27 @@
+.TEN_SACH {
+    color: #242424;
+    margin-top: 15px;
+    display: block;
+}
+.TAC_GIA {
+    color: #777;
+    display: block;
+}
+.GIA {
+    color: #242424;
+    font-weight: 500;
+    
+}
+.GIA_GOC {
+    color: #a2a2a2;
+    text-decoration: line-through;
+    font-size: 11px;
+}
+.GIAM {
+    color: #ff3b26;
+    margin-left: 2px;
+    font-weight: 500;
+}
+a:hover {
+    text-decoration: none;
+}
