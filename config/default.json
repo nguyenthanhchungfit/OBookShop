@@ -9,5 +9,9 @@
         "database" : "obookshopdb",
         "user" : "root",
         "password" : ""
-    }
+    },
+    "salt" : 5
 }
+
+
+
