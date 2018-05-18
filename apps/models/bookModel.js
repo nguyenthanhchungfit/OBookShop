@@ -96,10 +96,10 @@ function getBookbyIDAuthor(ID){
                     else{
                         var Sach = getBookbyID(result[i].id_sach)
                         Sach.then(function(data){
-                        sach = data[0]
-                        arr.push(sach)
-                        defer.resolve(arr)
-                    })
+                            sach = data[0]
+                            arr.push(sach)
+                            defer.resolve(arr)
+                        })
                     }
                     
                 }

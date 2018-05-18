@@ -48,9 +48,10 @@ h5{
 #TEN_SACH{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 25px;
-    margin-left:20px; 
-    margin-top:10px;
+    margin-left:20px;
+    margin-top: 10px;
     width: 500px;
+    border: 0px;
 }
 
 .Chitiet{

@@ -10,12 +10,14 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style2.css" />
 </head>
 <body>
-
+    <form method="POST" role="form" action="/Sach/Cart/<%= data.Sach.id_sach%>">
     <div style="background-color:rgb(240, 240, 240)">
         <!-- Cửa sổ tiêu đề -->
         <div class="CUA_SO_TIEU_DE">
             <h1>CHI TIẾT SÁCH</h1>
         </div>
+
+        <a href="/Cart">Xem giỏ hàng</a>
 
         <div class="d-flex flex-row" id="CUA_SO_HIEN_THI_THONG_TIN">
             <!-- Hình ảnh và nút xem trước nội dung sách -->
@@ -78,8 +80,13 @@
                         </p>
                     </div>
                     
-                    <hr/>                    
-                    <button id="NUT_THEM_GIO_HANG" class="btn btn-success" style="background-color:rgb(224, 82, 39); margin-left:250px;margin-bottom: 10px">Thêm vào giỏ hàng</button>
+                    <hr/>         
+                    <div class="row">
+                        <p style="margin-left: 100px; margin-top: 5px">Số lượng: </p>
+                        <input type="number" name="SoLuongSach" value="<%= data.thongtin.SoLuong%>" min="1" style="height: 25px;width: 40px; margin-left: 10px; margin-top: 5px"/>
+                        <input type="submit" id="NUT_THEM_GIO_HANG" value="<%= data.thongtin.textButton%>" class="btn btn-success" style="background-color:rgb(224, 82, 39); margin-left:40px;margin-bottom: 10px" />
+                    </div>          
+                    
                 </div>
             </div>
         </div>
@@ -92,7 +99,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <a href="<%= data.sachcungtheloai[i].id_sach%>">
+                                <a href="/Sach/<%= data.sachcungtheloai[i].id_sach%>">
                                     <img src="/static/imgs/category/books/<%= data.sachcungtheloai[i].image_sach_url%>"
                                     style="height: 250px; margin-top: 10px"/>
                                 </a>
@@ -106,9 +113,12 @@
             <%}%>
         </div>
     </div>
+    <button onclick="AAAAAAA()" >AAAAAA</button>
+    </form>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="static/js/detail_book.js"></script>
 </body>
 </html>
