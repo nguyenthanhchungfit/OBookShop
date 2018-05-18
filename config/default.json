@@ -4,12 +4,13 @@
         "port" : 3000
     },
     "mysql": {
-        "host": "us-cdbr-iron-east-04.cleardb.net",
+        "host": "localhost",
         "port": 3306,
-        "database" : "heroku_93350911087086a",
-        "user" : "b61a828fa1fe2d",
-        "password" : "4071ad42"
-    }
+        "database" : "obookshopdb",
+        "user" : "root",
+        "password" : ""
+    },
+    "salt" : 5
 }
 
 
