@@ -1,7 +1,7 @@
 var bookModel = require("../models/bookModel");
-var authorModel = require("../models/authorModel")
-var categoryModel = require("../models/categoryModel")
-var cartDetail = require("../controllers/cart")
+var authorModel = require("../models/authorModel");
+var categoryModel = require("../models/categoryModel");
+var cartDetail = require("../controllers/cart");
 
 exports.getBookbyID = function(req, res){
     var id = req.params.id;
