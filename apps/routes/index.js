@@ -21,6 +21,8 @@ router.get("/Author/:id", authorController.GetAuthorbyID)
 router.get("/Publisher/:Name", publisherController.getPublisherByName)
 // Đường dẫn đến giỏ hàng
 router.get("/Cart", cardController.getDetailCard)
+router.get("/Pay", cardController.GetPayPage)
+router.post("/Pay", cardController.GetPostPay)
 
 router.get("/Cart/Delete/:id", cardController.deleteCartbyIDBook)
 router.post("/Sach/Cart/:id", bookController.AddToCart)
