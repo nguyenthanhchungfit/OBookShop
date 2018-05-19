@@ -20,17 +20,19 @@ router.get("/signup", homeController.get_signup);
 router.post("/signup", homeController.post_signup);
 
 router.get("/books", bookController.index);
-
+// Chi tiết sách, thêm sách vào giỏ hàng
 router.get("/book/:id", bookController.getBookbyID);
-
+router.post("/book/:id", bookController.AddToCart);
+// chi tiết tác giả, nxb
 router.get("/author/:id", authorController.GetAuthorbyID);
 router.get("/publisher/:Name", publisherController.getPublisherByName);
-// Đường dẫn đến giỏ hàng
+// Giỏ hàng
 router.get("/cart", cardController.getDetailCard);
+// Thanh toán
 router.get("/pay", cardController.GetPayPage);
 router.post("/pay", cardController.GetPostPay);
-
+// Xóa một sản phẩm trong giỏ hàng
 router.get("/cart/delete/:id", cardController.deleteCartbyIDBook);
-router.post("/book/cart/:id", bookController.AddToCart);
+
 
 module.exports = router;

@@ -1,0 +1,65 @@
+
+#NUT_XEM_THU{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 15px;
+}
+
+#ANH_SACH{
+    height:400px;
+    margin-top: 20px; 
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+h3, h5{
+    color: #FE980F;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 3;
+}
+.ThongBao{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 18px;
+}
+
+h3:after,
+h3.title:after {
+    content: " ";
+    position: absolute;
+    border: 1px solid #f5f5f5;
+    bottom: 8px;
+    left: 0;
+    width: 100%;
+    height: 0;
+    z-index: -2;
+}
+
+h3:before {
+    content: " ";
+    position: absolute;
+    background: #fff;
+    bottom: -6px;
+    width: 130px;
+    height: 30px;
+    z-index: -1;
+    left: 50%;
+    margin-left: -65px;
+}
+
+.font16{
+    font-size: 16px;
+}
+
+#ChiTietGioHang{
+    margin-top: 40px
+}
+.ThongTin{
+    margin: 20px;
+}

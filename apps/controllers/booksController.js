@@ -17,16 +17,16 @@ exports.AddToCart = function(req, res){
     var id = req.params.id;
     var SoLuong = req.body.SoLuongSach;
 
-    var Sach = bookModel.getBookbyID(id)
-    Sach.then(function(dataSach){
+    var SachDB = bookModel.getBookbyID(id)
+    SachDB.then(function(dataSach){
         sach = dataSach[0]
 
-        var IDTacGia = authorModel.getAuthorbyIDBook(id)
-        IDTacGia.then(function(sach_TG){
-            var idtacgia = sach_TG[0]
+        var IDTacGiaDB = authorModel.getAuthorbyIDBook(id)
+        IDTacGiaDB.then(function(dataSach_TG){
+            var idtacgia = dataSach_TG[0]
 
-            var TacGia = authorModel.getAuthorbyID(idtacgia.id_tac_gia)
-            TacGia.then(function(tac_gia){
+            var TacGiaDB = authorModel.getAuthorbyID(idtacgia.id_tac_gia)
+            TacGiaDB.then(function(tac_gia){
                 var tacgia = tac_gia[0]
 
                 var result = {
@@ -35,18 +35,40 @@ exports.AddToCart = function(req, res){
                     SoLuong: parseInt(SoLuong),
                     TongTien: (sach.gia - sach.gia*sach.khuyen_mai/100) * parseInt(SoLuong)
                 }
-                cartDetail.AddToCart(result)
+                if(sach.so_luong_ton > SoLuong){
+                    cartDetail.AddToCart(result)
+                    var ThongTin = {
+                        id: id,
+                        SoLuong: parseInt(SoLuong),
+                        success: "Thêm thành công vào giỏ hàng"
+                    }
+                    getDataDetailBook(req, res, ThongTin)
+                }
+                else{
+                    var error = ""
+                    if(sach.so_luong_ton == 0){
+                        error = "Sách đã hết hàng, vui lòng quay lại sau"
+                    }
+                    else if(sach.so_luong_ton < SoLuong){
+                        error = "Thêm giỏ hàng thất bại: Không đủ số lượng sách yêu cầu"
+                    }
+                    var ThongTin = {
+                        id: id,
+                        SoLuong: parseInt(SoLuong),
+                        error: error
+                    }
+                    getDataDetailBook(req, res, ThongTin)
+                }
             })
         })
     })
-
-    var ThongTin = {
-        id: id,
-        SoLuong: parseInt(SoLuong),
-        textButton: "Đã thêm vào giỏ hàng"
-    }
-    getDataDetailBook(req, res, ThongTin)
 }
+
+exports.index = function(req, res) {
+    bookModel.getInforBooksForHome().then(function(data){
+        res.render("home_item_book", {items : data.arr});
+    })
+};
 
 function getDataDetailBook(req, res, thongtin){
     // Lấy chi tiết sách theo ID sách
@@ -87,9 +109,3 @@ function getDataDetailBook(req, res, thongtin){
         })
     })
 }
-
-exports.index = function(req, res) {
-    bookModel.getInforBooksForHome().then(function(data){
-        res.render("home_item_book", {items : data.arr});
-    })
-};
