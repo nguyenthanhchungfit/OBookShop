@@ -36,9 +36,30 @@ function getCategorybyID(ID){
     return false
 }
 
+// insert
+
+
+// Update
+function updateCategory(id, categoryNew){
+    if(id && categoryNew){
+        var defer = q.defer();
+        var sql = `UPDATE ${tableName} SET ten_the_loai = ? WHERE id_the_loai = ?`;
+        var query = connection.query(sql, [categoryNew.ten_the_loai, id], function(err, result){
+            if(err){
+                defer.reject(err);
+            }else{
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+}
+
 module.exports = {
     getCategories : getCategories,
-    getCategorybyID: getCategorybyID
+    getCategorybyID: getCategorybyID,
+    updateCategory: updateCategory
 }
 
 

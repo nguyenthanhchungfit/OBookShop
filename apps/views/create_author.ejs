@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Author</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div id="signupbox" style="margin-top:50px" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Create Author</div>
+                </div>
+                <div class="panel-body" >
+                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/staff/create_author">
+
+                        <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" 
+                        class="alert alert-danger">
+                            <p><strong>Error:</strong></p>
+                            <%if (data && data.error){%>
+                            <p><%- data.error%></p>
+                            <%}%>
+                        </div>
+
+                        <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
+                        class="alert alert-success">
+                            <p><strong>Success:</strong></p>
+                            <p><%= data.success%></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id" class="col-md-3 control-label">ID tác giả</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="id" placeholder="TGxxx">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ten" class="col-md-3 control-label">Tên tác giả</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="ten" placeholder="Tên tác giả">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nam_sinh" class="col-md-3 control-label">Năm sinh</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="nam_sinh" placeholder="yyyy">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="que_quan" class="col-md-3 control-label">Email</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="que_quan" placeholder="Quê quán">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Button -->
+                            <div class="col-md-offset-3 col-md-9">
+                                <input id="btn-create" type="submit" class="btn btn-info" value="Create" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Button -->
+                            <div class="col-md-offset-3 col-md-9">
+                                <input id="btn-cancel" type="submit" class="btn btn-info" value="Cancel" />
+                            </div>
+                        </div>
+                    </form>
+                 </div>
+            </div>
+
+         </div>
+    </div>
+
+</body>
+</html>

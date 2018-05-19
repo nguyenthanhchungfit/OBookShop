@@ -38,7 +38,66 @@ function getAuthorbyID(ID){
     return false
 }
 
+// validator
+function checkIDIsExisted(id){
+    if(id){
+        var defer = q.defer();
+        var sql = `SELECT * FROM tac_gia WHERE id_tac_gia = ?`;
+        var query = connection.query(sql, [id], function(err, result, fields){
+            if(err) defer.reject(err);
+            if(result.length == 0){
+                console.log(0);
+                defer.resolve(false);
+                
+            }else{
+                console.log(1);
+                defer.resolve(true);
+            }
+        });
+        return defer.promise;
+
+    }
+    return false;
+}
+
+// Insert
+function addNewAuthor(author){
+    if(author){
+        var defer = q.defer();
+        var sql = `INSERT INTO tac_gia VALUES ( ? , ? , ?, ? )`;
+        var query = connection.query(sql, [author.id, author.ten, author.nam_sinh, author.que_quan], function(err, result){
+            if(err){
+                defer.reject(err);
+            }else{
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+}
+
+// Update
+function updateAuthor(id, authorNew){
+    if(id && authorNew){
+        var defer = q.defer();
+        var sql = `UPDATE tac_gia SET ten_tac_gia = ? , nam_sinh = ? , que_quan = ? WHERE id_tac_gia = ?`;
+        var query = connection.query(sql, [authorNew.ten, authorNew.nam_sinh, authorNew.que_quan, id], function(err, result){
+            if(err){
+                defer.reject(err);
+            }else{
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+}
+
 module.exports = {
     getAuthorbyIDBook: getAuthorbyIDBook,
-    getAuthorbyID: getAuthorbyID
+    getAuthorbyID: getAuthorbyID,
+    checkIDIsExisted: checkIDIsExisted,
+    addNewAuthor: addNewAuthor,
+    updateAuthor: updateAuthor
 }
