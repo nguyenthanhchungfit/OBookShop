@@ -21,6 +21,8 @@ router.post("/signup", homeController.post_signup);
 
 router.get("/login", homeController.get_login);
 
+router.post("/login", homeController.post_login);
+
 router.get("/books", bookController.index);
 
 router.get("/book/:id", bookController.getBookbyID);

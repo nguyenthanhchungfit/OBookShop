@@ -1,8 +1,10 @@
 var customerModel = require("../models/customerModel");
+var staffModel = require("../models/staffModel");
+var managerModel = require("../models/managerModel");
 var categoryModel = require("../models/categoryModel");
 var bookModel = require("../models/bookModel");
 var validator = require("../helpers/validator");
-var pw_encrypt = require("../helpers/password_encryption");
+
 
 
 exports.index = function(req, res){
@@ -92,7 +94,6 @@ exports.post_signup = function(req, res){
     if(error != ""){
         res.render("signup", {data:{error : error}});
     }else{
-        customer.password = pw_encrypt.encrypt_password(customer.password);
         customerModel.addNewCustomer(customer).then(function(data){
             res.redirect("login");
         }).catch(function(err){
@@ -106,3 +107,27 @@ exports.get_login = function(req, res){
     res.render("login");
 }
 
+exports.post_login = function(req, res){
+    var body = req.body;
+    var err = "";
+    if(body.username == ""){
+        err += "Chưa nhập username</br>";
+        res.send(err);
+    }else{
+        if(body.password == ""){
+            err += "Chưa nhập password</br>";
+            res.send(err);
+        }else{
+            if(customerModel.isValidAccount(body.username, body.password)){
+                res.redirect("home");
+            }else if(staffModel.isValidAccount(body.username, body.password)){
+                res.redirect("staff");
+            }else if(managerModel.isValidAccount(body.username, body.password)){
+                res.redirect("manager");
+            }else{
+                err = "Tài khoản hoặc mật khẩu sai";
+                res.send(err);
+            }
+        }
+    }
+}

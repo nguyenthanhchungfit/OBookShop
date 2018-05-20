@@ -1,7 +1,7 @@
-
 var db = require("../common/database");
 var q = require("q");
 var conn = db.getConnection();
+var pw_encrypt = require("../helpers/password_encryption");
 
 const tableName = "khach_hang";
 
@@ -81,9 +81,47 @@ function checkPhoneNumberIsExisted(phone){
     return flag;
 }
 
+function getPasswordByUsername(username){
+    if(username){
+        var defer = q.defer();
+        var sql = `SELECT * FROM khach_hang WHERE username='${username}'`;
+        conn.query(sql, function(err, result, fields){
+            if(err) defer.reject(err);
+            var password = "";
+            console.log(result);
+            if(result.length > 0){
+                password = result[0].password;
+            }
+            defer.resolve(password);
+        });
+        return defer.promise;
+    }
+}
+
+function isValidAccount(username, password){
+    var flag = false;
+    console.log(username);
+    console.log(password);
+    if(username && password){
+        if(checkUserIsExisted(username)){
+            console.log("done username");
+            getPasswordByUsername(username).then(function(data){
+                console.log(data);
+                flag = pw_encrypt.comparePassword(password, data);
+                console.log(flag);
+                console.log("done password");
+            }).catch(function(err){
+                console.log("customer - isValidAccount: ", err);
+            });
+        }
+    }
+    return flag;
+}
+
 // Insert
 function addNewCustomer(customer){
     if(customer){
+        customer.password = pw_encrypt.encrypt_password(customer.password);
         var defer = q.defer();
         var sql = `INSERT INTO ${tableName} SET ?`;
         var query = conn.query(sql, customer, function(err, result){
@@ -106,5 +144,6 @@ module.exports = {
     checkEmailIsExisted : checkEmailIsExisted,
     checkPhoneNumberIsExisted : checkPhoneNumberIsExisted,
     checkUserIsExisted : checkUserIsExisted,
-    addNewCustomer : addNewCustomer
+    addNewCustomer : addNewCustomer,
+    isValidAccount : isValidAccount
 }
