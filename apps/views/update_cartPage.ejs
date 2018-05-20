@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Cập nhật thông tin đơn hàng</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/detail_book.css" />
+	<link href="static/css/responsive.css" rel="stylesheet">      
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+
+</head>
+<body>
+    <div class="product-image-wrapper" style="margin: 20px">
+        <h3>Cập nhật thông tin đơn hàng</h3>
+        <div>
+            <table>
+                <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Người nhận</th>
+                    <th>Người gửi</th>
+                    <th>Địa chỉ</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày mua</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+                <%for(var i = 0; i < data.length; ++i){%>
+                <tr>
+                    <td><%= data[i].ma_don_hang%></td>
+                    <td><%= data[i].nguoi_nhan%></td>
+                    <td><%= data[i].nguoi_gui%></td>
+                    <td><%= data[i].dia_chi%></td>
+                    <td><%= data[i].so_dien_thoai%></td>
+                    <td><%= data[i].ngay_mua%></td>
+                    
+                    <td>
+                    <%if(data[i].trang_thai == 0){%>
+                        Xác nhận đóng gói
+                    <%}%>
+                    <%if(data[i].trang_thai == 1){%>
+                        Lấy hàng từ kho
+                    <%}%>
+                    <%if(data[i].trang_thai == 2){%>
+                        Bắt đầu giao hàng
+                    <%}%>
+                    <%if(data[i].trang_thai == 3){%>
+                        Hoàn tất giao hàng
+                    <%}%>
+                    </td>
+
+                    <td>
+                        <a href="/updatecart/<%= data[i].ma_don_hang%>">
+                            <button class="btn btn-success">Chỉnh sửa</button>
+                        </a>
+                    </td>
+                </tr>
+                <%}%> 
+            </table>
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="static/js/jquery.scrollUp.min.js"></script>
+
+</body>
+</html>

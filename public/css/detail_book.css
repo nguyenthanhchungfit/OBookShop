@@ -63,3 +63,20 @@ h3:before {
 .ThongTin{
     margin: 20px;
 }
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 30px;
+    font-size: 15px;
+}
+
+td, th {
+    border: 2px solid #535151;
+    text-align: left;
+    padding: 8px;
+}
+
+th{
+    background: rgba(94, 170, 233, 0.596);
+}
