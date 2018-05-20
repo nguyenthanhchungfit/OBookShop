@@ -3,6 +3,21 @@ var db = require("../common/database");
 
 var connection = db.getConnection();
 
+// Lấy danh sách tác giả
+function getAuthor(){
+    var defer = q.defer();
+    var query = connection.query("SELECT * FROM tac_gia", function(err, result){
+        if(err){
+            defer.reject(err)
+        }
+        else
+        {
+            defer.resolve(result)
+        }
+    })
+    return defer.promise
+}
+
 // Lấy ID tác giả theo ID sách
 function getAuthorbyIDBook(ID){
     if(ID){
@@ -99,5 +114,6 @@ module.exports = {
     getAuthorbyID: getAuthorbyID,
     checkIDIsExisted: checkIDIsExisted,
     addNewAuthor: addNewAuthor,
-    updateAuthor: updateAuthor
+    updateAuthor: updateAuthor,
+    getAuthor: getAuthor
 }

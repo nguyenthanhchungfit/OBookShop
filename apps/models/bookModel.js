@@ -72,11 +72,69 @@ function getBookbyIDCategory(ID){
     }
     return false
 }
+// Lấy sách từ ID tác giả
+function getBookbyIDAuthor(ID){
+    if(ID){
+        var defer = q.defer();
+        
+        var query = connection.query("SELECT * FROM sach_tac_gia WHERE ?", {id_tac_gia: ID}, function(err, result){
+            if(err){
+                defer.reject(err)
+            }
+            else
+            {
+                var len = result.length
+                var arr = []
+                for(var i = 0; i < len; i++){
+                    if(i != len - 1){
+                        var Sach = getBookbyID(result[i].id_sach)
+                        Sach.then(function(data){
+                            sach = data[0]
+                            arr.push(sach)
+                        })
+                    }
+                    else{
+                        var Sach = getBookbyID(result[i].id_sach)
+                        Sach.then(function(data){
+                            sach = data[0]
+                            arr.push(sach)
+                            defer.resolve(arr)
+                        })
+                    }
+                    
+                }
+            }
+        })
+        return defer.promise
+    }
+    return false
+}
+// Lấy danh sách sách có tên nhà xuất bản Name
+function getBookbyNamePublihser(Name){
+    if(Name){
+        var defer = q.defer();
+        
+        var query = connection.query("SELECT * FROM sach WHERE ?",{nha_xuat_ban: Name}, function(err, result){
+            if(err){
+                defer.reject(err)
+            }
+            else
+            {
+                defer.resolve(result)
+            }
+        })
+        return defer.promise
+    }
+    return false
+}
+
 
 
 module.exports = {
     getInforBooksForHome : getInforBooksForHome,
     getInforBooksForHomeByCategory : getInforBooksForHomeByCategory,
     getBookbyID: getBookbyID,
-    getBookbyIDCategory: getBookbyIDCategory
+    getBookbyIDCategory: getBookbyIDCategory,
+    getBookbyIDAuthor: getBookbyIDAuthor,
+    getBookbyNamePublihser: getBookbyNamePublihser
 }

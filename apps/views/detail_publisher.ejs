@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chi tiết nhà xuất bản</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style2.css" />
+</head>
+<body>
+    <div style="background-color:rgb(240, 240, 240);">
+        <!-- Cửa sổ tiêu đề -->
+        <div class="CUA_SO_TIEU_DE">
+            <h1>CHI TIẾT NHÀ XUẤT BẢN</h1>
+        </div>
+
+        <div class="d-flex flex-row">
+            <div class="CuaSoThongTin" id="ThongTinNXB">
+                <h5>Thông tin NXB</h5>
+                <hr/>
+                <div class="row" style="margin-left: 10px;"> 
+                    <p class="ThuocTinhTacGia">Tên NXB: </p>
+                    <p class="GiaTriTacGia"><%= data.nhaxuatban.ten_nxb%></p>
+                </div>
+                <div class="row" style="margin-left: 10px;">
+                    <p class="ThuocTinhTacGia" id="NamThanhLapNXB">Năm thành lập: </p>
+                    <p class="GiaTriTacGia"><%= data.nhaxuatban.nam_thanh_lap%></p>
+                </div>
+                <div class="d-flex flex-row" style="margin-left: 10px;">
+                    <p class="ThuocTinhTacGia">Địa chỉ: </p>
+                    <div style="width: 200px">
+                        <p class="GiaTriTacGia"><%= data.nhaxuatban.dia_chi%></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="CuaSoThongTin" id="TacPhamNXB">
+                <h5>Các tác phẩm</h5>
+                <hr/>
+                <div class="row">
+                    <%for(var i = 0; i < data.sach.length; ++i){%>
+                    <div class="col-md-4">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <a href="/Sach/<%= data.sach[i].id_sach%>">
+                                        <img src="/static/imgs/category/books/<%= data.sach[i].image_sach_url%>"
+                                        style="height: 250px; margin-top: 10px"/>
+                                    </a>
+                                    <h2><%= data.sach[i].gia%></h2>
+                                    <p><%= data.sach[i].ten_sach%></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+            <div class="CuaSoThongTin" id="DanhSachNXB">
+                <h5>NXB khác</h5>
+                <hr/>
+                <%for(var i = 0; i < data.listNXB.length; ++i){%>
+                    <%if(data.listNXB[i].ten_nxb != data.nhaxuatban.ten_nxb){%>
+                    <a href="<%= data.listNXB[i].ten_nxb%>">
+                        <p style="margin: 10px; margin-left: 25px; color: black"><%= data.listNXB[i].ten_nxb%></p>
+                    </a>
+                    <%}%>
+                <%}%>
+            </div>
+                
+            
+
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

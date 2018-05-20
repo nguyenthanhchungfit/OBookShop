@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Chi tiết tác giả</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style2.css" />
+</head>
+<body>
+    <div style="background-color:rgb(240, 240, 240);">
+        <!-- Cửa sổ tiêu đề -->
+        <div class="CUA_SO_TIEU_DE">
+            <h1>CHI TIẾT GIỎ HÀNG</h1>
+        </div>
+
+        <div style="background-color: white; margin: 10px; margin-top: 20px">
+            <%if(data.GioHang.length != 0){%>
+                <%for(var i = 0; i < data.GioHang.length; ++i){%>
+
+                <div class="row" style="Margin: 20px">
+                    <div>
+                        <a href="/Sach/<%= data.GioHang[i].sach.id_sach%>">
+                            <img src="/static/imgs/category/books/<%= data.GioHang[i].sach.image_sach_url%>"
+                                style="height: 300px; margin-top: 10px"/>
+                        </a>
+                    </div>
+
+                    <div class="row" style="margin: 20px">
+                        <div style="width: 600px">
+                            <p class="Chitiet">Tên sách: <%= data.GioHang[i].sach.ten_sach%></p>
+                            <p class="Chitiet">Giá: <%= data.GioHang[i].sach.gia%></p>
+                            <p class="Chitiet"> Tác giả: <%= data.GioHang[i].tacgia.ten_tac_gia%></p>
+                            <a href="/Cart/Delete/<%= data.GioHang[i].sach.id_sach%>"><p class="Chitiet" style="color: red">Xóa</p></a>
+                        </div>
+
+                        <div>
+                            <p class="Chitiet">Số lượng: <%= data.GioHang[i].SoLuong%></p>
+                            <p class="Chitiet">Tiền: <%= data.GioHang[i].TongTien%></p>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <%}%>
+
+                <div class="row" style="margin-top: 50px">
+                    <h4 style="margin-left: 350px; margin-top: 5px">Tổng tiền: <%= data.TongTienPhaiTra%> </h4>
+
+                    <a>
+                        <button class="btn btn-success" style="font-size: 20px; height: 40px, width: 60px; margin-left: 30px">Thanh toán</button>
+                    </a>
+                </div>
+            <%}%>
+            <%if(data.GioHang.length == 0){%>
+                <h4 class="Chitiet" style="text-align: center">Giỏ hàng của bạn trống</h4>
+            <%}%>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+
