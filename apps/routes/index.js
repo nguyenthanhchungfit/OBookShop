@@ -24,9 +24,10 @@ router.get("/login", homeController.get_login);
 router.post("/login", homeController.post_login);
 
 router.get("/books", bookController.index);
-
+// Chi tiết sách, thêm sách vào giỏ hàng
 router.get("/book/:id", bookController.getBookbyID);
-
+router.post("/book/:id", bookController.AddToCart);
+// chi tiết tác giả, nxb
 router.get("/author/:id", authorController.GetAuthorbyID);
 
 router.get("/publisher/:Name", publisherController.getPublisherByName);
@@ -38,5 +39,6 @@ router.post("/pay", cardController.GetPostPay);
 
 router.get("/cart/delete/:id", cardController.deleteCartbyIDBook);
 router.post("/book/cart/:id", bookController.AddToCart);
+
 
 module.exports = router;

@@ -128,7 +128,14 @@ function getBookbyNamePublihser(Name){
     return false
 }
 
-
+// Giàm số lượng sách
+function UpdateNumberBook(IDbook, newNuber){
+    var query = connection.query("UPDATE sach SET so_luong_ton = ? WHERE id_sach = ?", [newNuber, IDbook], (err, result) => {
+        if(err) {
+            throw err;
+        }
+    })
+}
 
 module.exports = {
     getInforBooksForHome : getInforBooksForHome,
@@ -136,5 +143,6 @@ module.exports = {
     getBookbyID: getBookbyID,
     getBookbyIDCategory: getBookbyIDCategory,
     getBookbyIDAuthor: getBookbyIDAuthor,
-    getBookbyNamePublihser: getBookbyNamePublihser
+    getBookbyNamePublihser: getBookbyNamePublihser,
+    UpdateNumberBook: UpdateNumberBook
 }

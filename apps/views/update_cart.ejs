@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Thanh toán</title>
+    <title>Cập nhật đơn hàng</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
@@ -20,15 +20,14 @@
 
 </head>
 <body>
-    <%- include header%>
         <div class="container">
         <div id="signupbox" style="margin-top:50px" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <div class="panel-title">Thanh toán</div>
+                    <div class="panel-title">Mã đơn hàng: <%= data.ma_don_hang%></div>
                 </div>
                 <div class="panel-body" >
-                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/customer/pay">
+                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/staff/updatecart/<%= data.ma_don_hang%>">
 
                         <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>"
                         class="alert alert-danger">
@@ -47,35 +46,74 @@
                         <div class="form-group">
                             <label for="username" class="col-md-3 control-label">Người nhận</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="nguoinhan" placeholder="Người nhận">
+                                <input type="text" class="form-control" name="nguoinhan" value="<%= data.nguoi_nhan%>">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="username" class="col-md-3 control-label">Người gửi</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="nguoigui" placeholder="Người gửi">
+                                <input type="text" class="form-control" name="nguoigui" value="<%= data.nguoi_gui%>">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="password" class="col-md-3 control-label">Số điện thoại</label>
                             <div class="col-md-9">
-                                <input type="number" class="form-control" name="sdt" placeholder="Số điện thoại">
+                                <input type="number" class="form-control" name="sdt" value="<%= data.so_dien_thoai%>">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="repassword" class="col-md-3 control-label">Địa chỉ</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="diachi" placeholder="Địa chỉ">
+                                <input type="text" class="form-control" name="diachi" value="<%= data.dia_chi%>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="repassword" class="col-md-3 control-label">Ngày mua</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="ngaymua" value="<%= data.ngay_mua.toString()%>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="repassword" class="col-md-3 control-label">Trạng thái</label>
+                            <div class="col-md-9">
+                                <div>
+                                    <%if (data.trang_thai == 0){%>
+                                        <input name="gender" value="XNDG" type="radio" checked/> Xác nhận đóng gói
+                                        <input name="gender" value="LHTK" type="radio"/> Lấy hàng từ kho <br/>
+                                        <input name="gender" value="BDGH" type="radio"/> Bắt đầu giao hàng
+                                        <input name="gender" value="HTGH" type="radio"/> Hoàn tất giao hàng
+                                    <%}%>
+                                    <%if (data.trang_thai == 1){%>
+                                        <input name="gender" value="XNDG" type="radio"/> Xác nhận đóng gói
+                                        <input name="gender" value="LHTK" type="radio" checked/> Lấy hàng từ kho <br/>
+                                        <input name="gender" value="BDGH" type="radio"/> Bắt đầu giao hàng
+                                        <input name="gender" value="HTGH" type="radio"/> Hoàn tất giao hàng
+                                    <%}%>
+                                    <%if (data.trang_thai == 2){%>
+                                        <input name="gender" value="XNDG" type="radio"/> Xác nhận đóng gói
+                                        <input name="gender" value="LHTK" type="radio"/> Lấy hàng từ kho <br/>
+                                        <input name="gender" value="BDGH" type="radio" checked/> Bắt đầu giao hàng
+                                        <input name="gender" value="HTGH" type="radio"/> Hoàn tất giao hàng
+                                    <%}%>
+                                    <%if (data.trang_thai == 3){%>
+                                        <input name="gender" value="XNDG" type="radio"/> Xác nhận đóng gói
+                                        <input name="gender" value="LHTK" type="radio"/> Lấy hàng từ kho <br/>
+                                        <input name="gender" value="BDGH" type="radio"/> Bắt đầu giao hàng
+                                        <input name="gender" value="HTGH" type="radio" checked/> Hoàn tất giao hàng
+                                    <%}%>
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <!-- Button -->
                             <div class="col-md-offset-3 col-md-9">
-                                <input id="btn-signup" type="submit" class="btn btn-info" value="Thanh toán" />
+                                <input id="btn-signup" type="submit" class="btn btn-info" value="Cập nhật" />
                             </div>
                         </div>
 
@@ -86,7 +124,6 @@
          </div>
     </div>
 
-    <%- include footer%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

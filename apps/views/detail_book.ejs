@@ -1,97 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Chi tiết sách</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style2.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" type="text/css" media="screen" href="/static/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/detail_book.css" />
+	<link href="static/css/responsive.css" rel="stylesheet">      
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <body>
-    <form method="POST" role="form" action="/Sach/Cart/<%= data.Sach.id_sach%>">
-    <div style="background-color:rgb(240, 240, 240)">
-        <!-- Cửa sổ tiêu đề -->
-        <div class="CUA_SO_TIEU_DE">
-            <h1>CHI TIẾT SÁCH</h1>
+    <%- include header%>   <!-- header -->
+    <hr />
+    <form method="POST" role="form" action="/book/<%= data.Sach.id_sach%>">
+    <div>
+        <div id="signupalerterror" style="<%if (!data || !data.thongtin.error){%>display:none<%}%>"
+                class="alert alert-danger">
+            <%if(data && data.thongtin.error){%>
+                <p class="ThongBao"><%= data.thongtin.error%></p>
+            <%}%>
         </div>
 
-        <a href="/Cart">Xem giỏ hàng</a>
+        <div id="signupalertsuccess" style="margin-left: 20px; margin-right: 20px;<%if (!data || !data.thongtin.success){%>display:none<%}%>"
+            class="alert alert-success">
+            <%if(data && data.thongtin.success){%>
+               <p class="ThongBao"><%= data.thongtin.success%></p>
+            <%}%>
+        </div>
 
-        <div class="d-flex flex-row" id="CUA_SO_HIEN_THI_THONG_TIN">
+        <div class="row">
             <!-- Hình ảnh và nút xem trước nội dung sách -->
-            <div id="CUA_SO_HINH">
-            <div style="height:440px;">
-                    <img id="ANH_SACH" src="/static/imgs/category/books/<%= data.Sach.image_sach_url%>"/>
-            </div>
-            <button id="NUT_XEM_THU" class="btn btn-success" style="margin-left:250px;">Đọc thử</button>
+            <div class="col-sm-5">
+                <div class="product-image-wrapper">
+                    <div style="height:440px;">
+                        <img id="ANH_SACH" src="/static/imgs/category/books/<%= data.Sach.image_sach_url%>"/>
+                    </div>
+                    <div>
+                        <button id="NUT_XEM_THU" class="btn btn-success">Đọc thử</button>
+                    </div>
+                </div>
             </div>
             <!-- Thông tin sách -->
-            <div id="THONG_TIN_SACH">
-                <div>
-                    <!-- Tên sách -->
-                    <div class="d-flex flex-row" style="heiht: 300px">
-                        <p id="Tieu_de_ten_sach">Tên sách: </p>
-                        <p id="TEN_SACH">
-                            <%= data.Sach.ten_sach%>
-                        </p>
-                    </div>
-                    <!-- Tác giả -->
-                    <div class="d-flex flex-row">
-                        <p class="Chitiet">Tác giả: </p>
-                        <a href="/Author/<%= data.tacgia.id_tac_gia%>">
-                            <p id="TAC_GIA" class="Chitiet">
-                                <%= data.tacgia.ten_tac_gia%>
-                            </p>
-                        </a>
+            <div class="col-sm-6">
+                <!-- Tên sách -->
+                <h4>Tên sách: <%= data.Sach.ten_sach%></h4>
+                
+                <p class="font16">Tác giả: <a href="/author/<%= data.tacgia.id_tac_gia%>">
+                    <%= data.tacgia.ten_tac_gia%>
+                </a></p>
+                
+                <hr />
+                <p class="font16">Giá: <%= data.Sach.gia%> (Khuyến mãi <%= data.Sach.khuyen_mai%>%)</p>
                         
+                <hr />
+                
+                <p class="font16">Nhà xuất bản: <a href="/publisher/<%= data.Sach.nha_xuat_ban%>">
+                    <%= data.Sach.nha_xuat_ban%>
+                </a></p>
+                
+                <p class="font16">Năm xuất bản: <%= data.Sach.nam_xuat_ban%></p> 
+                   
+                <p class="font16">Thể loại: %><%= data.theloai.ten_the_loai%></p>
+                
+                <hr/>         
+                <div class="row">
+                    <div class="col-sm-2" >
+                        <p>Số lượng: </p>
+                        <input type="number" name="SoLuongSach" value="<%= data.thongtin.SoLuong%>" min="1" style="height: 25px;width: 60px;"/>
                     </div>
-                    <hr>
-                    <!-- Giá -->
-                    <div class="d-flex flex-row">
-                            <p class="Chitiet">Giá: </p>
-                            <p id="GIA" class="Chitiet">
-                                <%= data.Sach.gia%> (Khuyến mãi <%= data.Sach.khuyen_mai%>%)
-                            </p>
-                        </div>
-                    <hr>
-                    <!-- Nhà xuất bản -->
-                    <div class="d-flex flex-row">
-                        <p class="Chitiet">Nhà xuất bản: </p>
-                        <a href="/Publisher/<%= data.Sach.nha_xuat_ban%>">
-                            <p id="NHA_XUAT_BAN" class="Chitiet">
-                                <%= data.Sach.nha_xuat_ban%>
-                            </p>
-                        </a>
-                    </div>
-                    <!-- Năm xuất bản -->
-                    <div class="d-flex flex-row">
-                        <p class="Chitiet">Năm xuất bản: </p>
-                        <p id="NAM_XUAT_BAN" class="Chitiet">
-                            <%= data.Sach.nam_xuat_ban%>
-                        </p>
-                    </div>
-                    <!-- Thể loại -->
-                    <div class="d-flex flex-row">
-                        <p class="Chitiet">Thể loại: </p>
-                        <p id="THE_LOAI" class="Chitiet">
-                            <%= data.theloai.ten_the_loai%>
-                        </p>
-                    </div>
-                    
-                    <hr/>         
-                    <div class="row">
-                        <p style="margin-left: 100px; margin-top: 5px">Số lượng: </p>
-                        <input type="number" name="SoLuongSach" value="<%= data.thongtin.SoLuong%>" min="1" style="height: 25px;width: 40px; margin-left: 10px; margin-top: 5px"/>
-                        <input type="submit" id="NUT_THEM_GIO_HANG" value="<%= data.thongtin.textButton%>" class="btn btn-success" style="background-color:rgb(224, 82, 39); margin-left:40px;margin-bottom: 10px" />
-                    </div>          
-                    
-                </div>
+                    <input type="submit" id="NUT_THEM_GIO_HANG" value="Thêm vào giỏ hàng" class="btn btn-success" style="background-color:rgb(224, 82, 39); margin:15px;" />
+                </div> 
             </div>
         </div>
         <hr/>
-        <p class="Chitiet">Các sách cùng thể loại</p>
+        <h3>SÁCH CÙNG THỂ LOẠI</h3>
         <div class="row" style="background-color:white; margin:20px">
              <%for(var i = 0; i < data.sachcungtheloai.length; i++){%>
                 <%if(data.sachcungtheloai[i].id_sach != data.Sach.id_sach){%>
@@ -99,11 +90,11 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <a href="/Sach/<%= data.sachcungtheloai[i].id_sach%>">
+                                <a href="/book/<%= data.sachcungtheloai[i].id_sach%>">
                                     <img src="/static/imgs/category/books/<%= data.sachcungtheloai[i].image_sach_url%>"
                                     style="height: 250px; margin-top: 10px"/>
                                 </a>
-                                <h2><%= data.sachcungtheloai[i].gia%></h2>
+                                <h3><%= data.sachcungtheloai[i].gia%></h3>
                                 <p><%= data.sachcungtheloai[i].ten_sach%></p>
                             </div>
                         </div>
@@ -115,9 +106,11 @@
     </div>
     </form>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="static/js/detail_book.js"></script>
+    <%- include footer%>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="static/js/jquery.scrollUp.min.js"></script>
 </body>
 </html>

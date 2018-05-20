@@ -1,82 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Chi tiết tác giả</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style2.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" type="text/css" media="screen" href="/static/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/detail_book.css" />
+	<link href="static/css/responsive.css" rel="stylesheet">      
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <body>
-    <div style="background-color:rgb(240, 240, 240);">
-        <!-- Cửa sổ tiêu đề -->
-        <div class="CUA_SO_TIEU_DE">
-            <h1>CHI TIẾT TÁC GIẢ</h1>
-        </div>
+    <%- include header%>   <!-- header -->
+    <hr />
+    <div>
+        <div class="row">
+            <div class="col-sm-3">
+                <h3>Thông tin tác giả</h3>
+                <div class="product-image-wrapper">
+                    <div class="ThongTin">
+                        <p class="font16">Tác giả: <%= data.tacgia.ten_tac_gia%></p>
 
-        <div class="d-flex flex-row">
-            <div class="CuaSoThongTin" id="ThongTinTacGia">
-                <h5>Thông tin tác giả</h5>
-                <hr/>
-                <div class="row" style="margin-left: 10px;"> 
-                    <p class="ThuocTinhTacGia">Tên tác giả: </p>
-                    <p class="GiaTriTacGia"><%= data.tacgia.ten_tac_gia%></p>
+                        <p class="font16">Năm sinh: <%= data.tacgia.nam_sinh%> </p>
+
+                        <p class="font16">Quê quán: <%= data.tacgia.que_quan%></p>
+                    </div>
                 </div>
-                <div class="row" style="margin-left: 10px;">
-                    <p class="ThuocTinhTacGia">Năm sinh: </p>
-                    <p class="GiaTriTacGia"><%= data.tacgia.nam_sinh%></p>
-                </div>
-                <div class="row" style="margin-left: 10px;">
-                    <p class="ThuocTinhTacGia">Quê quán: </p>
-                    <p class="GiaTriTacGia"><%= data.tacgia.que_quan%></p>
-                </div>
-                
             </div>
 
-            <div class="CuaSoThongTin" id="TacPhamTacGia">
-                <h5>Các tác phẩm</h5>
-                <hr/>
-                <div class="row">
+            <div class="col-sm-7">
+                <h3>Các tác phẩm</h3>
+                <div>
+                    <div class="row">
                     <%for(var i = 0; i < data.sach.length; ++i){%>
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="">
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <a href="/Sach/<%= data.sach[i].id_sach%>">
+                                    <a href="/book/<%= data.sach[i].id_sach%>">
                                         <img src="/static/imgs/category/books/<%= data.sach[i].image_sach_url%>"
                                         style="height: 250px; margin-top: 10px"/>
                                     </a>
-                                    <h2><%= data.sach[i].gia%></h2>
+                                    <h3><%= data.sach[i].gia%></h3>
                                     <p><%= data.sach[i].ten_sach%></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <%}%>
+                    </div>
                 </div>
+                
             </div>
-            <div class="CuaSoThongTin" id="DanhSachTacGia">
-                <h5>Tác giả khác</h5>
-                <hr/>
-                <%for(var i = 0; i < data.listTacGia.length; ++i){%>
+            <div class="col-sm-2">
+                <h3>Tác giả khác</h3>
+                <div class="product-image-wrapper">
+                    <%for(var i = 0; i < data.listTacGia.length; ++i){%>
                     <%if(data.listTacGia[i].id_tac_gia != data.tacgia.id_tac_gia){%>
                     <a href="<%= data.listTacGia[i].id_tac_gia%>">
-                        <p style="margin: 10px; margin-left: 25px; color: black"><%= data.listTacGia[i].ten_tac_gia%></p>
+                        <p class="font16" style="margin: 10px; margin-left: 25px; color: black"><%= data.listTacGia[i].ten_tac_gia%></p>
                     </a>
                     <%}%>
                 <%}%>
+                </div>
             </div>
-                
-            
-
         </div>
     </div>
 
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <%- include footer%>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="static/js/jquery.scrollUp.min.js"></script>
 </body>
 </html>

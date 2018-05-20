@@ -1,55 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chi tiết tác giả</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/style2.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Chi tiết giỏ hàng</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+	<link rel="stylesheet" type="text/css" media="screen" href="/static/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/detail_book.css" />
+	<link href="static/css/responsive.css" rel="stylesheet">      
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <body>
-    <div style="background-color:rgb(240, 240, 240);">
-        <!-- Cửa sổ tiêu đề -->
-        <div class="CUA_SO_TIEU_DE">
-            <h1>CHI TIẾT GIỎ HÀNG</h1>
-        </div>
+    <%- include header%>
 
-        <div style="background-color: white; margin: 10px; margin-top: 20px">
+    <div>
+        <div>
+            <h3>Chi tiết giỏ hàng</h3>
             <%if(data.GioHang.length != 0){%>
                 <%for(var i = 0; i < data.GioHang.length; ++i){%>
-
-                <div class="row" style="Margin: 20px">
-                    <div>
-                        <a href="/Sach/<%= data.GioHang[i].sach.id_sach%>">
-                            <img src="/static/imgs/category/books/<%= data.GioHang[i].sach.image_sach_url%>"
+                <div class="product-image-wrapper" style="margin-left: 40px; margin-right: 40px">
+                    <div class="row">
+                    <div class="col-sm-3">
+                            <a href="/book/<%= data.GioHang[i].sach.id_sach%>">
+                                <img src="/static/imgs/category/books/<%= data.GioHang[i].sach.image_sach_url%>"
                                 style="height: 300px; margin-top: 10px"/>
-                        </a>
+                            </a>
                     </div>
 
-                    <div class="row" style="margin: 20px">
-                        <div style="width: 600px">
-                            <p class="Chitiet">Tên sách: <%= data.GioHang[i].sach.ten_sach%></p>
-                            <p class="Chitiet">Giá: <%= data.GioHang[i].sach.gia%></p>
-                            <p class="Chitiet"> Tác giả: <%= data.GioHang[i].tacgia.ten_tac_gia%></p>
-                            <a href="/Cart/Delete/<%= data.GioHang[i].sach.id_sach%>"><p class="Chitiet" style="color: red">Xóa</p></a>
-                        </div>
+                    <div class="col-sm-6">
+                            <div class="row" id="ChiTietGioHang">
+                                <div class="col-sm-8">
+                                    <p class="font16">Tên sách: <%= data.GioHang[i].sach.ten_sach%></p>
+                                    <p class="font16">Giá: <%= data.GioHang[i].sach.gia%></p>
+                                    <p class="font16"> Tác giả: <%= data.GioHang[i].tacgia.ten_tac_gia%></p>
+                                    <a href="/customer/cart/delete/<%= data.GioHang[i].sach.id_sach%>"><p class="font16" style="color: red">Xóa</p></a>
+                                </div>
 
-                        <div>
-                            <p class="Chitiet">Số lượng: <%= data.GioHang[i].SoLuong%></p>
-                            <p class="Chitiet">Tiền: <%= data.GioHang[i].TongTien%></p>
-                        </div>
+                                <div class="col-sm-3">
+                                    <p class="font16">Số lượng: <%= data.GioHang[i].SoLuong%></p>
+                                    <p class="font16">Tiền: <%= data.GioHang[i].TongTien%></p>
+                                </div>
+                            </div>
                     </div>
+                    </div>
+                    <hr/>
                 </div>
-                <hr/>
                 <%}%>
 
-                <div class="row" style="margin-top: 50px">
-                    <h4 style="margin-left: 350px; margin-top: 5px">Tổng tiền: <%= data.TongTienPhaiTra%> </h4>
-
-                    <a>
-                        <button class="btn btn-success" style="font-size: 20px; height: 40px, width: 60px; margin-left: 30px">Thanh toán</button>
+                <div>
+                    <h5>Tổng tiền: <%= data.TongTienPhaiTra%> </h5>
+                </div>
+                <div>
+                    <a href="/customer/pay">
+                        <button class="btn btn-success" id="NUT_XEM_THU">Thanh toán</button>
                     </a>
                 </div>
             <%}%>
@@ -59,9 +70,11 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <%- include footer%>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="static/js/jquery.scrollUp.min.js"></script>
 </body>
 </html>
 
