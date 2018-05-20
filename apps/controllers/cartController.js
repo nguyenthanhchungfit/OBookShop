@@ -25,7 +25,7 @@ exports.deleteCartbyIDBook = function(req, res){
         TongTienPhaiTra: TongTienPhaiTra
     }
     
-    res.redirect("/cart");
+    res.redirect("/customer/cart");
 }
 
 exports.GetPayPage = function(req, res){
@@ -141,7 +141,7 @@ exports.UpdateCartToDB = function(req, res){
             trang_thai: TrangThai
         }
         cartModel.UpdateCartToDatabase(result)
-        res.redirect("/updatecart")
+        res.redirect("/staff/updatecart")
     }
     else{
         var DonHang = cartModel.getCartByID(req.params.id)

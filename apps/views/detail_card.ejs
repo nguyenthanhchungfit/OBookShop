@@ -41,7 +41,7 @@
                                     <p class="font16">Tên sách: <%= data.GioHang[i].sach.ten_sach%></p>
                                     <p class="font16">Giá: <%= data.GioHang[i].sach.gia%></p>
                                     <p class="font16"> Tác giả: <%= data.GioHang[i].tacgia.ten_tac_gia%></p>
-                                    <a href="/Cart/Delete/<%= data.GioHang[i].sach.id_sach%>"><p class="font16" style="color: red">Xóa</p></a>
+                                    <a href="/customer/cart/delete/<%= data.GioHang[i].sach.id_sach%>"><p class="font16" style="color: red">Xóa</p></a>
                                 </div>
 
                                 <div class="col-sm-3">
@@ -59,7 +59,7 @@
                     <h5>Tổng tiền: <%= data.TongTienPhaiTra%> </h5>
                 </div>
                 <div>
-                    <a href="/pay">
+                    <a href="/customer/pay">
                         <button class="btn btn-success" id="NUT_XEM_THU">Thanh toán</button>
                     </a>
                 </div>

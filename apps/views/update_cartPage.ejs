@@ -22,6 +22,7 @@
 <body>
     <div class="product-image-wrapper" style="margin: 20px">
         <h3>Cập nhật thông tin đơn hàng</h3>
+        <%if(data){%>
         <div>
             <table>
                 <tr>
@@ -59,7 +60,7 @@
                     </td>
 
                     <td>
-                        <a href="/updatecart/<%= data[i].ma_don_hang%>">
+                        <a href="/staff/updatecart/<%= data[i].ma_don_hang%>">
                             <button class="btn btn-success">Chỉnh sửa</button>
                         </a>
                     </td>
@@ -67,6 +68,7 @@
                 <%}%> 
             </table>
         </div>
+        <%}%>
     </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

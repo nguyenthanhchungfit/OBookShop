@@ -6,7 +6,6 @@ var homeController = require("../controllers/homeController");
 var bookController = require("../controllers/booksController");
 var authorController = require("../controllers/authorsController");
 var publisherController = require("../controllers/publisherController");
-var cartController = require("../controllers/cartController");
 
 router.use("/category", require(__dirname + "/category.js"));
 router.use("/customer", require(__dirname + "/customer.js"));
@@ -26,16 +25,5 @@ router.post("/book/:id", bookController.AddToCart);
 // chi tiết tác giả, nxb
 router.get("/author/:id", authorController.GetAuthorbyID);
 router.get("/publisher/:Name", publisherController.getPublisherByName);
-// Giỏ hàng
-router.get("/cart", cartController.getDetailCard);
-// Thanh toán
-router.get("/pay", cartController.GetPayPage);
-router.post("/pay", cartController.GetPostPay);
-// Xóa một sản phẩm trong giỏ hàng
-router.get("/cart/delete/:id", cartController.deleteCartbyIDBook);
-// Cập nhật thông tin đơn hàng
-router.get("/updatecart", cartController.UpdateCartPage)
-router.get("/updatecart/:id", cartController.UpDateCart)
-router.post("/updatecart/:id", cartController.UpdateCartToDB)
 
 module.exports = router;

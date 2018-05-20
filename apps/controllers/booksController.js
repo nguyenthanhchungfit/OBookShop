@@ -2,6 +2,19 @@ var bookModel = require("../models/bookModel");
 var authorModel = require("../models/authorModel");
 var categoryModel = require("../models/categoryModel");
 var cartDetail = require("../controllers/cart");
+var fs = require("fs")
+var xml2js = require("xml2js")
+
+
+function ReadFileComment() {  // Chưa hoàn thiện
+    var parser = new xml2js.Parser();
+
+    fs.readFile(__dirname +  "/../common/comments/IS0001.xml", function(err, data){
+        parser.parseString(data, function(err, result){
+            console.log(result)
+        })
+    })
+}
 
 exports.getBookbyID = function(req, res){
     var id = req.params.id;
