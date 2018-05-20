@@ -7,8 +7,7 @@ exports.getBookbyID = function(req, res){
     var id = req.params.id;
     var ThongTin = {
         id: id,
-        SoLuong: 1,
-        textButton: "Thêm vào giỏ hàng"
+        SoLuong: 1
     }
     getDataDetailBook(req, res, ThongTin)
 };
@@ -36,7 +35,12 @@ exports.AddToCart = function(req, res){
                     TongTien: (sach.gia - sach.gia*sach.khuyen_mai/100) * parseInt(SoLuong)
                 }
                 if(sach.so_luong_ton > SoLuong){
-                    cartDetail.AddToCart(result)
+
+                    cartDetail.AddToCart(result, req, res)
+                    // Giảm số lượng sách ở database
+                    var SoLuongTonMoi = sach.so_luong_ton - SoLuong
+                    bookModel.UpdateNumberBook(sach.id_sach, SoLuongTonMoi)
+
                     var ThongTin = {
                         id: id,
                         SoLuong: parseInt(SoLuong),

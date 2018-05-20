@@ -1,12 +1,15 @@
 var express = require("express");
 var config = require("config");
 var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser")
 
 var app = express();
 
 // body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
+// cookie-parser
+app.use(cookieParser());
 
 // set template view
 app.set("views", __dirname + "/apps/views");

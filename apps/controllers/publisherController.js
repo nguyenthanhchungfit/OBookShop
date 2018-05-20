@@ -23,8 +23,6 @@ exports.getPublisherByName = function(req, res){
         
                 res.render("detail_publisher", {data: result})
             })
-        })
-
-        
+        })        
     })
 }

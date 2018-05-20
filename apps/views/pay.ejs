@@ -21,8 +21,7 @@
 </head>
 <body>
     <%- include header%>
-
-    <div class="container">
+        <div class="container">
         <div id="signupbox" style="margin-top:50px" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -33,7 +32,6 @@
 
                         <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>"
                         class="alert alert-danger">
-                            <p><strong>Error:</strong></p>
                             <%if(data && data.error){%>
                                 <p><%= data.error%></p>
                             <%}%>
@@ -41,7 +39,6 @@
 
                         <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>"
                         class="alert alert-success">
-                            <p><strong>Success:</strong></p>
                             <%if(data && data.success){%>
                                 <p><%= data.success%></p>
                             <%}%>
@@ -69,28 +66,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="repassword" class="col-md-3 control-label">Tỉnh/Thành phố</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="tinhTP" placeholder="Tỉnh/Thành phố">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email" class="col-md-3 control-label">Quận/Huyện</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="quanhuyen" placeholder="Quận/Huyện">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ho_ten" class="col-md-3 control-label">Phường/Xã</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control" name="phuongxa" placeholder="Phường/Xã">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="ho_ten" class="col-md-3 control-label">Địa chỉ</label>
+                            <label for="repassword" class="col-md-3 control-label">Địa chỉ</label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="diachi" placeholder="Địa chỉ">
                             </div>
