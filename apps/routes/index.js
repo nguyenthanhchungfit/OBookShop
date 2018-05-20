@@ -19,12 +19,16 @@ router.get("/signup", homeController.get_signup);
 
 router.post("/signup", homeController.post_signup);
 
+router.get("/login", homeController.get_login);
+
 router.get("/books", bookController.index);
 
 router.get("/book/:id", bookController.getBookbyID);
 
 router.get("/author/:id", authorController.GetAuthorbyID);
+
 router.get("/publisher/:Name", publisherController.getPublisherByName);
+
 // Đường dẫn đến giỏ hàng
 router.get("/cart", cardController.getDetailCard);
 router.get("/pay", cardController.GetPayPage);
