@@ -8,7 +8,7 @@ var validator = require("../helpers/validator");
 
 
 exports.index = function(req, res){
-    res.render("home.ejs");
+    res.render("home");
 }
 
 exports.get_signup = function(req, res){
