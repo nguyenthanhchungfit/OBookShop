@@ -6,22 +6,13 @@ var cartDetail = require("../controllers/cart");
 var fs = require("fs")
 var xml2js = require("xml2js")
 
-
-function ReadFileComment() {  // Chưa hoàn thiện
-    var parser = new xml2js.Parser();
-
-    fs.readFile(__dirname +  "/../common/comments/IS0001.xml", function(err, data){
-        parser.parseString(data, function(err, result){
-            console.log(result)
-        })
-    })
-}
-
 exports.getBookbyID = function(req, res){
     var id = req.params.id;
+    var listCmt = ReadFileComment(id)
     var ThongTin = {
         id: id,
-        SoLuong: 1
+        SoLuong: 1,
+        listCmt: listCmt
     }
     getDataDetailBook(req, res, ThongTin)
 };
@@ -29,6 +20,7 @@ exports.getBookbyID = function(req, res){
 exports.AddToCart = function(req, res){
     var id = req.params.id;
     var SoLuong = req.body.SoLuongSach;
+    var listCmt = ReadFileComment(id)
 
     var SachDB = bookModel.getBookbyID(id)
     SachDB.then(function(dataSach){
@@ -48,6 +40,9 @@ exports.AddToCart = function(req, res){
                     SoLuong: parseInt(SoLuong),
                     TongTien: (sach.gia - sach.gia*sach.khuyen_mai/100) * parseInt(SoLuong)
                 }
+
+                
+
                 if(sach.so_luong_ton > SoLuong){
 
                     cartDetail.AddToCart(result, req, res)
@@ -58,6 +53,7 @@ exports.AddToCart = function(req, res){
                     var ThongTin = {
                         id: id,
                         SoLuong: parseInt(SoLuong),
+                        listCmt: listCmt,
                         success: "Thêm thành công vào giỏ hàng"
                     }
                     getDataDetailBook(req, res, ThongTin)
@@ -73,6 +69,7 @@ exports.AddToCart = function(req, res){
                     var ThongTin = {
                         id: id,
                         SoLuong: parseInt(SoLuong),
+                        listCmt: listCmt,
                         error: error
                     }
                     getDataDetailBook(req, res, ThongTin)
@@ -126,6 +123,26 @@ function getDataDetailBook(req, res, thongtin){
             })
         })
     })
+}
+
+function ReadFileComment(id) {
+    var listCmt = []
+    var parser = new xml2js.Parser();
+    
+    fs.readFile(__dirname +  "/../common/comments/" + id + ".xml", function(err, data){
+        parser.parseString(data, function(err, result){
+            var len = result["comments"]["comment"].length
+            for (var i = 0; i < len; ++i){
+                var cmt = {
+                    comment: result["comments"]["comment"][i]['_'],
+                    username: result["comments"]["comment"][i]['$'].username,
+                    datetime: result["comments"]["comment"][i]['$'].datetime
+                }
+                listCmt.push(cmt)
+            }
+        })
+    })
+    return listCmt
 }
 
 
