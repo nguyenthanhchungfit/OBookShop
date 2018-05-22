@@ -4,11 +4,13 @@ var managerModel = require("../models/managerModel");
 var categoryModel = require("../models/categoryModel");
 var bookModel = require("../models/bookModel");
 var validator = require("../helpers/validator");
+var pw = require("../helpers/password_encryption");
+
 
 
 
 exports.index = function(req, res){
-    res.render("home");
+    res.render("home.ejs");
 }
 
 exports.get_signup = function(req, res){
@@ -118,16 +120,29 @@ exports.post_login = function(req, res){
             err += "Chưa nhập password</br>";
             res.send(err);
         }else{
-            if(customerModel.isValidAccount(body.username, body.password)){
-                res.redirect("home");
-            }else if(staffModel.isValidAccount(body.username, body.password)){
-                res.redirect("staff");
-            }else if(managerModel.isValidAccount(body.username, body.password)){
-                res.redirect("manager");
-            }else{
-                err = "Tài khoản hoặc mật khẩu sai";
-                res.send(err);
-            }
+            customerModel.isValidAccount(body.username, body.password).then(function(isValidCustomer){
+                if(isValidCustomer){
+                    console.log(isValidCustomer);
+                    res.redirect("/customer");
+                }else{
+                    staffModel.isValidAccount(body.username, body.password).then(function(isValidStaff){
+                        if(isValidStaff){
+                            res.redirect("/staff");
+                        }else{
+                            managerModel.isValidAccount(body.username, body.password).then(function(isValidManager){
+                                if(isValidManager){
+                                    res.redirect("/manager");
+                                }else{
+                                    err = "Tài khoản hoặc mật khẩu sai";
+                                    res.send(err);
+                                }
+                            });
+                        }
+                    })
+                }
+            }).catch(function(err){
+
+            });          
         }
     }
 }

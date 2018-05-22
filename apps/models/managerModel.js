@@ -98,17 +98,22 @@ function getPasswordByUsername(username){
 }
 
 function isValidAccount(username, password){
-    var flag = false;
+    var defer = q.defer();
     if(username && password){
         if(checkUserIsExisted(username)){
+            console.log("done username");
             getPasswordByUsername(username).then(function(data){
-                flag = pw_encrypt.comparePassword(password, data);
+                console.log("flag", data);
+                defer.resolve(pw_encrypt.comparePassword(password, data));
             }).catch(function(err){
-                console.log("manager - isValidAccount: ", err);
+                console.log("customer - isValidAccount: ", err);
+                defer.reject(err);
             });
+        }else{
+            defer.resolve(false);
         }
     }
-    return flag;
+    return defer.promise; 
 }
 
 // Insert
