@@ -103,12 +103,31 @@
                 <%}%>
             <%}%>
         </div>
+
+        <h3>BÌNH LUẬN</h3>
+        <div class="product-image-wrapper" style="margin: 30px">
+            <% for(var i = 0; i < data.thongtin.listCmt.length; ++i){%>
+                <div class="row" style="padding: 10px">    
+                    <div class="col-sm-2" style="margin-left: 20px;">
+                        <p  style="color: blue; text-align: center"><%= data.thongtin.listCmt[i].username %></p>  
+                        <p style="text-align: center"><%= data.thongtin.listCmt[i].datetime %></p>
+                    </div>
+                    <p class="col-sm-8"><%= data.thongtin.listCmt[i].comment %></p>         
+                </div>
+                <hr/>
+            <%}%>
+        </div>
     </div>
     </form>
 
     <%- include footer%>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="static/js/jquery.scrollUp.min.js"></script>
+</body>
+</html>
 	<!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="static/js/jquery.scrollUp.min.js"></script>

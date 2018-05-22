@@ -1,10 +1,14 @@
 var customerModel = require("../models/customerModel");
+var staffModel = require("../models/staffModel");
+var managerModel = require("../models/managerModel");
 var categoryModel = require("../models/categoryModel");
 var bookModel = require("../models/bookModel");
 var validator = require("../helpers/validator");
 
+
+
 exports.index = function(req, res){
-    res.render("home.ejs");
+    res.render("home");
 }
 
 exports.get_signup = function(req, res){
@@ -15,6 +19,7 @@ exports.post_signup = function(req, res){
     //*********** Xử lý dữ liệu từ client
     var body = req.body;
     var repassword = body.repassword.trim();
+    var pw_encode =  pw_encrypt.encrypt_password(body.password);
     var sex = (body.gioi_tinh == "nam")? 0 : 1;
     var customer = {
         username : body.username.trim(),
@@ -28,8 +33,6 @@ exports.post_signup = function(req, res){
         diem_tich_luy : 0
     }
 
-    console.log(customer);
-
     var deter_user = -1;
     var deter_phone = -1;
     var deter_email = - 1;
@@ -41,13 +44,10 @@ exports.post_signup = function(req, res){
     if(customer.username.length == 0){
         error += "Chưa nhập tài khoản</br>";
     }else{
-        var isExisted = customerModel.checkUserIsExisted(customer.username).then(function(data){
-            if(data){
-                error += "Tài khoản này đã tồn tại</br>";
-                deter_user = data;
-                console.log(deter_user);
-            }
-        });
+        if(customerModel.checkUserIsExisted(customer.username)){
+            console.log("done");
+            error += "Tài khoản này đã tồn tại</br>";
+        }
     }
 
     // 1.2 Xử lý password
@@ -65,13 +65,9 @@ exports.post_signup = function(req, res){
             error += "Email không hợp lệ!</br>";
         }
         else{
-            var isExisted = customerModel.checkEmailIsExisted(customer.email).then(function(data){
-                if(data){
-                    error += "Email này đã tồn tại</br>";
-                    deter_email = data;
-                    console.log(deter_email);
-                }
-            });
+            if(customerModel.checkEmailIsExisted(customer.email)){
+                error += "Email này đã tồn tại</br>";
+            }
         }     
     }
 
@@ -82,13 +78,9 @@ exports.post_signup = function(req, res){
         if(!validator.validatePhone(customer.so_dien_thoai)){
             error += "Số điện thoại không hợp lệ!</br>";
         }else{
-            var isExisted = customerModel.checkPhoneNumberIsExisted(customer.so_dien_thoai).then(function(data){
-                if(data){
-                    error += "Số điện thoại này đã tồn tại</br>";
-                    deter_phone = data;
-                    console.log(deter_phone);
-                }
-            });
+            if(customerModel.checkPhoneNumberIsExisted(customer.so_dien_thoai)){
+                error += "Số điện thoại này đã tồn tại</br>";
+            }
         }
     }
 
@@ -99,21 +91,43 @@ exports.post_signup = function(req, res){
 
     //******** Xử lý kết quả trả về 
 
-
-    while(deter_email == -1 || deter_user == -1 || deter_phone == -1);
-
-    console.log("Before xử lý kq trả về");
     if(error != ""){
         res.render("signup", {data:{error : error}});
     }else{
-        var res = customerModel.addNewCustomer(customer);
-        if(!res){
+        customerModel.addNewCustomer(customer).then(function(data){
+            res.redirect("login");
+        }).catch(function(err){
             res.render("signup", {data:{error : "Đăng ký thất bại!"}});
-        }else{
-            res.render("signup", {data:{success : "Đăng ký thành công!"}});
-        }
+        }); 
     }
     
 }
 
+exports.get_login = function(req, res){
+    res.render("login");
+}
 
+exports.post_login = function(req, res){
+    var body = req.body;
+    var err = "";
+    if(body.username == ""){
+        err += "Chưa nhập username</br>";
+        res.send(err);
+    }else{
+        if(body.password == ""){
+            err += "Chưa nhập password</br>";
+            res.send(err);
+        }else{
+            if(customerModel.isValidAccount(body.username, body.password)){
+                res.redirect("home");
+            }else if(staffModel.isValidAccount(body.username, body.password)){
+                res.redirect("staff");
+            }else if(managerModel.isValidAccount(body.username, body.password)){
+                res.redirect("manager");
+            }else{
+                err = "Tài khoản hoặc mật khẩu sai";
+                res.send(err);
+            }
+        }
+    }
+}

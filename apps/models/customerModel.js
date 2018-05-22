@@ -1,73 +1,130 @@
-
 var db = require("../common/database");
 var q = require("q");
 var conn = db.getConnection();
+var pw_encrypt = require("../helpers/password_encryption");
 
 const tableName = "khach_hang";
 
+var customerDataCaching;
+
+function getCustomerDataFromDB(){
+    var defer = q.defer();
+    var sql = `SELECT * FROM ${tableName}`;
+    var arr = [];
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{
+            arr.push({username : element.username, email : element.email, so_dien_thoai : element.so_dien_thoai});
+        });
+        defer.resolve(arr);
+    });
+    return defer.promise;
+}
+
+function updateCustomerDataCaching(){
+    customerDataCaching = [];
+    getCustomerDataFromDB().then(function(data){       
+        customerDataCaching = data;
+    }).catch(function(err){
+        console.log("customerModels: ", err);
+    });
+}
+
+updateCustomerDataCaching();
+
 // validator
 function checkEmailIsExisted(email){
+    var flag = false;
     if(email){
-        var defer = q.defer();
-        var sql = `SELECT email FROM ${tableName} WHERE email = "${email}"`;
-        var query = conn.query(sql, function(err, result, fields){
-            if(err) defer.reject(err);
-            if(result.length == 0){
-                defer.resolve(0);
-            }else{
-                defer.resolve(1);
+        if(customerDataCaching.length == 0){
+            updateCustomerDataCaching();
+        }
+        customerDataCaching.forEach(element => {
+            if(element.email === email){
+                flag = true;
+                return;
             }
-        });
-        return defer.promise;
+        });    
     }
-    return false;
-
+    return flag;
 }
 
 function checkUserIsExisted(username){
+    var flag = false;
     if(username){
-        var defer = q.defer();
-        var sql = `SELECT username FROM ${tableName} WHERE username = "${username}"`;
-        var query = conn.query(sql, function(err, result, fields){
-            if(err) defer.reject(err);
-            if(result.length == 0){
-                console.log(0);
-                defer.resolve(false);
-                
-            }else{
-                console.log(1);
-                defer.resolve(true);
+        if(customerDataCaching.length == 0){
+            updateCustomerDataCaching();
+        }
+        customerDataCaching.forEach(element => {
+            if(element.username === username){
+                flag = true;
+                return;
             }
-        });
-        return defer.promise;
-
-    }
-    return false;
+        });    
+    } 
+    return flag;
 }
 
 function checkPhoneNumberIsExisted(phone){
+    var flag = false;
     if(phone){
-        var defer = q.defer();
-        var sql = `SELECT so_dien_thoai FROM ${tableName} WHERE so_dien_thoai = "${phone}"`;
-        var query = conn.query(sql, function(err, result, fields){
-            if(err) throw err;
-            if(result.length == 0){                
-                defer.resolve(0);
-            }else{
-                defer.resolve(1);
+        if(customerDataCaching.length == 0){
+            updateCustomerDataCaching();
+        }
+        customerDataCaching.forEach(element => {
+            if(element.so_dien_thoai === phone){
+                flag = true;
+                return;
             }
+        });    
+    }
+    return flag;
+}
+
+function getPasswordByUsername(username){
+    if(username){
+        var defer = q.defer();
+        var sql = `SELECT * FROM khach_hang WHERE username='${username}'`;
+        conn.query(sql, function(err, result, fields){
+            if(err) defer.reject(err);
+            var password = "";
+            console.log(result);
+            if(result.length > 0){
+                password = result[0].password;
+            }
+            defer.resolve(password);
         });
         return defer.promise;
     }
-    return false;
+}
+
+function isValidAccount(username, password){
+    var flag = false;
+    console.log(username);
+    console.log(password);
+    if(username && password){
+        if(checkUserIsExisted(username)){
+            console.log("done username");
+            getPasswordByUsername(username).then(function(data){
+                console.log(data);
+                flag = pw_encrypt.comparePassword(password, data);
+                console.log(flag);
+                console.log("done password");
+            }).catch(function(err){
+                console.log("customer - isValidAccount: ", err);
+            });
+        }
+    }
+    return flag;
 }
 
 // Insert
 function addNewCustomer(customer){
     if(customer){
+        customer.password = pw_encrypt.encrypt_password(customer.password);
         var defer = q.defer();
         var sql = `INSERT INTO ${tableName} SET ?`;
-        var query = conn.query(sql, user, function(err, result){
+        var query = conn.query(sql, customer, function(err, result){
             if(err){
                 defer.reject(err);
             }else{
@@ -76,7 +133,6 @@ function addNewCustomer(customer){
         });
         return defer.promise;
     }
-    return false;
 }
 
 // Update
@@ -88,5 +144,6 @@ module.exports = {
     checkEmailIsExisted : checkEmailIsExisted,
     checkPhoneNumberIsExisted : checkPhoneNumberIsExisted,
     checkUserIsExisted : checkUserIsExisted,
-    addNewCustomer : addNewCustomer
+    addNewCustomer : addNewCustomer,
+    isValidAccount : isValidAccount
 }

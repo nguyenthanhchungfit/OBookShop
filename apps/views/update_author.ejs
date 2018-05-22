@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Author</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div id="signupbox" style="margin-top:50px" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Update Author</div>
+                </div>
+                <div class="panel-body" >
+                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/staff/update_author?id=<%= data.id %>">
+                        <div id="signupalerterror" style="<%if (!data.error){%>display:none<%}%>" 
+                            class="alert alert-danger">
+                                <p><strong>Error:</strong></p>
+                                <%if (data.error){%>
+                                <p><%- data.error%></p>
+                                <%}%>
+                            </div>
+    
+                            <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
+                            class="alert alert-success">
+                                <p><strong>Success:</strong></p>
+                                <p><%= data.success%></p>
+                            </div>
+                            
+                        <div class="form-group">
+                            <label for="ten" class="col-md-3 control-label">Tên tác giả</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="ten" value="<%= data.tac_gia.ten_tac_gia%>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nam_sinh" class="col-md-3 control-label">Năm sinh</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="nam_sinh" value="<%= data.tac_gia.nam_sinh%>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="que_quan" class="col-md-3 control-label">Quê quán</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="que_quan" value="<%= data.tac_gia.que_quan%>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Button -->
+                            <div class="col-md-9 col-md-offset-3">
+                                <input style="<%if (data.error){%>display:none<%}%>" id="btn-update" type="submit" class="btn btn-info" value="Update" />
+                                <a  href="../"><input id="btn-cancel" type="button" class="btn btn-info" value="Cancel" /></a>
+                            </div>
+                        </div>
+                    </form>
+                 </div>
+            </div>
+
+         </div>
+    </div>
+
+</body>
+</html>
