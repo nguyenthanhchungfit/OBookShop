@@ -4,30 +4,28 @@ var db = require("../common/database");
 var connection = db.getConnection();
 
 // Lấy danh sách tác giả
-function getAuthor(){
+function getAuthor() {
+    var arr = [];
     var defer = q.defer();
-    var query = connection.query("SELECT * FROM tac_gia", function(err, result){
-        if(err){
-            defer.reject(err)
-        }
-        else
-        {
-            defer.resolve(result)
-        }
+    var query = connection.query("SELECT * FROM tac_gia", function (err, result) {
+        if (err) defer.reject(err);
+        result.forEach(element => {
+            arr.push({ id_tac_gia: element.id_tac_gia, ten_tac_gia: element.ten_tac_gia, nam_sinh: element.nam_sinh, que_quan: element.que_quan });
+        });
+        defer.resolve({arr});
     })
     return defer.promise
 }
 
 // Lấy ID tác giả theo ID sách
-function getAuthorbyIDBook(ID){
-    if(ID){
+function getAuthorbyIDBook(ID) {
+    if (ID) {
         var defer = q.defer();
-        var query = connection.query("SELECT * FROM sach_tac_gia WHERE ?", {id_sach: ID}, function(err, result){
-            if(err){
+        var query = connection.query("SELECT * FROM sach_tac_gia WHERE ?", { id_sach: ID }, function (err, result) {
+            if (err) {
                 defer.reject(err)
             }
-            else
-            {
+            else {
                 defer.resolve(result)
             }
         })
@@ -36,15 +34,14 @@ function getAuthorbyIDBook(ID){
     return false
 }
 // Lấy tên tác giả theo ID tác giả
-function getAuthorbyID(ID){
-    if(ID){
+function getAuthorbyID(ID) {
+    if (ID) {
         var defer = q.defer();
-        var query = connection.query("SELECT * FROM tac_gia WHERE ?", {id_tac_gia: ID}, function(err, result){
-            if(err){
+        var query = connection.query("SELECT * FROM tac_gia WHERE ?", { id_tac_gia: ID }, function (err, result) {
+            if (err) {
                 defer.reject(err)
             }
-            else
-            {
+            else {
                 defer.resolve(result)
             }
         })
@@ -54,17 +51,17 @@ function getAuthorbyID(ID){
 }
 
 // validator
-function checkIDIsExisted(id){
-    if(id){
+function checkIDIsExisted(id) {
+    if (id) {
         var defer = q.defer();
         var sql = `SELECT * FROM tac_gia WHERE id_tac_gia = ?`;
-        var query = connection.query(sql, [id], function(err, result, fields){
-            if(err) defer.reject(err);
-            if(result.length == 0){
+        var query = connection.query(sql, [id], function (err, result, fields) {
+            if (err) defer.reject(err);
+            if (result.length == 0) {
                 console.log(0);
                 defer.resolve(false);
-                
-            }else{
+
+            } else {
                 console.log(1);
                 defer.resolve(true);
             }
@@ -76,14 +73,14 @@ function checkIDIsExisted(id){
 }
 
 // Insert
-function addNewAuthor(author){
-    if(author){
+function addNewAuthor(author) {
+    if (author) {
         var defer = q.defer();
         var sql = `INSERT INTO tac_gia VALUES ( ? , ? , ?, ? )`;
-        var query = connection.query(sql, [author.id, author.ten, author.nam_sinh, author.que_quan], function(err, result){
-            if(err){
+        var query = connection.query(sql, [author.id, author.ten, author.nam_sinh, author.que_quan], function (err, result) {
+            if (err) {
                 defer.reject(err);
-            }else{
+            } else {
                 defer.resolve(result);
             }
         });
@@ -93,14 +90,14 @@ function addNewAuthor(author){
 }
 
 // Update
-function updateAuthor(id, authorNew){
-    if(id && authorNew){
+function updateAuthor(id, authorNew) {
+    if (id && authorNew) {
         var defer = q.defer();
         var sql = `UPDATE tac_gia SET ten_tac_gia = ? , nam_sinh = ? , que_quan = ? WHERE id_tac_gia = ?`;
-        var query = connection.query(sql, [authorNew.ten, authorNew.nam_sinh, authorNew.que_quan, id], function(err, result){
-            if(err){
+        var query = connection.query(sql, [authorNew.ten, authorNew.nam_sinh, authorNew.que_quan, id], function (err, result) {
+            if (err) {
                 defer.reject(err);
-            }else{
+            } else {
                 defer.resolve(result);
             }
         });

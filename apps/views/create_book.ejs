@@ -26,13 +26,13 @@
                                 <input type="text" class="form-control" name="ten_sach" placeholder="Tên sách">
                             </div>
                         </div>
-                        
                         <div class="form-group">
                             <label for="the_loai" class="col-md-3 control-label">Thể loại</label>
                             <div class="col-md-3">
                                 <select name="the_loai" class="form-control">
-                                    <option value="nam">Nam</option>
-                                    <option value="nữ">Nữ</option>
+                                    <% items.tl.forEach(function(i){ %>
+                                    <option value="<%= i.id_the_loai %>"><%= i.ten_the_loai %></option>
+                                    <% }) %>
                                 </select>
                             </div>
                         </div>
@@ -41,8 +41,9 @@
                             <label for="tac_gia" class="col-md-3 control-label">Tác giả</label>
                             <div class="col-md-3">
                                 <select name="tac_gia" class="form-control">
-                                    <option value="nam">Nam</option>
-                                    <option value="nữ">Nữ</option>
+                                        <% items.tg.forEach(function(i){ %>
+                                            <option value="<%= i.id_tac_gia %>"><%= i.ten_tac_gia %></option>
+                                            <% }) %>
                                 </select>
                             </div>
                         </div>
@@ -51,8 +52,9 @@
                             <label for="nha_xuat_ban" class="col-md-3 control-label">Nhà xuất bản</label>
                             <div class="col-md-3">
                                 <select name="nha_xuat_ban" class="form-control">
-                                    <option value="nam">Nam</option>
-                                    <option value="nữ">Nữ</option>
+                                        <% items.nxb.forEach(function(i){ %>
+                                            <option value="<%= i.ten_nxb %>"><%= i.ten_nxb %></option>
+                                            <% }) %>
                                 </select>
                             </div>
                         </div>

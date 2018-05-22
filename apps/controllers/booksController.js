@@ -1,6 +1,7 @@
 var bookModel = require("../models/bookModel");
 var authorModel = require("../models/authorModel");
 var categoryModel = require("../models/categoryModel");
+var publisherModel = require("../models/publisherModel");
 var cartDetail = require("../controllers/cart");
 var fs = require("fs")
 var xml2js = require("xml2js")
@@ -135,6 +136,18 @@ exports.index = function(req, res) {
 };
 
 exports.get_create_book = function(req, res) {
-    res.render("create_book");
+    categoryModel.getCategories().then(function(tl){
+        authorModel.getAuthor().then(function(tg){
+            publisherModel.getPublisher().then(function(nxb){
+                var data = {
+                    tl : tl.arr,
+                    tg : tg.arr,
+                    nxb : nxb.arr
+                }
+                res.render("create_book", {items : data});
+            })
+        })
+    })
+    
 }
 
