@@ -29,6 +29,10 @@ router.get("/create_publisher", publisherController.get_create_publisher);
 
 router.post("/create_publisher", publisherController.post_create_publisher);
 
+router.get("/update_publisher", publisherController.get_update_publisher);
+
+router.post("/update_publisher", publisherController.post_update_publisher);
+
 router.get("/update_author", authorsController.get_update_author);
 
 router.post("/update_author", authorsController.post_update_author);
@@ -48,6 +52,16 @@ router.post("/create_book", upload.single("file"), booksController.post_create_b
 router.get("/update_book", booksController.get_update_book);
 
 router.post("/update_book", booksController.post_update_book);
+
+router.get("/update_delete_book", booksController.update_delete_book)
+
+router.get("/update_delete_book/update/:id")
+
+router.get("/create_author", authorsController.get_create_author);
+
+router.get("/create_publisher", publisherController.post_create_publisher)
+
+
 // Cập nhật thông tin đơn hàng
 router.get("/updatecart", cartController.UpdateCartPage)
 router.get("/updatecart/:id", cartController.UpDateCart)

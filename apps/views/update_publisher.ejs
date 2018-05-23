@@ -17,7 +17,7 @@
                     <div class="panel-title">Update Category</div>
                 </div>
                 <div class="panel-body" >
-                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/staff/update_category?id=<%= data.id %>">
+                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/staff/update_publisher?id=<%= data.id %>">
                         
                         <div id="signupalerterror" style="<%if (!data.error){%>display:none<%}%>" 
                             class="alert alert-danger">
@@ -36,14 +36,14 @@
                         <div class="form-group">
                             <label for="nam_thanh_lap" class="col-md-3 control-label">Năm thành lập</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control" name="nam_thanh_lap" value="<%= data.the_loai.ten_the_loai%>">
+                                <input type="text" class="form-control" name="nam_thanh_lap" value="<%= data.nxb.nam_thanh_lap%>">
                             </div>
                         </div>
 
                         <div class="form-group">
                                 <label for="dia_chi" class="col-md-3 control-label">Địa chỉ</label>
                                 <div class="col-md-9">
-                                    <input type="text" class="form-control" name="dia_chi" value="<%= data.the_loai.ten_the_loai%>">
+                                    <input type="text" class="form-control" name="dia_chi" value="<%= data.nxb.dia_chi%>">
                                 </div>
                             </div>
 

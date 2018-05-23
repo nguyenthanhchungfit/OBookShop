@@ -74,10 +74,25 @@ function addNewPublisher(publisher) {
 }
 
 // Update
-
+function updatePublisher(id, publisherNew) {
+    if (id && publisherNew) {
+        var defer = q.defer();
+        var sql = `UPDATE ${tableName} SET nam_thanh_lap = ? , dia_chi = ?  WHERE ten_nxb = ?`;
+        var query = connection.query(sql, [publisherNew.nam_thanh_lap, publisherNew.dia_chi, id], function (err, result) {
+            if (err) {
+                defer.reject(err);
+            } else {
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+}
 module.exports = {
     getPublisher: getPublisher,
     getPublisherbyName: getPublisherbyName,
     checkNameIsExisted: checkNameIsExisted,
-    addNewPublisher: addNewPublisher
+    addNewPublisher: addNewPublisher,
+    updatePublisher: updatePublisher
 }
