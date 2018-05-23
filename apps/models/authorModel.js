@@ -33,6 +33,22 @@ function getAuthorbyIDBook(ID) {
     }
     return false
 }
+
+function addNewAuthorofBook(author, book){
+    if (author && book) {
+        var defer = q.defer();
+        var sql = `INSERT INTO sach_tac_gia VALUES ( ? , ? )`;
+        var query = connection.query(sql, [author, book], function (err, result) {
+            if (err) {
+                defer.reject(err);
+            } else {
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+}
 // Lấy tên tác giả theo ID tác giả
 function getAuthorbyID(ID) {
     if (ID) {
@@ -112,5 +128,6 @@ module.exports = {
     checkIDIsExisted: checkIDIsExisted,
     addNewAuthor: addNewAuthor,
     updateAuthor: updateAuthor,
-    getAuthor: getAuthor
+    getAuthor: getAuthor,
+    addNewAuthorofBook: addNewAuthorofBook
 }

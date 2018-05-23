@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Book</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div id="signupbox" style="margin-top:50px" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Update Book</div>
+                </div>
+                <div class="panel-body" >
+                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/staff/update_book?id=<%= data.id %>" >
+
+                        <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" 
+                            class="alert alert-danger">
+                                <p><strong>Error:</strong></p>
+                                <%if (data && data.error){%>
+                                <p><%- data.error%></p>
+                                <%}%>
+                            </div>
+    
+                            <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
+                            class="alert alert-success">
+                                <p><strong>Success:</strong></p>
+                                <p><%= data.success%></p>
+                            </div>
+                        <div class="form-group">
+                            <label for="ten_sach" class="col-md-3 control-label">Tên sách</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="ten_sach" value = "<%= data.sach.ten_sach %>" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="the_loai" class="col-md-3 control-label">Thể loại</label>
+                            <div class="col-md-3">
+                                <select name="the_loai" class="form-control">
+                                    <% items.tl.forEach(function(i){ %>
+                                    <option <% if (i.id_the_loai == data.sach.the_loai) { %>
+                                        selected = "selected" <% } %>
+                                        value="<%= i.id_the_loai %>"><%= i.ten_the_loai %></option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tac_gia" class="col-md-3 control-label">Tác giả</label>
+                            <div class="col-md-3">
+                                <select name="tac_gia" class="form-control">
+                                        <% items.tg.forEach(function(i){ %>
+                                            <option <% if (i.id_tac_gia == data.tac_gia.id_tac_gia) { %>
+                                                    selected = "selected" <% } %>
+                                            value="<%= i.id_tac_gia %>"><%= i.ten_tac_gia %></option>
+                                            <% }) %>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nha_xuat_ban" class="col-md-3 control-label">Nhà xuất bản</label>
+                            <div class="col-md-3">
+                                <select name="nha_xuat_ban" class="form-control">
+                                        <% items.nxb.forEach(function(i){ %>
+                                            <option <% if (i.ten_nxb == data.sach.nha_xuat_ban) { %>
+                                                    selected = "selected" <% } %>
+                                            value="<%= i.ten_nxb %>"><%= i.ten_nxb %></option>
+                                            <% }) %>
+                                </select>
+                            </div>
+                        </div>
+                    
+                        
+
+                        <div class="form-group">
+                            <label for="nam_xuat_ban" class="col-md-3 control-label">Năm xuất bản</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="nam_xuat_ban" value = "<%= data.sach.nam_xuat_ban %>" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="khuyen_mai" class="col-md-3 control-label">Khuyến mãi</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="khuyen_mai" value = "<%= data.sach.khuyen_mai %>" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gia" class="col-md-3 control-label">Giá</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="gia" value = "<%= data.sach.gia %>" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="so_luong_ton" class="col-md-3 control-label">Số lượng tồn</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="so_luong_ton" value = "<%= data.sach.so_luong_ton %>" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="doc_truoc" class="col-md-3 control-label">Đọc trước</label>
+                            <div class="col-md-9">
+                                <input type = "text" class="form-control" name="doc_truoc" value = "<%= data.sach.doc_truoc %>" >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                                <!-- Button -->
+                                <div class="col-md-9 col-md-offset-3">
+                                    <input style="<%if (data.error){%>display:none<%}%>" id="btn-update" type="submit" class="btn btn-info" value="Update" />
+                                    <a  href="../staff"><input id="btn-cancel" type="button" class="btn btn-info" value="Cancel" /></a>
+                                </div>
+                            </div>
+
+                   <!--     <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                                <a href= "/staff/create_publisher" target="_blank"><input id="btn-create-category" type="button" class="btn btn-info" value="Nhà xuất bản mới"/></a>
+                            </div>
+                        </div> -->
+
+                    </form>
+                 </div>
+            </div>
+
+         </div>
+    </div>
+
+</body>
+</html>
