@@ -9,7 +9,7 @@ exports.index = function(req, res){
 exports.getDanhSachNhanVien = function(req, res){
     staffModel.getInforDanhSachNhanvien().then(function(data){
         console.log(data);
-        res.render("manager/account_customer", {items: data.arr});
+        res.render("manager/account_staff", {items: data.arr});
     }).catch(function(err){
         res.send(err);
     }); 

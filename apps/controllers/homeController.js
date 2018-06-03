@@ -106,7 +106,23 @@ exports.post_signup = function(req, res){
 }
 
 exports.get_login = function(req, res){
-    res.render("login");
+    var session = req.session;
+    if(session){
+        var user = session.user;
+        if(user){
+            if(user.type == 1){
+                res.redirect("/customer");
+            }else if(user.type == 2){
+                res.redirect("/staff");
+            }else if(user.type == 3){
+                res.redirect("/manager");
+            }
+        }else{
+            res.render("login");
+        }
+    }else{
+        res.render("login");
+    } 
 }
 
 exports.post_login = function(req, res){
@@ -122,15 +138,19 @@ exports.post_login = function(req, res){
         }else{
             customerModel.isValidAccount(body.username, body.password).then(function(isValidCustomer){
                 if(isValidCustomer){
-                    console.log(isValidCustomer);
-                    res.redirect("/customer");
+                    req.session.user = {username : body.username, type : 1};
+                    console.log(req.session.user);
+                    res.send("Customer");
+                    //res.redirect("/customer");
                 }else{
                     staffModel.isValidAccount(body.username, body.password).then(function(isValidStaff){
                         if(isValidStaff){
+                            req.session.user = {username : body.username, type : 2};
                             res.redirect("/staff");
                         }else{
                             managerModel.isValidAccount(body.username, body.password).then(function(isValidManager){
                                 if(isValidManager){
+                                    req.session.user = {username : body.username, type : 3};
                                     res.redirect("/manager");
                                 }else{
                                     err = "Tài khoản hoặc mật khẩu sai";

@@ -105,10 +105,8 @@ function isValidAccount(username, password){
         if(checkUserIsExisted(username)){
             console.log("done username");
             getPasswordByUsername(username).then(function(data){
-                console.log("flag", data);
                 defer.resolve(pw_encrypt.comparePassword(password, data));
             }).catch(function(err){
-                console.log("customer - isValidAccount: ", err);
                 defer.reject(err);
             });
         }else{
