@@ -6,6 +6,8 @@ var cartController = require("../controllers/cartController");
 
 router.get("/", customerController.index);
 
+router.get("/logout", customerController.logout);
+
 // Giỏ hàng
 router.get("/cart", cartController.getDetailCard);
 // Xóa một sản phẩm trong giỏ hàng
