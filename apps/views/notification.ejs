@@ -1,0 +1,13 @@
+<div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>"
+                class="alert alert-danger">
+                <%if(data && data.error){%>
+                    <p class="ThongBao"><%= data.error%></p>
+                <%}%>
+            </div>
+
+            <div id="signupalertsuccess" style="margin-left: 20px; margin-right: 20px;<%if (!data || !data.success){%>display:none<%}%>"
+                class="alert alert-success">
+                <%if(data && data.success){%>
+                    <p class="ThongBao"><%= data.success%></p>
+                <%}%>
+            </div>

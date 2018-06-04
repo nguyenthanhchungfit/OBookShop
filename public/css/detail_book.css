@@ -80,3 +80,14 @@ td, th {
 th{
     background: rgba(94, 170, 233, 0.596);
 }
+#binh_luan{
+    color: #696763;
+    display: block;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    height: 40px;
+    margin-bottom: 10px;
+    outline: medium none;
+    padding-left: 10px;
+}

@@ -4,25 +4,15 @@ var categoryModel = require("../models/categoryModel");
 var cartDetail = require("../controllers/cart");
 var fs = require("fs")
 var xml2js = require("xml2js")
+var XMlwiter = require("xml-writer")
 
 exports.getBookbyID = function(req, res){
     var id = req.params.id;
-    var listCmt = ReadFileComment(id)
-    var ThongTin = {
-        id: id,
-        SoLuong: 1,
-        listCmt: listCmt
-    }
-    getDataDetailBook(req, res, ThongTin)
-};
-
-exports.AddToCart = function(req, res){
-    var id = req.params.id;
-    var SoLuong = req.body.SoLuongSach;
-    var listCmt = ReadFileComment(id)
-
-    var SachDB = bookModel.getBookbyID(id)
-    SachDB.then(function(dataSach){
+    if(req.query.so_luong){
+        var SoLuong = req.query.so_luong;
+        
+        var SachDB = bookModel.getBookbyID(id)
+        SachDB.then(function(dataSach){
         sach = dataSach[0]
 
         var IDTacGiaDB = authorModel.getAuthorbyIDBook(id)
@@ -39,10 +29,7 @@ exports.AddToCart = function(req, res){
                     SoLuong: parseInt(SoLuong),
                     TongTien: (sach.gia - sach.gia*sach.khuyen_mai/100) * parseInt(SoLuong)
                 }
-
-                
-
-                if(sach.so_luong_ton > SoLuong){
+                if(sach.so_luong_ton >= SoLuong){
 
                     cartDetail.AddToCart(result, req, res)
                     // Giảm số lượng sách ở database
@@ -50,12 +37,9 @@ exports.AddToCart = function(req, res){
                     bookModel.UpdateNumberBook(sach.id_sach, SoLuongTonMoi)
 
                     var ThongTin = {
-                        id: id,
-                        SoLuong: parseInt(SoLuong),
-                        listCmt: listCmt,
                         success: "Thêm thành công vào giỏ hàng"
                     }
-                    getDataDetailBook(req, res, ThongTin)
+                    res.render("notification", {data: ThongTin})
                 }
                 else{
                     var error = ""
@@ -66,15 +50,62 @@ exports.AddToCart = function(req, res){
                         error = "Thêm giỏ hàng thất bại: Không đủ số lượng sách yêu cầu"
                     }
                     var ThongTin = {
-                        id: id,
-                        SoLuong: parseInt(SoLuong),
-                        listCmt: listCmt,
                         error: error
                     }
-                    getDataDetailBook(req, res, ThongTin)
+                    res.render("notification", {data: ThongTin})
                 }
+                })
             })
         })
+    }
+    else {
+        var ThongTin = {
+            id: id,
+            SoLuong: 1
+        }
+        getDataDetailBook(req, res, ThongTin)
+    }
+};
+
+exports.ViewComment = function(req, res){
+    var id_sach = req.params.id;
+    var listCmt = []
+    var parser = new xml2js.Parser();   
+   
+    fs.readFile(__dirname +  "/../common/comments/" + id_sach + ".xml", function(err, data){
+        parser.parseString(data, function(err, result){
+            var len = result.comments.comment.length
+            for(var i = 0; i < len; ++i){
+                var cmt = {
+                    comment: {
+                        content: result.comments.comment[i].content[0],
+                        username: result.comments.comment[i].username[0],
+                        datetime: result.comments.comment[i].datetime[0]
+                    }
+                }
+                listCmt.push(cmt)
+            }
+            // Ghi file comment nếu có bình luận mới
+            if(req.query.binh_luan){
+                var cont = req.query.binh_luan
+                var cmt = {
+                    comment: {
+                        content: cont,
+                        username: "hello", // session
+                        datetime: new Date().toLocaleString()
+                    }
+                }
+                listCmt.push(cmt)
+                var builder = new xml2js.Builder({rootName: "comments"});
+                xml = builder.buildObject(listCmt)
+                fs.writeFile(__dirname +  "/../common/comments/" + id_sach + ".xml",xml, function(err) {
+                    if(err) {
+                        return console.log(err);
+                    }
+                }); 
+            }
+        })
+        res.render("comment", {data: listCmt})
     })
 }
 
@@ -83,6 +114,16 @@ exports.index = function(req, res) {
         res.render("home_item_book", {items : data.arr});
     })
 };
+
+exports.index = function(req, res) {
+    bookModel.getInforBooksForHome().then(function(data){
+        res.render("home_item_book", {items : data.arr});
+    })
+};
+
+exports.get_create_book = function(req, res) {
+    res.render("create_book");
+}
 
 function getDataDetailBook(req, res, thongtin){
     // Lấy chi tiết sách theo ID sách
@@ -123,35 +164,3 @@ function getDataDetailBook(req, res, thongtin){
         })
     })
 }
-
-function ReadFileComment(id) {
-    var listCmt = []
-    var parser = new xml2js.Parser();
-    
-    fs.readFile(__dirname +  "/../common/comments/" + id + ".xml", function(err, data){
-        parser.parseString(data, function(err, result){
-            var len = result["comments"]["comment"].length
-            for (var i = 0; i < len; ++i){
-                var cmt = {
-                    comment: result["comments"]["comment"][i]['_'],
-                    username: result["comments"]["comment"][i]['$'].username,
-                    datetime: result["comments"]["comment"][i]['$'].datetime
-                }
-                listCmt.push(cmt)
-            }
-        })
-    })
-    return listCmt
-}
-
-
-exports.index = function(req, res) {
-    bookModel.getInforBooksForHome().then(function(data){
-        res.render("home_item_book", {items : data.arr});
-    })
-};
-
-exports.get_create_book = function(req, res) {
-    res.render("create_book");
-}
-

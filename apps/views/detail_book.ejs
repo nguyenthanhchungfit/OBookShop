@@ -11,7 +11,7 @@
     
 	<link rel="stylesheet" type="text/css" media="screen" href="/static/css/main.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/static/css/detail_book.css" />
-	<link href="static/css/responsive.css" rel="stylesheet">      
+	<link href="../static/css/responsive.css" rel="stylesheet">      
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -21,20 +21,9 @@
 <body>
     <%- include header%>   <!-- header -->
     <hr />
-    <form method="POST" role="form" action="/book/<%= data.Sach.id_sach%>">
     <div>
-        <div id="signupalerterror" style="<%if (!data || !data.thongtin.error){%>display:none<%}%>"
-                class="alert alert-danger">
-            <%if(data && data.thongtin.error){%>
-                <p class="ThongBao"><%= data.thongtin.error%></p>
-            <%}%>
-        </div>
-
-        <div id="signupalertsuccess" style="margin-left: 20px; margin-right: 20px;<%if (!data || !data.thongtin.success){%>display:none<%}%>"
-            class="alert alert-success">
-            <%if(data && data.thongtin.success){%>
-               <p class="ThongBao"><%= data.thongtin.success%></p>
-            <%}%>
+        <div id="ThongBao">
+            
         </div>
 
         <div class="row">
@@ -72,12 +61,12 @@
                 <p class="font16">Thể loại: %><%= data.theloai.ten_the_loai%></p>
                 
                 <hr/>         
-                <div class="row">
+                <div class="row" id="them_gio_hang">
                     <div class="col-sm-2" >
                         <p>Số lượng: </p>
-                        <input type="number" name="SoLuongSach" value="<%= data.thongtin.SoLuong%>" min="1" style="height: 25px;width: 60px;"/>
+                        <input type="number" id="SoLuongSach" value="<%= data.thongtin.SoLuong%>" min="1" style="height: 25px;width: 60px;"/>
                     </div>
-                    <input type="submit" id="NUT_THEM_GIO_HANG" value="Thêm vào giỏ hàng" class="btn btn-success" style="background-color:rgb(224, 82, 39); margin:15px;" />
+                    <button id="NUT_THEM_GIO_HANG" class="btn btn-success" style="background-color:rgb(224, 82, 39); margin:15px;">Thêm vào giỏ hàng</button>
                 </div> 
             </div>
         </div>
@@ -105,31 +94,27 @@
         </div>
 
         <h3>BÌNH LUẬN</h3>
-        <div class="product-image-wrapper" style="margin: 30px">
-            <% for(var i = 0; i < data.thongtin.listCmt.length; ++i){%>
-                <div class="row" style="padding: 10px">    
-                    <div class="col-sm-2" style="margin-left: 20px;">
-                        <p  style="color: blue; text-align: center"><%= data.thongtin.listCmt[i].username %></p>  
-                        <p style="text-align: center"><%= data.thongtin.listCmt[i].datetime %></p>
-                    </div>
-                    <p class="col-sm-8"><%= data.thongtin.listCmt[i].comment %></p>         
-                </div>
-                <hr/>
-            <%}%>
+        <div class="product-image-wrapper" style="margin: 30px" id="comments" name="<%= data.Sach.id_sach%>">
+            
+        </div>
+
+        <div class="row" style="margin: 30px;" id="write_comment">
+            <input class="col-sm-6" id="binh_luan" type="text" placeholder="Viết bình luận" />
+            <button class="btn btn-success" style="margin-left: 10px; margin-top:3px">Bình luận</button>
         </div>
     </div>
-    </form>
 
     <%- include footer%>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="static/js/jquery.scrollUp.min.js"></script>
+	<script src="../static/js/jquery.scrollUp.min.js"></script>
+    <script src="../static/js/detail_book.js"></script>
 </body>
 </html>
 	<!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="static/js/jquery.scrollUp.min.js"></script>
+	<script src="../static/js/jquery.scrollUp.min.js"></script>
 </body>
 </html>
