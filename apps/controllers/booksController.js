@@ -2,9 +2,13 @@ var bookModel = require("../models/bookModel");
 var authorModel = require("../models/authorModel");
 var categoryModel = require("../models/categoryModel");
 var cartDetail = require("../controllers/cart");
+var DS_BanChay = require("../common/danh_sach_dac_biet/danh_sach_ban_chay_nhat")
+var DS_BinhChon = require("../common/danh_sach_dac_biet/danh_sach_binh_chon_cao_nhat")
+var DS_GiamGia = require("../common/danh_sach_dac_biet/danh_sach_giam_gia")
+var DS_MoiPhatHanh = require("../common/danh_sach_dac_biet/danh_sach_moi_phat_hanh")
 var fs = require("fs")
 var xml2js = require("xml2js")
-var XMlwiter = require("xml-writer")
+
 
 exports.getBookbyID = function(req, res){
     var id = req.params.id;
@@ -67,6 +71,169 @@ exports.getBookbyID = function(req, res){
     }
 };
 
+exports.SpecailList = function(req, res){
+    SendSpecailList(req, res)
+}
+
+exports.AddToSpecailList = function(req, res){
+    // Thêm danh sách bán chạy
+    if(req.query.add_selling){
+        if(CheckIDBookExistInList(req.params.id, DS_BanChay) == false)
+        {
+            DS_BanChay.list.push({
+                id: req.params.id,
+                so_luong: req.query.add_selling
+            })
+            // Ghi file
+            var jsonFile = JSON.stringify(DS_BanChay)
+            fs.writeFile(__dirname +  "/../common/danh_sach_dac_biet/danh_sach_ban_chay_nhat.json", jsonFile, function(err){
+                if(err){
+                    throw err;
+                }
+            })
+            SendSpecailList(req, res)
+        }
+    }
+    // Thêm danh sách bình chọn
+    if(req.query.add_vote){
+        if(CheckIDBookExistInList(req.params.id, DS_BinhChon) == false){
+            DS_BinhChon.list.push({
+                id: req.params.id,
+                vote: req.query.add_vote
+            })
+            // Ghi file
+            var jsonFile = JSON.stringify(DS_BinhChon)
+            fs.writeFile(__dirname +  "/../common/danh_sach_dac_biet/danh_sach_binh_chon_cao_nhat.json", jsonFile, function(err){
+                if(err){
+                    throw err;
+                }
+            })
+            SendSpecailList(req, res)
+        }
+    }
+    // Thêm sách giảm giá
+    if(req.query.add_sale){
+        if(CheckIDBookExistInList(req.params.id, DS_GiamGia) == false){
+            DS_GiamGia.list.push({
+                id: req.params.id,
+                giam_gia: req.query.add_sale
+            })
+            // Ghi file
+            var jsonFile = JSON.stringify(DS_GiamGia)
+            fs.writeFile(__dirname +  "/../common/danh_sach_dac_biet/danh_sach_giam_gia.json", jsonFile, function(err){
+                if(err) {
+                    throw err
+                }
+            })
+            SendSpecailList(req, res)
+        }
+    }
+    // Thêm sách mới phát hành
+    if(req.query.add_new){
+        if(CheckIDBookExistInList(req.params.id, DS_MoiPhatHanh) == false){
+            DS_MoiPhatHanh.list.push({
+                id: req.params.id,
+                ngay_phat_hanh: req.query.add_new
+            })
+            // Ghi file
+            var jsonFile = JSON.stringify(DS_MoiPhatHanh)
+            fs.writeFile(__dirname +  "/../common/danh_sach_dac_biet/danh_sach_moi_phat_hanh.json", jsonFile, function(err){
+                if(err){
+                    throw err;
+                }
+            })
+            SendSpecailList(req, res)
+        }
+    }
+}
+
+exports.DeleteBookSelling = function(req, res){ 
+    if(req.query.id_sach){
+        for(var i = 0; i < DS_BanChay.list.length; ++i){
+            if(DS_BanChay.list[i].id == req.query.id_sach){
+                DS_BanChay.list.splice(i, 1);
+            }
+        }
+        // Ghi file
+        var jsonFile = JSON.stringify(DS_BanChay)
+        fs.writeFile(__dirname +  "/../common/danh_sach_dac_biet/danh_sach_ban_chay_nhat.json", jsonFile, function(err){
+            if(err){
+                throw err;
+            }
+        })
+        SendSpecailList(req, res)
+    }
+}
+
+exports.DeleteVote = function(req, res){
+    if(req.query.id_sach){
+        for(var i = 0; i < DS_BinhChon.list.length; ++i){
+            if(DS_BinhChon.list[i].id == req.query.id_sach){
+                DS_BinhChon.list.splice(i, 1);
+            }
+        }
+        // Ghi file
+        var jsonFile = JSON.stringify(DS_BinhChon)
+        fs.writeFile(__dirname +  "/../common/danh_sach_dac_biet/danh_sach_binh_chon_cao_nhat.json", jsonFile, function(err){
+            if(err){
+                throw err;
+            }
+        })
+        SendSpecailList(req, res)
+    }
+}
+
+exports.DeleteSale = function(req, res){
+    if(req.query.id_sach){
+        for(var i = 0; i < DS_GiamGia.list.length; ++i){
+            if(DS_GiamGia.list[i].id == req.query.id_sach){
+                DS_GiamGia.list.splice(i, 1);
+            }
+        }
+        // Ghi file
+        var jsonFile = JSON.stringify(DS_GiamGia)
+        fs.writeFile(__dirname +  "/../common/danh_sach_dac_biet/danh_sach_giam_gia.json", jsonFile, function(err){
+            if(err){
+                throw err;
+            }
+        })
+        SendSpecailList(req, res)
+    }
+}
+
+exports.DeleteNewBook = function(req, res){
+    if(req.query.id_sach){
+        for(var i = 0; i < DS_MoiPhatHanh.list.length; ++i){
+            if(DS_MoiPhatHanh.list[i].id == req.query.id_sach){
+                DS_MoiPhatHanh.list.splice(i, 1);
+            }
+        }
+        // Ghi file
+        var jsonFile = JSON.stringify(DS_MoiPhatHanh)
+        fs.writeFile(__dirname +  "/../common/danh_sach_dac_biet/danh_sach_moi_phat_hanh.json", jsonFile, function(err){
+            if(err){
+                throw err;
+            }
+        })
+        SendSpecailList(req, res)
+    }
+}
+
+function SendSpecailList(req, res){
+    var listSach = bookModel.getInforBooksForHome()
+    listSach.then(function(data){
+        //console.log(data)
+        var result = {
+            DS_BanChay: DS_BanChay,
+            DS_BinhChon: DS_BinhChon,
+            DS_GiamGia: DS_GiamGia,
+            DS_MoiPhatHanh: DS_MoiPhatHanh,
+            sach: data
+        }
+        res.render("specail_list_book", {data: result})
+    })
+}
+
 exports.ViewComment = function(req, res){
     var id_sach = req.params.id;
     var listCmt = []
@@ -100,7 +267,7 @@ exports.ViewComment = function(req, res){
                 xml = builder.buildObject(listCmt)
                 fs.writeFile(__dirname +  "/../common/comments/" + id_sach + ".xml",xml, function(err) {
                     if(err) {
-                        return console.log(err);
+                        throw err;
                     }
                 }); 
             }
@@ -123,6 +290,15 @@ exports.index = function(req, res) {
 
 exports.get_create_book = function(req, res) {
     res.render("create_book");
+}
+
+function CheckIDBookExistInList(ID, DS){
+    var len  = DS.list.length
+    for(var i = 0; i < len; ++i){
+        if(ID == DS.list[i].id)
+        return true;
+    }
+    return false
 }
 
 function getDataDetailBook(req, res, thongtin){

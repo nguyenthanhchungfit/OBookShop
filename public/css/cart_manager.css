@@ -1,0 +1,41 @@
+h2{
+    color: #FE980F;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+    margin-bottom: 30px;
+    font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+td, th {
+    border: 2px solid #535151;
+    text-align: center;
+    padding: 8px;
+    width: auto;
+}
+
+th{
+    background: rgba(94, 170, 233, 0.596);
+}
+
+.product-image-wrapper {
+    border: 1px solid #F7F7F5;
+    overflow: hidden;
+    margin-bottom: 30px;
+    margin: 20px;
+}
+h4{
+    text-align: center;
+    margin: 20px;
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/cart_manager.css" />
+</head>
+<body>
+    <div id="danh_sach_dac_biet">
+        <h2>Danh sách đặc biệt</h2>
+    <div id="ds_ban_chay">
+        <div class="product-image-wrapper">
+            <h4>Danh sách bán chạy nhất</h4>
+            <table id="bang_ban_chay">
+                <tr>
+                    <th>ID sách</th>
+                    <th>Số lượng</th>
+                    <th></th>
+                </tr>
+                <%for(var i = 0; i < data.DS_BanChay.list.length; ++i){%>
+                <tr>
+                    <td><%= data.DS_BanChay.list[i].id%></td>
+                    <td><%= data.DS_BanChay.list[i].so_luong%></td>
+                    <td>
+                        <button class="btn btn-success" id="<%= data.DS_BanChay.list[i].id%>" style="background-color: rgb(238, 106, 45);">Xóa</button>
+                    </td>
+                </tr>
+                <%}%>
+            </table>
+            <div id="them_ban_chay" class="row" style="margin-left: 300px; margin-bottom:30px">
+                <div class="col-sm-2">
+                    <p>ID sách</p>
+                    <select id="id_sach_ban_chay">
+                        <%for(var i = 0; i < data.sach.arr.length; ++i){%>
+                        <option><%= data.sach.arr[i].id_sach%></option>
+                        <%}%>
+                    </select>
+                </div>
+                <div class="col-sm-2" style="margin-left: 10px">
+                    <p>Số lượng</p>
+                    <input type="number" id="so_luong_ban_chay" style="width: 80px" value="1" min="1"/>
+                </div>
+                <div class="col-sm-3" style="margin-left: 20px">
+                    <button class="btn btn-success" style="margin-top: 20px">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ds_ban_vote_cao">
+        <div class="product-image-wrapper">
+            <h4>Danh sách bình chọn cao nhất</h4>
+            <table id="bang_vote_cao">
+                <tr>
+                    <th>ID sách</th>
+                    <th>Bình chọn</th>
+                    <th></th>
+                </tr>
+                
+                <%for(var i = 0; i < data.DS_BinhChon.list.length; ++i){%>
+                <tr>
+                    <td><%= data.DS_BinhChon.list[i].id%></td>
+                    <td><%= data.DS_BinhChon.list[i].vote%></td>
+                    <td>
+                        <button class="btn btn-success" id="<%= data.DS_BinhChon.list[i].id%>" style="background-color: rgb(238, 106, 45);">Xóa</button>
+                    </td>
+                </tr>
+                <%}%>
+            </table>
+            <div id="them_binh_chon" class="row" style="margin-left: 300px; margin-bottom:30px">
+                <div class="col-sm-2">
+                    <p>ID sách</p>
+                    <select id="id_sach_binh_chon">
+                        <%for(var i = 0; i < data.sach.arr.length; ++i){%>
+                        <option><%= data.sach.arr[i].id_sach%></option>
+                        <%}%>
+                    </select>
+                </div>
+                <div class="col-sm-2" style="margin-left: 10px">
+                    <p>Bình chọn</p>
+                    <input type="number" id="binh_chon" value="1" min="1" style="width: 80px"/>
+                </div>
+                <div class="col-sm-3" style="margin-left: 20px">
+                    <button class="btn btn-success" style="margin-top: 20px">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ds_giam_gia">
+        <div class="product-image-wrapper">
+            <h4>Danh sách giảm giá</h4>
+            <table id="bang_giam_gia">
+                <tr>
+                    <th>ID sách</th>
+                    <th>Giảm giá</th>
+                    <th></th>
+                </tr>
+                <%for(var i = 0; i < data.DS_GiamGia.list.length; ++i){%>
+                <tr>
+                    <td><%= data.DS_GiamGia.list[i].id%></td>
+                    <td><%= data.DS_GiamGia.list[i].giam_gia%></td>
+                    <td>
+                        <button class="btn btn-success" id="<%= data.DS_GiamGia.list[i].id%>" style="background-color: rgb(238, 106, 45);">Xóa</button>
+                    </td>
+                </tr>
+                <%}%>
+            </table>
+            <div id="them_giam_gia" class="row" style="margin-left: 300px; margin-bottom:30px">
+                <div class="col-sm-2">
+                    <p>ID sách</p>
+                    <select id="id_sach_giam_gia">
+                        <%for(var i = 0; i < data.sach.arr.length; ++i){%>
+                        <option><%= data.sach.arr[i].id_sach%></option>
+                        <%}%>
+                    </select>
+                </div>
+                <div class="col-sm-2" style="margin-left: 10px">
+                    <p>Giảm giá</p>
+                    <input type="number" id="giam_gia" value="1" min="1" style="width: 80px"/>
+                </div>
+                <div class="col-sm-3" style="margin-left: 20px">
+                    <button class="btn btn-success" style="margin-top: 20px">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ds_moi_phat_hanh">
+        <div class="product-image-wrapper">
+            <h4>Danh sách mới phát hành</h4>
+            <table id="bang_moi_phat_hanh">
+                <tr>
+                    <th>ID sách</th>
+                    <th>Giảm giá</th>
+                    <th></th>
+                </tr>
+                <%for(var i = 0; i < data.DS_MoiPhatHanh.list.length; ++i){%>
+                <tr>
+                    <td><%= data.DS_MoiPhatHanh.list[i].id%></td>
+                    <td><%= data.DS_MoiPhatHanh.list[i].ngay_phat_hanh%></td>
+                    <td>
+                        <button class="btn btn-success" id="<%= data.DS_MoiPhatHanh.list[i].id%>" style="background-color: rgb(238, 106, 45);">Xóa</button>
+                    </td>
+                </tr>
+                <%}%>
+            </table>
+            <div id="them_moi_phat_hanh" class="row" style="margin-left: 300px; margin-bottom:30px">
+                <div class="col-sm-2">
+                    <p>ID sách</p>
+                    <select id="id_sach_moi_phat_hanh">
+                        <%for(var i = 0; i < data.sach.arr.length; ++i){%>
+                        <option><%= data.sach.arr[i].id_sach%></option>
+                        <%}%>
+                    </select>
+                </div>
+                <div class="col-sm-2" style="margin-left: 10px">
+                    <p>Giảm giá</p>
+                    <input type="date" id="ngay_phat_hanh"/>
+                </div>
+                <div class="col-sm-3" style="margin-left: 100px">
+                    <button class="btn btn-success" style="margin-top: 20px">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+
+    <script src="../static/js/staff_book.js"></script>
+</body>
+</html>

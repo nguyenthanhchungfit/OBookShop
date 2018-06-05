@@ -37,14 +37,15 @@ exports.GetPostPay = function(req, res){
     var NguoiGui = req.body.nguoigui
     var SDT = req.body.sdt
     var DiaChi = req.body.diachi
-    var Now = new Date()
 
     if(NguoiNhan != "" && NguoiGui != "" && SDT != "" && DiaChi != ""){
         var SoLuongGioHang = cartModel.getNumberCart()
         SoLuongGioHang.then(function(so_luong){
         // Tạo mã đơn hàng
         var Ma_Don_Hang = so_luong + 1
-        
+        var now = new Date()
+        var ngayMua = now.getDay() + "-" + now.getMonth()  + "-" + now.getFullYear()
+
         // Tạo đối tượng ghi vào đơn hàng
         var resultCart = {
             ma_don_hang: Ma_Don_Hang,
@@ -52,7 +53,7 @@ exports.GetPostPay = function(req, res){
             nguoi_gui: NguoiGui,
             dia_chi: DiaChi,
             so_dien_thoai: SDT,
-            ngay_mua: Now,
+            ngay_mua: new Date(),
             trang_thai: 0
         }
         cartModel.AddCartToDatabase(resultCart)
@@ -85,12 +86,19 @@ exports.GetPostPay = function(req, res){
     
 }
 
-exports.UpdateCartPage = function(req, res){
+exports.GetCartManager = function(req, res){
     var listCart = cartModel.GetCart()
     listCart.then(function(don_hang){
         res.render("update_cartPage", {data: don_hang})
     })
 }
+
+// exports.UpdateCartPage = function(req, res){
+//     var listCart = cartModel.GetCart()
+//     listCart.then(function(don_hang){
+//         res.render("update_cartPage", {data: don_hang})
+//     })
+// }
 
 exports.UpDateCart = function(req, res){
     var DonHang = cartModel.getCartByID(req.params.id)
