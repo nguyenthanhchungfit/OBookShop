@@ -18,6 +18,10 @@ table {
     margin-top: 20px;
 }
 
+#bang_don_hang{
+    width: 100%;
+}
+
 td, th {
     border: 2px solid #535151;
     text-align: center;

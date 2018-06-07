@@ -70,9 +70,9 @@ function AddDetailCartToDatabase(Detail_Cart){
     })
 }
 
-function UpdateCartToDatabase(cart){
-    var query = connection.query("UPDATE don_hang SET nguoi_nhan = ?, nguoi_gui = ?, dia_chi = ?, so_dien_thoai = ?, ngay_mua = ?, trang_thai = ? WHERE ma_don_hang = ?",
-     [cart.nguoi_nhan, cart.nguoi_gui, cart.dia_chi, cart.so_dien_thoai, cart.ngay_mua, cart.trang_thai, cart.ma_don_hang], (err, result) => {
+function UpdateCartToDatabase(ID, trang_thai){
+    var query = connection.query("UPDATE don_hang SET trang_thai = ? WHERE ma_don_hang = ?",
+     [trang_thai, ID], (err, result) => {
         if(err) {
             throw err;
         }

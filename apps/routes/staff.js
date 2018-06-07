@@ -38,7 +38,8 @@ router.get("/create_book", booksController.get_create_book);
 // router.get("/updatecart/:id", cartController.UpDateCart)
 // router.post("/updatecart/:id", cartController.UpdateCartToDB)
 
-router.get("/cart_manager", cartController.GetCartManager)
+router.get("/cart_manager", cartController.GetUpdateCart)
+router.get("/update_cart/:id", cartController.UpDateStateCart)
 router.get("/book/specail_list", booksController.SpecailList)
 router.get("/book/specail_list/:id", booksController.AddToSpecailList)
 

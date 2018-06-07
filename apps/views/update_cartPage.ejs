@@ -14,57 +14,70 @@
         <%for(var i = data.length-1; i >= 0; i--){%>
 
         <div class="product-image-wrapper" id="<%= data[i].ma_don_hang%>">
-        <h4>Mã đơn hàng: <%= data[i].ma_don_hang%></h4>
-        <table>
-            <tr>
-                <th>Người nhận</th>
-                <th>Người gửi</th>
-                <th>Địa chỉ</th>
-                <th>Số điện thoại</th>
-                <th>Ngày mua</th>
-            </tr>
-            <tr>
-                <td><%= data[i].nguoi_nhan%></td>
-                <td><%= data[i].nguoi_gui%></td>
-                <td><%= data[i].dia_chi%></td>
-                <td><%= data[i].so_dien_thoai%></td>
-                <td><%= data[i].ngay_mua%></td>
-            </tr>
+            <h4>Mã đơn hàng: <%= data[i].ma_don_hang%></h4>
+            <table id="bang_don_hang">
+                <tr>
+                    <th>Người nhận</th>
+                    <th>Người gửi</th>
+                    <th>Địa chỉ</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày mua</th>
+                </tr>
+                <tr>
+                    <td><%= data[i].nguoi_nhan%></td>
+                    <td><%= data[i].nguoi_gui%></td>
+                    <td><%= data[i].dia_chi%></td>
+                    <td><%= data[i].so_dien_thoai%></td>
+                    <td><%= data[i].ngay_mua%></td>
+                </tr>
             </table>
 
-            <div style="margin:20px" id="cap_nhat">
+            <div style="margin:20px">
             <p>Trạng thái:</p>
-            <div>
-                <form>
+            <div class="row">
+                <div class="col-sm-2" style="margin-top: 5px;">
                 <%if (data[i].trang_thai == 0){%>
-                    <input name="gender" value="XNDG" type="radio" style="margin: 10px;" checked/> Xác nhận đóng gói
-                    <input name="gender" value="LHTK" type="radio" style="margin: 10px;"/> Lấy hàng từ kho
-                    <input name="gender" value="BDGH" type="radio" style="margin: 10px;"/> Bắt đầu giao hàng
-                    <input name="gender" value="HTGH" type="radio" style="margin: 10px;"/> Hoàn tất giao hàng
+                    <select id="<%= data[i].ma_don_hang%>">
+                        <option selected>Xác nhận đóng gói</option>
+                        <option>Lấy hàng từ kho</option>
+                        <option>Bắt đầu giao hàng</option>
+                        <option>Hoàn tất giao hàng</option>
+                    </select>
                 <%}%>
+
                 <%if (data[i].trang_thai == 1){%>
-                    <input name="gender" value="XNDG" type="radio" style="margin: 10px;"/> Xác nhận đóng gói
-                    <input name="gender" value="LHTK" type="radio" style="margin: 10px;" checked/> Lấy hàng từ kho
-                    <input name="gender" value="BDGH" type="radio" style="margin: 10px;"/> Bắt đầu giao hàng
-                    <input name="gender" value="HTGH" type="radio" style="margin: 10px;"/> Hoàn tất giao hàng
+                    <select id="<%= data[i].ma_don_hang%>">
+                        <option>Xác nhận đóng gói</option>
+                        <option selected>Lấy hàng từ kho</option>
+                        <option>Bắt đầu giao hàng</option>
+                        <option>Hoàn tất giao hàng</option>
+                    </select>
                 <%}%>
+
                 <%if (data[i].trang_thai == 2){%>
-                    <input name="gender" value="XNDG" type="radio" style="margin: 10px;"/> Xác nhận đóng gói
-                    <input name="gender" value="LHTK" type="radio" style="margin: 10px;"/> Lấy hàng từ kho
-                    <input name="gender" value="BDGH" type="radio" style="margin: 10px;" checked/> Bắt đầu giao hàng
-                    <input name="gender" value="HTGH" type="radio" style="margin: 10px;"/> Hoàn tất giao hàng
+                    <select id="<%= data[i].ma_don_hang%>">
+                        <option>Xác nhận đóng gói</option>
+                        <option>Lấy hàng từ kho</option>
+                        <option selected>Bắt đầu giao hàng</option>
+                        <option>Hoàn tất giao hàng</option>
+                    </select>
                 <%}%>
-                <%if (data[i].trang_thai == 3){%>
-                    <input name="gender" value="XNDG" type="radio" style="margin: 10px;"/> Xác nhận đóng gói
-                    <input name="gender" value="LHTK" type="radio" style="margin: 10px;"/> Lấy hàng từ kho
-                    <input name="gender" value="BDGH" type="radio" style="margin: 10px;"/> Bắt đầu giao hàng
-                    <input name="gender" value="HTGH" type="radio" style="margin: 10px;" checked/> Hoàn tất giao hàng
+
+                <%if (data[i].trang_thai ==3){%>
+                    <select id="<%= data[i].ma_don_hang%>">
+                        <option>Xác nhận đóng gói</option>
+                        <option>Lấy hàng từ kho</option>
+                        <option>Bắt đầu giao hàng</option>
+                        <option selected>Hoàn tất giao hàng</option>
+                    </select>
                 <%}%>
-                </form>
+                </div>
+                <div class="col-sm-2" id="cap_nhat">
+                    <button class="btn btn-success" id="<%= data[i].ma_don_hang%>" style="margin-left: 30px">Cập nhật</button>
+                </div>
             </div>
-            <button class="btn btn-success" id="<%= data[i].ma_don_hang%>" style="margin-left: 20px; margin: 10px;">Cập nhật</button>
         </div>
-        </div>
+    </div>
     <%}%>
     </div>
 

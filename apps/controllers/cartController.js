@@ -86,88 +86,15 @@ exports.GetPostPay = function(req, res){
     
 }
 
-exports.GetCartManager = function(req, res){
+exports.GetUpdateCart = function(req, res){
     var listCart = cartModel.GetCart()
     listCart.then(function(don_hang){
         res.render("update_cartPage", {data: don_hang})
     })
 }
 
-// exports.UpdateCartPage = function(req, res){
-//     var listCart = cartModel.GetCart()
-//     listCart.then(function(don_hang){
-//         res.render("update_cartPage", {data: don_hang})
-//     })
-// }
-
-exports.UpDateCart = function(req, res){
-    var DonHang = cartModel.getCartByID(req.params.id)
-    DonHang.then(function(don_hang){
-        donhang = don_hang[0]
-        var result = {
-            ma_don_hang: donhang.ma_don_hang,
-            nguoi_gui: donhang.nguoi_gui,
-            nguoi_nhan: donhang.nguoi_nhan,
-            so_dien_thoai: donhang.so_dien_thoai,
-            dia_chi: donhang.dia_chi,
-            ngay_mua: donhang.ngay_mua,
-            trang_thai: donhang.trang_thai
-        }
-        res.render("update_cart", {data: result})
-    })
-}
-
-exports.UpdateCartToDB = function(req, res){
-    var NguoiNhan = req.body.nguoinhan
-    var NguoiGui = req.body.nguoigui
-    var SoDienThoai = req.body.sdt
-    var DiaChi = req.body.diachi
-    var NgayMua = req.body.ngaymua
-    var Gender = req.body.gender
-    var TrangThai = 0
-
-    if(NguoiGui != "" && NguoiNhan != "" && SoDienThoai != "" && DiaChi != "" && NgayMua != ""){
-        if(Gender == "XNDG"){
-            TrangThai = 0
-        }
-        else if(Gender == "LHTK"){
-            TrangThai = 1
-        }
-        else if(Gender == "BDGH"){
-            TrangThai = 2
-        }
-        else{
-            TrangThai = 3
-        }
-        var result = {
-            ma_don_hang: req.params.id,
-            nguoi_gui: NguoiGui,
-            nguoi_nhan: NguoiNhan,
-            so_dien_thoai: SoDienThoai,
-            dia_chi: DiaChi,
-            ngay_mua: NgayMua,
-            trang_thai: TrangThai
-        }
-        cartModel.UpdateCartToDatabase(result)
-        res.redirect("/staff/updatecart")
+exports.UpDateStateCart = function(req, res){
+    if(req.query.trang_thai){
+        cartModel.UpdateCartToDatabase(req.params.id, req.query.trang_thai)
     }
-    else{
-        var DonHang = cartModel.getCartByID(req.params.id)
-        DonHang.then(function(don_hang){
-            donhang = don_hang[0]
-            var result = {
-                ma_don_hang: donhang.ma_don_hang,
-                nguoi_gui: donhang.nguoi_gui,
-                nguoi_nhan: donhang.nguoi_nhan,
-                so_dien_thoai: donhang.so_dien_thoai,
-                dia_chi: donhang.dia_chi,
-                ngay_mua: donhang.ngay_mua,
-                trang_thai: donhang.trang_thai,
-                error: "Không được để thông tin trống"
-            }
-            res.render("update_cart", {data: result})
-        })
-    }
-    
-
 }
