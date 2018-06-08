@@ -1,0 +1,43 @@
+            <h3>Chi tiết giỏ hàng</h3>
+            <%if(data.GioHang.length != 0){%>
+                <%for(var i = 0; i < data.GioHang.length; ++i){%>
+                <div class="product-image-wrapper" style="margin-left: 40px; margin-right: 40px">
+                    <div class="row">
+                    <div class="col-sm-3">
+                            <a href="/book/<%= data.GioHang[i].sach.id_sach%>">
+                                <img src="/static/imgs/category/books/<%= data.GioHang[i].sach.image_sach_url%>"
+                                style="height: 300px; margin-top: 10px"/>
+                            </a>
+                    </div>
+
+                    <div class="col-sm-6">
+                            <div class="row" id="ChiTietGioHang">
+                                <div class="col-sm-8">
+                                    <p class="font16">Tên sách: <%= data.GioHang[i].sach.ten_sach%></p>
+                                    <p class="font16">Giá: <%= data.GioHang[i].sach.gia%></p>
+                                    <p class="font16"> Tác giả: <%= data.GioHang[i].tacgia.ten_tac_gia%></p>
+                                    <input type="button" id="<%= data.GioHang[i].sach.id_sach%>" class="btn btn-success" style="background-color: rgb(235, 93, 57)" value="Xóa"/>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <p class="font16">Số lượng: <%= data.GioHang[i].SoLuong%></p>
+                                    <p class="font16">Tiền: <%= data.GioHang[i].TongTien%></p>
+                                </div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+                <%}%>
+
+                <div>
+                    <h5>Tổng tiền: <%= data.TongTienPhaiTra%> </h5>
+                </div>
+                <div>
+                    <a href="/customer/pay">
+                        <button class="btn btn-success" id="NUT_XEM_THU">Thanh toán</button>
+                    </a>
+                </div>
+            <%}%>
+            <%if(data.GioHang.length == 0){%>
+                <h4 class="Chitiet" style="text-align: center">Giỏ hàng của bạn trống</h4>
+            <%}%>

@@ -35,8 +35,6 @@ router.get("/author/:id", authorController.GetAuthorbyID);
 
 router.get("/publisher/:Name", publisherController.getPublisherByName);
 
-// Đường dẫn đến giỏ hàng
-router.get("/cart", cardController.getDetailCard);
 router.get("/pay", cardController.GetPayPage);
 router.post("/pay", cardController.GetPostPay);
 

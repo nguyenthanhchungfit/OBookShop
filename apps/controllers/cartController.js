@@ -2,7 +2,16 @@ var cartModel = require("../models/cartModel")
 var cartDetail = require("../controllers/cart")
 var bookModel = require("../models/bookModel")
 
-exports.getDetailCard = function(req, res){
+exports.getDetailCardPage = function(req, res){
+    res.render("detail_card");
+}
+
+exports.getDetailCartItems = function(req, res){
+    if(req.query.id){
+        var ID = req.query.id
+        cartDetail.deleteCartbyIDBook(ID, req, res)
+    }
+
     var GioHang = cartDetail.GetCart(req, res)
     var TongTienPhaiTra = cartDetail.GetSumMoney(req, res)
 
@@ -10,7 +19,8 @@ exports.getDetailCard = function(req, res){
         GioHang: GioHang,
         TongTienPhaiTra: TongTienPhaiTra
     }
-    res.render("detail_card", {data: result});
+
+    res.render("detail_cart_items", {data: result});
 }
 
 exports.deleteCartbyIDBook = function(req, res){
