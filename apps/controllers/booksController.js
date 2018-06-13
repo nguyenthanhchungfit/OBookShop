@@ -59,9 +59,17 @@ exports.getBookbyID = function(req, res){
         })
     }
     else {
+        var isUser;
+        if(req.session != null) {
+            isUser = true;
+        }
+        else{
+            isUser = false;
+        }
         var ThongTin = {
             id: id,
-            SoLuong: 1
+            SoLuong: 1,
+            isUser: isUser
         }
         getDataDetailBook(req, res, ThongTin)
     }
@@ -254,7 +262,7 @@ exports.ViewComment = function(req, res){
                 var cmt = {
                     comment: {
                         content: cont,
-                        username: "hello", // session
+                        username: req.session.user.username, // session
                         datetime: new Date().toLocaleString()
                     }
                 }
