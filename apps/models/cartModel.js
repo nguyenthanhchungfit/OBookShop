@@ -37,7 +37,7 @@ function GetCart(){
         return defer.promise
 }
 
-function getNumberCart(){
+function getFinalCart(){
     var defer = q.defer();
         
         var query = connection.query("SELECT * FROM don_hang", function(err, result){
@@ -46,7 +46,8 @@ function getNumberCart(){
             }
             else
             {
-                defer.resolve(result.length)
+                var len = result.length;
+                defer.resolve(result[len - 1]);
             }
         })
         return defer.promise
@@ -81,7 +82,7 @@ function UpdateCartToDatabase(ID, trang_thai){
 
 module.exports = {
     GetCart: GetCart,
-    getNumberCart: getNumberCart,
+    getFinalCart: getFinalCart,
     AddCartToDatabase: AddCartToDatabase,
     AddDetailCartToDatabase: AddDetailCartToDatabase,
     getCartByID: getCartByID,

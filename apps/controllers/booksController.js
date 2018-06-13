@@ -14,7 +14,6 @@ exports.getBookbyID = function(req, res){
     var id = req.params.id;
     if(req.query.so_luong){
         var SoLuong = req.query.so_luong;
-        
         var SachDB = bookModel.getBookbyID(id)
         SachDB.then(function(dataSach){
         sach = dataSach[0]
@@ -36,9 +35,6 @@ exports.getBookbyID = function(req, res){
                 if(sach.so_luong_ton >= SoLuong){
 
                     cartDetail.AddToCart(result, req, res)
-                    // Giảm số lượng sách ở database
-                    var SoLuongTonMoi = sach.so_luong_ton - SoLuong
-                    bookModel.UpdateNumberBook(sach.id_sach, SoLuongTonMoi)
 
                     var ThongTin = {
                         success: "Thêm thành công vào giỏ hàng"

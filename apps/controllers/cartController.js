@@ -3,7 +3,7 @@ var cartDetail = require("../controllers/cart")
 var bookModel = require("../models/bookModel")
 
 exports.getDetailCardPage = function(req, res){
-    res.render("detail_card");
+    res.render("detail_cart");
 }
 
 exports.getDetailCartItems = function(req, res){
@@ -47,12 +47,18 @@ exports.GetPostPay = function(req, res){
     var NguoiGui = req.body.nguoigui
     var SDT = req.body.sdt
     var DiaChi = req.body.diachi
+    var Ma_Don_Hang;
 
     if(NguoiNhan != "" && NguoiGui != "" && SDT != "" && DiaChi != ""){
-        var SoLuongGioHang = cartModel.getNumberCart()
-        SoLuongGioHang.then(function(so_luong){
+        var GioHangCuoi = cartModel.getFinalCart()
+        GioHangCuoi.then(function(data){
         // Tạo mã đơn hàng
-        var Ma_Don_Hang = so_luong + 1
+        if(data != null){
+            Ma_Don_Hang = parseInt(data.ma_don_hang) + 1;
+        }
+        else{
+            Ma_Don_Hang = 1;
+        }
         var now = new Date()
         var ngayMua = now.getDay() + "-" + now.getMonth()  + "-" + now.getFullYear()
 
@@ -83,11 +89,22 @@ exports.GetPostPay = function(req, res){
             }
             cartModel.AddDetailCartToDatabase(resultDetail_Cart)
         }
+        // Giảm số lượng sách ở database
+        for(var i = 0; i < len; ++i){
+            var k = 0;
+            var Sach = bookModel.getBookbyID(Detail_Cart[i].sach.id_sach);
+            Sach.then(function(data){
+                sach = data[0];
+                var SoLuongMoi = sach.so_luong_ton -  Detail_Cart[k].SoLuong;
+                bookModel.UpdateNumberBook(sach.id_sach, SoLuongMoi);
+                k++;
+            })
+        }
 
         // Xóa danh sách đơn hàng khỏi cookie
         res.clearCookie("Detail_Cart")
         // Render
-        res.render("pay", {data: {success: "Chúng tôi sẽ giao hàng đến địa chỉ sớm nhất"}})
+        res.render("pay", {data: {success: "Thanh toán thành công: Chúng tôi sẽ giao hàng đến địa chỉ sớm nhất"}})
         }) 
     }
     else{
