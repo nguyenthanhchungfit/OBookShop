@@ -105,10 +105,8 @@ function isValidAccount(username, password){
         if(checkUserIsExisted(username)){
             console.log("done username");
             getPasswordByUsername(username).then(function(data){
-                console.log("flag", data);
                 defer.resolve(pw_encrypt.comparePassword(password, data));
             }).catch(function(err){
-                console.log("customer - isValidAccount: ", err);
                 defer.reject(err);
             });
         }else{
@@ -116,6 +114,22 @@ function isValidAccount(username, password){
         }
     }
     return defer.promise; 
+}
+
+function getInforDanhSachNguoiDung(){
+    var defer = q.defer();
+    var sql = `SELECT * FROM ${tableName}`;
+    var arr = [];
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{
+            arr.push({username : element.username, email : element.email, so_dien_thoai : element.so_dien_thoai,
+                ho_ten: element.ho_ten, dia_chi : element.dia_chi
+            });
+        });
+        defer.resolve({arr});
+    });
+    return defer.promise;
 }
 
 // Insert
@@ -145,5 +159,6 @@ module.exports = {
     checkPhoneNumberIsExisted : checkPhoneNumberIsExisted,
     checkUserIsExisted : checkUserIsExisted,
     addNewCustomer : addNewCustomer,
-    isValidAccount : isValidAccount
+    isValidAccount : isValidAccount,
+    getInforDanhSachNguoiDung : getInforDanhSachNguoiDung
 }

@@ -117,6 +117,22 @@ function isValidAccount(username, password){
     return defer.promise; 
 }
 
+function getInforDanhSachNhanvien(){
+    var defer = q.defer();
+    var sql = `SELECT * FROM ${tableName}`;
+    var arr = [];
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{
+            arr.push({username : element.username, email : element.email, so_dien_thoai : element.so_dien_thoai,
+                ho_ten: element.ho_ten, dia_chi : element.dia_chi
+            });
+        });
+        defer.resolve({arr});
+    });
+    return defer.promise;
+}
+
 // Insert
 function addNewStaff(staff){
     if(staff){
@@ -144,5 +160,6 @@ module.exports = {
     checkPhoneNumberIsExisted : checkPhoneNumberIsExisted,
     checkUserIsExisted : checkUserIsExisted,
     addNewStaff : addNewStaff,
-    isValidAccount : isValidAccount
+    isValidAccount : isValidAccount,
+    getInforDanhSachNhanvien : getInforDanhSachNhanvien
 }
