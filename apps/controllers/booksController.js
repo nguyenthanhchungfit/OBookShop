@@ -60,7 +60,7 @@ exports.getBookbyID = function(req, res){
     }
     else {
         var isUser;
-        if(req.session != null) {
+        if(req.session.user != null) {
             isUser = true;
         }
         else{

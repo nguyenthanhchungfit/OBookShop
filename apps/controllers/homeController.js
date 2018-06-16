@@ -4,11 +4,13 @@ var managerModel = require("../models/managerModel");
 var categoryModel = require("../models/categoryModel");
 var bookModel = require("../models/bookModel");
 var validator = require("../helpers/validator");
+var pw = require("../helpers/password_encryption");
+
 
 
 
 exports.index = function(req, res){
-    res.render("home");
+    res.render("home.ejs");
 }
 
 exports.get_signup = function(req, res){
@@ -104,7 +106,23 @@ exports.post_signup = function(req, res){
 }
 
 exports.get_login = function(req, res){
-    res.render("login");
+    var session = req.session;
+    if(session){
+        var user = session.user;
+        if(user){
+            if(user.type == 1){
+                res.redirect("/customer");
+            }else if(user.type == 2){
+                res.redirect("/staff");
+            }else if(user.type == 3){
+                res.redirect("/manager");
+            }
+        }else{
+            res.render("login");
+        }
+    }else{
+        res.render("login");
+    } 
 }
 
 exports.post_login = function(req, res){
@@ -118,16 +136,33 @@ exports.post_login = function(req, res){
             err += "Chưa nhập password</br>";
             res.send(err);
         }else{
-            if(customerModel.isValidAccount(body.username, body.password)){
-                res.redirect("home");
-            }else if(staffModel.isValidAccount(body.username, body.password)){
-                res.redirect("staff");
-            }else if(managerModel.isValidAccount(body.username, body.password)){
-                res.redirect("manager");
-            }else{
-                err = "Tài khoản hoặc mật khẩu sai";
-                res.send(err);
-            }
+            customerModel.isValidAccount(body.username, body.password).then(function(isValidCustomer){
+                if(isValidCustomer){
+                    req.session.user = {username : body.username, type : 1};
+                    console.log(req.session.user);
+                    res.redirect("/");
+                    //res.redirect("/customer");
+                }else{
+                    staffModel.isValidAccount(body.username, body.password).then(function(isValidStaff){
+                        if(isValidStaff){
+                            req.session.user = {username : body.username, type : 2};
+                            res.redirect("/staff");
+                        }else{
+                            managerModel.isValidAccount(body.username, body.password).then(function(isValidManager){
+                                if(isValidManager){
+                                    req.session.user = {username : body.username, type : 3};
+                                    res.redirect("/manager");
+                                }else{
+                                    err = "Tài khoản hoặc mật khẩu sai";
+                                    res.send(err);
+                                }
+                            });
+                        }
+                    })
+                }
+            }).catch(function(err){
+
+            });          
         }
     }
 }

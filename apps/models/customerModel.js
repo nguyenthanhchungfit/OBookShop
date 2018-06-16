@@ -84,7 +84,8 @@ function checkPhoneNumberIsExisted(phone){
 function getPasswordByUsername(username){
     if(username){
         var defer = q.defer();
-        var sql = `SELECT * FROM khach_hang WHERE username='${username}'`;
+        var sql = `SELECT * FROM ${tableName} WHERE username='${username}'`;
+        //var sql = `SELECT * FROM khach_hang`;
         conn.query(sql, function(err, result, fields){
             if(err) defer.reject(err);
             var password = "";
@@ -99,23 +100,36 @@ function getPasswordByUsername(username){
 }
 
 function isValidAccount(username, password){
-    var flag = false;
-    console.log(username);
-    console.log(password);
+    var defer = q.defer();
     if(username && password){
         if(checkUserIsExisted(username)){
             console.log("done username");
             getPasswordByUsername(username).then(function(data){
-                console.log(data);
-                flag = pw_encrypt.comparePassword(password, data);
-                console.log(flag);
-                console.log("done password");
+                defer.resolve(pw_encrypt.comparePassword(password, data));
             }).catch(function(err){
-                console.log("customer - isValidAccount: ", err);
+                defer.reject(err);
             });
+        }else{
+            defer.resolve(false);
         }
     }
-    return flag;
+    return defer.promise; 
+}
+
+function getInforDanhSachNguoiDung(){
+    var defer = q.defer();
+    var sql = `SELECT * FROM ${tableName}`;
+    var arr = [];
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{
+            arr.push({username : element.username, email : element.email, so_dien_thoai : element.so_dien_thoai,
+                ho_ten: element.ho_ten, dia_chi : element.dia_chi
+            });
+        });
+        defer.resolve({arr});
+    });
+    return defer.promise;
 }
 
 // Insert
@@ -145,5 +159,6 @@ module.exports = {
     checkPhoneNumberIsExisted : checkPhoneNumberIsExisted,
     checkUserIsExisted : checkUserIsExisted,
     addNewCustomer : addNewCustomer,
-    isValidAccount : isValidAccount
+    isValidAccount : isValidAccount,
+    getInforDanhSachNguoiDung : getInforDanhSachNguoiDung
 }

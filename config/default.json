@@ -10,7 +10,8 @@
         "user" : "root",
         "password" : ""
     },
-    "salt" : 5
+    "salt" : 5,
+    "secret_key" : "secretkey"
 }
 
 
