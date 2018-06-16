@@ -133,6 +133,13 @@ function getInforDanhSachNguoiDung(){
 }
 
 // Insert
+function addNewCustomerToCaching(customer){
+    var customerCache = {username: customer.username, email : customer.email, so_dien_thoai : customer.so_dien_thoai};
+    if(customerDataCaching){
+        customerDataCaching.push(customerCache);
+    }
+}
+
 function addNewCustomer(customer){
     if(customer){
         customer.password = pw_encrypt.encrypt_password(customer.password);
@@ -142,6 +149,7 @@ function addNewCustomer(customer){
             if(err){
                 defer.reject(err);
             }else{
+                addNewCustomerToCaching(customer);
                 defer.resolve(result);
             }
         });
