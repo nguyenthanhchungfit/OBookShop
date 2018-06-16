@@ -118,10 +118,10 @@ exports.get_login = function(req, res){
                 res.redirect("/manager");
             }
         }else{
-            res.render("login");
+            res.render("login", {data: {}});
         }
     }else{
-        res.render("login");
+        res.render("login", {data: {}});
     } 
 }
 
@@ -130,11 +130,11 @@ exports.post_login = function(req, res){
     var err = "";
     if(body.username == ""){
         err += "Chưa nhập username</br>";
-        res.send(err);
+        res.render("login", {data:{error : err}});
     }else{
         if(body.password == ""){
             err += "Chưa nhập password</br>";
-            res.send(err);
+            res.render("login", {data:{error : err}});
         }else{
             customerModel.isValidAccount(body.username, body.password).then(function(isValidCustomer){
                 if(isValidCustomer){
@@ -153,7 +153,7 @@ exports.post_login = function(req, res){
                                     res.redirect("/manager");
                                 }else{
                                     err = "Tài khoản hoặc mật khẩu sai";
-                                    res.send(err);
+                                    res.render("login", {data:{error : err}});
                                 }
                             });
                         }
