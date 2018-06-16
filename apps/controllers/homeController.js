@@ -4,7 +4,7 @@ var managerModel = require("../models/managerModel");
 var categoryModel = require("../models/categoryModel");
 var bookModel = require("../models/bookModel");
 var validator = require("../helpers/validator");
-var pw = require("../helpers/password_encryption");
+var pw_encrypt = require("../helpers/password_encryption");
 
 
 
