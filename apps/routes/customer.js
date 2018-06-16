@@ -4,7 +4,21 @@ var router = express.Router();
 const customerController = require("../controllers/customerController");
 var cartController = require("../controllers/cartController");
 
+// Trang cho người dùng
 router.get("/", customerController.index);
+
+router.get("/dashboard", customerController.dashboard);
+
+// Trang thông tin người dùng
+router.get("/information", customerController.information);
+
+// Chỉnh sửa thông tin người dùng
+router.get("/edit_information", customerController.edit_information);
+
+// Đổi mật khẩu người dùng
+router.get("/change_password", customerController.change_password);
+// Thông tin đơn hàng
+router.get("/orders", customerController.orders);
 
 router.get("/logout", customerController.logout);
 

@@ -132,6 +132,23 @@ function getInforDanhSachNguoiDung(){
     return defer.promise;
 }
 
+function getInforCustomerByUsername(username){
+    var defer = q.defer();
+    var user;
+    var sql = `SELECT * FROM ${tableName} WHERE username = '${username}'`;
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{
+            user = {username : element.username, email : element.email, so_dien_thoai : element.so_dien_thoai,
+                ho_ten: element.ho_ten, dia_chi : element.dia_chi
+            };
+        });
+        defer.resolve({user});
+    });
+    return defer.promise;
+}
+
+
 // Insert
 function addNewCustomerToCaching(customer){
     var customerCache = {username: customer.username, email : customer.email, so_dien_thoai : customer.so_dien_thoai};
@@ -168,5 +185,6 @@ module.exports = {
     checkUserIsExisted : checkUserIsExisted,
     addNewCustomer : addNewCustomer,
     isValidAccount : isValidAccount,
-    getInforDanhSachNguoiDung : getInforDanhSachNguoiDung
+    getInforDanhSachNguoiDung : getInforDanhSachNguoiDung,
+    getInforCustomerByUsername : getInforCustomerByUsername
 }
