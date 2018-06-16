@@ -9,7 +9,9 @@ router.get("/", customerController.index);
 router.get("/logout", customerController.logout);
 
 // Giỏ hàng
-router.get("/cart", cartController.getDetailCard);
+router.get("/cart", cartController.getDetailCardPage);
+
+router.get("/detail_cart", cartController.getDetailCartItems)
 // Xóa một sản phẩm trong giỏ hàng
 router.get("/cart/delete/:id", cartController.deleteCartbyIDBook);
 // Thanh toán

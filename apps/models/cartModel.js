@@ -37,7 +37,7 @@ function GetCart(){
         return defer.promise
 }
 
-function getNumberCart(){
+function getFinalCart(){
     var defer = q.defer();
         
         var query = connection.query("SELECT * FROM don_hang", function(err, result){
@@ -46,7 +46,8 @@ function getNumberCart(){
             }
             else
             {
-                defer.resolve(result.length)
+                var len = result.length;
+                defer.resolve(result[len - 1]);
             }
         })
         return defer.promise
@@ -70,9 +71,9 @@ function AddDetailCartToDatabase(Detail_Cart){
     })
 }
 
-function UpdateCartToDatabase(cart){
-    var query = connection.query("UPDATE don_hang SET nguoi_nhan = ?, nguoi_gui = ?, dia_chi = ?, so_dien_thoai = ?, ngay_mua = ?, trang_thai = ? WHERE ma_don_hang = ?",
-     [cart.nguoi_nhan, cart.nguoi_gui, cart.dia_chi, cart.so_dien_thoai, cart.ngay_mua, cart.trang_thai, cart.ma_don_hang], (err, result) => {
+function UpdateCartToDatabase(ID, trang_thai){
+    var query = connection.query("UPDATE don_hang SET trang_thai = ? WHERE ma_don_hang = ?",
+     [trang_thai, ID], (err, result) => {
         if(err) {
             throw err;
         }
@@ -81,7 +82,7 @@ function UpdateCartToDatabase(cart){
 
 module.exports = {
     GetCart: GetCart,
-    getNumberCart: getNumberCart,
+    getFinalCart: getFinalCart,
     AddCartToDatabase: AddCartToDatabase,
     AddDetailCartToDatabase: AddDetailCartToDatabase,
     getCartByID: getCartByID,

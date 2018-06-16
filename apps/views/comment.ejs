@@ -1,0 +1,12 @@
+<%if(data){%>
+    <% for(var i = 0; i < data.length; ++i){%>
+        <div class="row" style="padding: 10px">    
+            <div class="col-sm-2" style="margin-left: 20px;">
+                <p  style="color: blue; text-align: center"><%= data[i].comment.username %></p>  
+                <p style="text-align: center"><%= data[i].comment.datetime %></p>
+            </div>
+                <p class="col-sm-8"><%= data[i].comment.content %></p>         
+            </div>
+        <hr/>
+    <%}%>
+<%}%>
