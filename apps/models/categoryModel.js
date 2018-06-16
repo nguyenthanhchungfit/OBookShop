@@ -61,7 +61,7 @@ function addNewCategory(category){
     if(category){
         var defer = q.defer();
         var sql = `INSERT INTO ${tableName} VALUES ( ? , ? )`;
-        var query = connection.query(sql, [category.id, category.ten_the_loai], function(err, result){
+        var query = connection.query(sql, [category.id, category.ten], function(err, result){
             if(err){
                 defer.reject(err);
             }else{

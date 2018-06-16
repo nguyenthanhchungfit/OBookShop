@@ -1,6 +1,6 @@
 var publisherModel = require("../models/publisherModel")
 var bookModel = require("../models/bookModel")
-
+var url = require("url")
 exports.getPublisherByName = function (req, res) {
     // Lấy danh sách nxb từ tên nxb
     var ListNXB = publisherModel.getPublisherbyName(req.params.Name)
@@ -71,4 +71,87 @@ exports.post_create_publisher = function (req, res) {
         }
     });
 
+}
+exports.get_update_publisher = function (req, res) {
+
+    // Lấy chi tiết của tác giả
+    // Lấy đường link trang web
+    var web = req.url;
+    var q = url.parse(web, true);
+    // Lấy tham số id
+    var qdata = q.query;
+    console.log(qdata.id);
+    var id_publisher = publisherModel.getPublisherbyName(qdata.id);
+    id_publisher.then(function (publisher) {
+        nxb = publisher[0];
+        var result;
+        console.log(nxb);
+        // Nếu nhập ID không tồn tại
+        if (!nxb) {
+            // Cho kết quả trả về rỗng và báo lỗi.
+            result = {
+                nxb: empty = {
+                    nam_thanh_lap: "",
+                    dia_chi: ""
+                },
+                error: "Nhà xuất bản không tồn tại"
+            }
+            res.render("update_publisher", { data: result });
+        }
+        else {
+            result = {
+                nxb: nxb,
+                id: qdata.id
+            }
+            res.render("update_publisher", { data: result });
+        }
+    })
+}
+
+exports.post_update_publisher = function (req, res) {
+    //*********** Xử lý dữ liệu từ client
+
+    // Lấy đường link trang web
+    var web = req.url;
+    var q = url.parse(web, true);
+    // Lấy tham số id
+    var qdata = q.query;
+
+    var body = req.body;
+
+    var publisher = {
+        nam_thanh_lap: body.nam_thanh_lap,
+        dia_chi: body.dia_chi
+    }
+
+    console.log(publisher);
+
+    var deter_ten = -1;
+
+    //**********8 Xử lý lỗi
+    var error = "";
+
+    console.log("Before xử lý kq trả về");
+    if (error != "") {
+        res.render("update_publisher", { data: { error: error } });
+    } else {
+        var check = publisherModel.updatePublisher(qdata.id, publisher);
+        if (!check) {
+            res.render("update_publisher", { data: { error: "Cập nhật nhà xuất bản thất bại!" } });
+        }
+    }
+
+    // Get lại dữ liệu
+    var id_publisher = publisherModel.getPublisherbyName(qdata.id);
+    id_publisher.then(function (publisher) {
+        nxb = publisher[0];
+        var result;
+        console.log(tac_gia);
+        result = {
+            nxb: nxb,
+            success: "Câp nhật nhà xuất bản thành công",
+            id: qdata.id
+        }
+        res.render("update_publisher", { data: result });
+    })
 }

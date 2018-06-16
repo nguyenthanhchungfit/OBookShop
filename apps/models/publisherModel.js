@@ -4,30 +4,28 @@ var db = require("../common/database");
 var connection = db.getConnection();
 const tableName = "nha_xuat_ban";
 // Lấy danh sách nhà xuất bản
-function getPublisher(){
+function getPublisher() {
+    var arr = [];
     var defer = q.defer();
-        var query = connection.query("SELECT * FROM nha_xuat_ban", function(err, result){
-            if(err){
-                defer.reject(err)
-            }
-            else
-            {
-                defer.resolve(result)
-            }
-        })
-        return defer.promise
+    var query = connection.query("SELECT * FROM nha_xuat_ban", function (err, result) {
+        if (err) defer.reject(err);
+        result.forEach(element => {
+            arr.push({ ten_nxb: element.ten_nxb, nam_thanh_lap: element.nam_thanh_lap, dia_chi : element.dia_chi });
+        });
+        defer.resolve({ arr });
+    })
+    return defer.promise
 }
 
 // Lấy thông tin nhà xuất bản từ Tên NXB
-function getPublisherbyName(Name){
-    if(Name){
+function getPublisherbyName(Name) {
+    if (Name) {
         var defer = q.defer();
-        var query = connection.query("SELECT * FROM nha_xuat_ban WHERE ?", {ten_nxb: Name}, function(err, result){
-            if(err){
+        var query = connection.query("SELECT * FROM nha_xuat_ban WHERE ?", { ten_nxb: Name }, function (err, result) {
+            if (err) {
                 defer.reject(err)
             }
-            else
-            {
+            else {
                 defer.resolve(result)
             }
         })
@@ -38,17 +36,17 @@ function getPublisherbyName(Name){
 
 
 // validator
-function checkNameIsExisted(name){
-    if(name){
+function checkNameIsExisted(name) {
+    if (name) {
         var defer = q.defer();
         var sql = `SELECT * FROM ${tableName} WHERE ten_nxb = "${name}"`;
-        var query = connection.query(sql, function(err, result, fields){
-            if(err) defer.reject(err);
-            if(result.length == 0){
+        var query = connection.query(sql, function (err, result, fields) {
+            if (err) defer.reject(err);
+            if (result.length == 0) {
                 console.log(0);
                 defer.resolve(false);
-                
-            }else{
+
+            } else {
                 console.log(1);
                 defer.resolve(true);
             }
@@ -59,14 +57,14 @@ function checkNameIsExisted(name){
     return false;
 }
 // Insert
-function addNewPublisher(publisher){
-    if(publisher){
+function addNewPublisher(publisher) {
+    if (publisher) {
         var defer = q.defer();
         var sql = `INSERT INTO ${tableName} VALUES ( ? , ? , ? )`;
-        var query = connection.query(sql, [publisher.ten_nxb, publisher.nam_thanh_lap, publisher.dia_chi], function(err, result){
-            if(err){
+        var query = connection.query(sql, [publisher.ten_nxb, publisher.nam_thanh_lap, publisher.dia_chi], function (err, result) {
+            if (err) {
                 defer.reject(err);
-            }else{
+            } else {
                 defer.resolve(result);
             }
         });
@@ -76,10 +74,25 @@ function addNewPublisher(publisher){
 }
 
 // Update
-
+function updatePublisher(id, publisherNew) {
+    if (id && publisherNew) {
+        var defer = q.defer();
+        var sql = `UPDATE ${tableName} SET nam_thanh_lap = ? , dia_chi = ?  WHERE ten_nxb = ?`;
+        var query = connection.query(sql, [publisherNew.nam_thanh_lap, publisherNew.dia_chi, id], function (err, result) {
+            if (err) {
+                defer.reject(err);
+            } else {
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+}
 module.exports = {
     getPublisher: getPublisher,
     getPublisherbyName: getPublisherbyName,
     checkNameIsExisted: checkNameIsExisted,
-    addNewPublisher: addNewPublisher
+    addNewPublisher: addNewPublisher,
+    updatePublisher: updatePublisher
 }
