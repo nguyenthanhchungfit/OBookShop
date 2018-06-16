@@ -117,54 +117,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="account-wrap">
-                                    <div class="account-item clearfix js-item-menu">
-                                        <div class="image">
-                                            <img src="static/imgs/icon/avatar-01.jpg" alt="John Doe" />
-                                        </div>
-                                        <div class="content">
-                                            <a class="js-acc-btn" href="#"><%=user.username%></a>
-                                        </div>
-                                        <div class="account-dropdown js-dropdown">
-                                            <div class="info clearfix">
-                                                <div class="image">
-                                                    <a href="#">
-                                                        <img src="static/imgs/icon/avatar-01.jpg" alt="John Doe" />
-                                                    </a>
-                                                </div>
-                                                <div class="content">
-                                                    <h5 class="name">
-                                                        <a href="#">john doe</a>
-                                                    </h5>
-                                                    <span class="email">johndoe@example.com</span>
-                                                </div>
-                                            </div>
-                                            <div class="account-dropdown__body">
-                                                <div class="account-dropdown__item">
-                                                    <a href="/infor">
-                                                        <i class="zmdi zmdi-account"></i>Account</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="/edit">
-                                                        <i class="far fa-edit"></i>Chỉnh sửa thông tin</a>
-                                                </div>
-
-                                                <div class="account-dropdown__item">
-                                                    <a href="/change_password">
-                                                        <i class="fas fa-user-circle"></i>Đổi mật khẩu</a>
-                                                </div>
-                                                <div class="account-dropdown__item">
-                                                    <a href="/orders">
-                                                        <i class="fas fa-cart-arrow-down"></i>Thông tin đơn hàng</a>
-                                                </div>
-                                            </div>
-                                            <div class="account-dropdown__footer">
-                                                <a href="/customer/logout">
-                                                    <i class="zmdi zmdi-power"></i>Logout</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <%- include acc_customer_thumbnail%>
                             </div>
                         </div>
                     </div>

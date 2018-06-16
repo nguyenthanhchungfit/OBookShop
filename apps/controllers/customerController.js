@@ -5,11 +5,12 @@ exports.index = function(req, res){
     if(!user){
         res.redirect("login");
     }else{
-        res.render("customer/index", {user : user}); 
+        var image_link = "static/imgs/users/customer/" + user.username + ".jpg";
+        res.render("customer/index", {data : {user : user, image_link : image_link}}); 
     }
 }
 
 exports.logout = function(req, res){
     req.session.user = null;
-    res.redirect("../login");
+    res.redirect("../");
 }
