@@ -11,7 +11,6 @@ var pw_encrypt = require("../helpers/password_encryption");
 
 exports.index = function(req, res){
     var user = req.session.user;
-    console.log(user);
     if(!user){
         res.render("home.ejs", {data : {}});
     }else{
