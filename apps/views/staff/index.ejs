@@ -51,16 +51,25 @@
                                 <i class="fas fa-book"></i>Quản lý sách</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a>Thêm sách</a>
+                                    <p>Thêm sách</p>
                                 </li>
-                                <li>
-                                    <a>Xóa sách</a>
+                                <li id="delete_update_book">
+                                    <p>Xóa, chỉnh sửa sách</p>
                                 </li>
-                                <li>
-                                    <a>Chỉnh sửa sách</a>
+                                <li id="ban_chay">
+                                    <p>Top sách bán chạy</p>
                                 </li>
-                                <li id="ds_dac_biet">
-                                    <p>Thêm sách vào danh sách đặc biệt</p>
+
+                                <li id="binh_chon_cao">
+                                    <p>Top sách bình chọn cao</p>
+                                </li>
+
+                                <li id="giam_gia">
+                                    <p>Top sách giảm giá</p>
+                                </li>
+
+                                <li id="moi_phat_hanh">
+                                    <p>Top sách mới phát hành</p>
                                 </li>
                             </ul>
                         </li>
@@ -105,7 +114,7 @@
                                 <i class="fas fa-cart-arrow-down"></i>Quản lý đơn hàng</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li id="don_hang">
-                                    <p>Cập nhật thông tin đơn hàng</p>
+                                    <p>Cập nhật trạng thái đơn hàng</p>
                                 </li>
                             </ul>
                         </li>
@@ -159,7 +168,7 @@
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="content">
                                             <!-- Link thông tin user -->
-                                            <a class="js-acc-btn">Username</a>
+                                            <a class="js-acc-btn"></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="account-dropdown__body">
@@ -169,7 +178,7 @@
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
+                                                <a href="/login">
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>
@@ -215,6 +224,7 @@
     <!-- Main JS-->
     <script src="static/js/main_admin.js"></script>
     <script src="static/js/staff_cart.js"></script>
+    <script src="static/js/staff_book.js"></script>
 </body>
 
 </html>

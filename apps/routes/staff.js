@@ -32,21 +32,42 @@ router.post("/update_category", categoryController.post_update_category);
 
 router.get("/create_book", booksController.get_create_book);
 
+// Xóa sách
+router.get("/book/delete_book/:id", booksController.Delete_Book);
 
-// Cập nhật thông tin đơn hàng
-// router.get("/updatecart", cartController.UpdateCartPage)
-// router.get("/updatecart/:id", cartController.UpDateCart)
-// router.post("/updatecart/:id", cartController.UpdateCartToDB)
+
+// Xóa tác giả
+router.get("/author/delete_author/:id", authorsController.Delete_Author);
+
+// Xóa nhà xuất bản
+router.get("/publisher/delete_publisher/:Name", publisherController.Delete_Publisher);
+
+// Danh sách đặc biệt
+router.get("/top_selling", booksController.Top_Selling_Book);
+router.get("/add_top_selling/:id", booksController.Add_Selling);
+router.get("/delete_selling/:id", booksController.Delete_Selling);
+
+router.get("/top_vote", booksController.Top_Vote_Book);
+router.get("/add_top_vote/:id", booksController.Add_Vote);
+router.get("/delete_vote/:id", booksController.Delete_Vote);
+
+router.get("/top_sale", booksController.Top_Sale_Book);
+router.get("/add_top_sale/:id", booksController.Add_Sale);
+router.get("/delete_sale/:id", booksController.Delete_Sale);
+
+router.get("/top_new", booksController.Top_New_Book);
+router.get("/add_top_new/:id", booksController.Add_New);
+router.get("/delete_new/:id", booksController.Delete_New);
 
 router.get("/cart_manager", cartController.GetUpdateCart)
 router.get("/update_cart/:id", cartController.UpDateStateCart)
-router.get("/book/specail_list", booksController.SpecailList)
-router.get("/book/specail_list/:id", booksController.AddToSpecailList)
+//router.get("/book/specail_list", booksController.SpecailList)
+//router.get("/book/specail_list/:id", booksController.AddToSpecailList)
 
 // Xóa sách thuộc danh sách đặc biệt
-router.get("/book/delete_selling", booksController.DeleteBookSelling)
-router.get("/book/delete_vote", booksController.DeleteVote)
-router.get("/book/delete_sale", booksController.DeleteSale)
-router.get("/book/delete_newbook", booksController.DeleteNewBook)
+
+// router.get("/book/delete_vote", booksController.DeleteVote)
+// router.get("/book/delete_sale", booksController.DeleteSale)
+// router.get("/book/delete_newbook", booksController.DeleteNewBook)
 
 module.exports = router;

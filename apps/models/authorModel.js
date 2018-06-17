@@ -27,8 +27,15 @@ function getAuthorbyIDBook(ID){
                 defer.reject(err)
             }
             else
-            {
-                defer.resolve(result)
+            {   
+                if(result[0]){
+                    defer.resolve(result);
+                }
+                else{
+                    var result = "Không xác định";
+                    defer.resolve(result);
+                }
+                
             }
         })
         return defer.promise
@@ -45,7 +52,7 @@ function getAuthorbyID(ID){
             }
             else
             {
-                defer.resolve(result)
+                defer.resolve(result);
             }
         })
         return defer.promise
@@ -109,11 +116,50 @@ function updateAuthor(id, authorNew){
     return false;
 }
 
+// Xóa tác giả khỏi database
+function Delete_Author(ID_TG){
+    if(ID_TG){
+        // Xóa ID sách trong bang sach_tac_gia:
+        var query = connection.query("DELETE FROM sach_tac_gia WHERE ?",{id_tac_gia: ID_TG}, function(err, result){
+            if(err){
+                throw err;
+            }
+        })
+        // Xóa ID sách trong bảng sach
+        var query = connection.query("DELETE FROM tac_gia WHERE ?",{id_tac_gia: ID_TG}, function(err, result){
+            if(err){
+                throw err;
+            }
+        })
+        console.log("Deleted Author " + ID_TG);
+    }
+}
+
+// Kiểm tra mã sách có tồn tại trong sach_tac_gia không
+function CheckIDBook_IDAuthor(IDBook){
+    var query = connection.query("SELECT * FROM tac_gia", function(err, result){
+        if(err){
+            defer.reject(err)
+        }
+        else
+        {
+            var len = result.length;
+            for(var i = 0; i < len; ++i){
+                if(IDBook == result[i].id_sach)
+                    return true;
+            }
+        }
+    })
+    return fasle;
+}
+
 module.exports = {
     getAuthorbyIDBook: getAuthorbyIDBook,
     getAuthorbyID: getAuthorbyID,
     checkIDIsExisted: checkIDIsExisted,
     addNewAuthor: addNewAuthor,
     updateAuthor: updateAuthor,
-    getAuthor: getAuthor
+    getAuthor: getAuthor,
+    CheckIDBook_IDAuthor: CheckIDBook_IDAuthor,
+    Delete_Author: Delete_Author
 }

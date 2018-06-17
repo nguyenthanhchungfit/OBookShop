@@ -72,3 +72,8 @@ exports.post_create_publisher = function (req, res) {
     });
 
 }
+
+// Xóa NXB
+exports.Delete_Publisher = function(req, res){
+    publisherModel.Delete_Publisher(req.params.Name);
+}

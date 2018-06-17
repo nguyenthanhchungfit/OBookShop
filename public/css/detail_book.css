@@ -66,15 +66,18 @@ h3:before {
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 70%;
     margin-bottom: 30px;
     font-size: 15px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 td, th {
     border: 2px solid #535151;
     text-align: left;
     padding: 8px;
+    text-align: center;
 }
 
 th{

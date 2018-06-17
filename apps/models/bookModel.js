@@ -128,13 +128,32 @@ function getBookbyNamePublihser(Name){
     return false
 }
 
-// Giàm số lượng sách
+// Giảm số lượng sách
 function UpdateNumberBook(IDbook, newNuber){
     var query = connection.query("UPDATE sach SET so_luong_ton = ? WHERE id_sach = ?", [newNuber, IDbook], (err, result) => {
         if(err) {
             throw err;
         }
     })
+}
+
+// Xóa sách khỏi database
+function DeleteBook(IDBook){
+    if(IDBook){
+        // Xóa ID sách trong bang sach_tac_gia:
+        var query = connection.query("DELETE FROM sach_tac_gia WHERE ?",{id_sach: IDBook}, function(err, result){
+            if(err){
+                throw err;
+            }
+        })
+        // Xóa ID sách trong bảng sach
+        var query = connection.query("DELETE FROM sach WHERE ?",{id_sach: IDBook}, function(err, result){
+            if(err){
+                throw err;
+            }
+        })
+        console.log("Deleted book " + IDBook);
+    }
 }
 
 module.exports = {
@@ -144,5 +163,6 @@ module.exports = {
     getBookbyIDCategory: getBookbyIDCategory,
     getBookbyIDAuthor: getBookbyIDAuthor,
     getBookbyNamePublihser: getBookbyNamePublihser,
-    UpdateNumberBook: UpdateNumberBook
+    UpdateNumberBook: UpdateNumberBook,
+    DeleteBook: DeleteBook
 }
