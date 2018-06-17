@@ -63,10 +63,10 @@
             <div class="col-sm-2">
                 <h3>Tác giả khác</h3>
                 <div class="product-image-wrapper">
-                    <%for(var i = 0; i < data.listTacGia.length; ++i){%>
-                    <%if(data.listTacGia[i].id_tac_gia != data.tacgia.id_tac_gia){%>
-                    <a href="<%= data.listTacGia[i].id_tac_gia%>">
-                        <p class="font16" style="margin: 10px; margin-left: 25px; color: black"><%= data.listTacGia[i].ten_tac_gia%></p>
+                    <%for(var i = 0; i < data.listTacGia.arr.length; ++i){%>
+                    <%if(data.listTacGia.arr[i].id_tac_gia != data.tacgia.id_tac_gia){%>
+                    <a href="<%= data.listTacGia.arr[i].id_tac_gia%>">
+                        <p class="font16" style="margin: 10px; margin-left: 25px; color: black"><%= data.listTacGia.arr[i].ten_tac_gia%></p>
                     </a>
                     <%}%>
                 <%}%>

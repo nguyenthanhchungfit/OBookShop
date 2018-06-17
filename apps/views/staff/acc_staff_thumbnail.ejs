@@ -1,0 +1,50 @@
+<div class="account-wrap">
+    <div class="account-item clearfix js-item-menu">
+        <div class="image">
+            <img src="<%=data.image_link%>" alt="data.user.username" />
+        </div>
+        <div class="content">
+            <a class="js-acc-btn" href="#"><%=data.user.username%></a>
+        </div>
+        <div class="account-dropdown js-dropdown">
+            <div class="info clearfix">
+                <div class="image">
+                    <a href="#">
+                        <img src="<%=data.image_link%>" alt="<%=data.user.username%>" />
+                    </a>
+                </div>
+                <div class="content">
+                    <h5 class="name">
+                        <a href="#"><%=data.user.username%></a>
+                    </h5>
+                    <span class="email"><%=data.user.email%></span>
+                </div>
+            </div>
+            <div class="account-dropdown__body">
+
+                <div class="account-dropdown__item">
+                    <a href="./dashboard">
+                        <i class="zmdi zmdi-account"></i>Dashboard</a>
+                </div>
+
+                <div class="account-dropdown__item">
+                    <a href="./information">
+                        <i class="zmdi zmdi-account"></i>Xem thông tin</a>
+                </div>
+                <div class="account-dropdown__item">
+                        <a href="./edit_information">
+                            <i class="far fa-edit"></i>Chỉnh sửa thông tin</a>
+                </div>
+
+                <div class="account-dropdown__item">
+                    <a href="./change_password">
+                        <i class="fas fa-user-circle"></i>Đổi mật khẩu</a>
+                </div>
+            </div>
+            <div class="account-dropdown__footer">
+                <a href="/staff/logout">
+                    <i class="zmdi zmdi-power"></i>Logout</a>
+                </div>
+        </div>
+    </div>
+</div>

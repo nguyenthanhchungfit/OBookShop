@@ -11,6 +11,8 @@ const publisherController = require("../controllers/publisherController");
 
 router.get("/", staffController.index);
 
+router.get("/logout", staffController.logout);
+
 router.get("/create_author", authorsController.get_create_author);
 
 router.post("/create_author", authorsController.post_create_author);
@@ -34,7 +36,7 @@ router.post("/update_category", categoryController.post_update_category);
 router.get("/create_book", booksController.get_create_book);
 
 // Xóa sách
-router.get("/book/delete_book/:id", booksController.Delete_Book);
+//router.get("/book/delete_book/:id", booksController.delete_book);
 
 
 // Xóa tác giả
@@ -66,9 +68,9 @@ router.get("/add_top_new/:id", booksController.Add_New);
 router.get("/delete_new/:id", booksController.Delete_New);
 
 // Xóa sách
-router.get("/delete_book/:id", booksController.delete_book); 
-router.get("/delete_author/:id", authorsController.delete_author)
-router.get("/delete_publisher/:Name", publisherController.delete_publisher)
+// router.get("/delete_book/:id", booksController.delete_book); 
+// router.get("/delete_author/:id", authorsController.delete_author)
+// router.get("/delete_publisher/:Name", publisherController.delete_publisher)
 
 // Cập nhật thông tin đơn hàng
 // router.get("/updatecart", cartController.UpdateCartPage)

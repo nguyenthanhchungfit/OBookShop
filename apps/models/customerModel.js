@@ -31,7 +31,6 @@ function GetCustomerByUsername(user){
             }
             else
             {
-                console.log(result);
                 defer.resolve(result)
             }
         })
@@ -298,5 +297,8 @@ module.exports = {
     getImageUrlByUsername : getImageUrlByUsername,
     checkEmailIsExistedWithUsername : checkEmailIsExistedWithUsername,
     checkPhoneNumberIsExistedWithUsername : checkPhoneNumberIsExistedWithUsername,
-    updateNewInformation : updateNewInformation
+    updateNewInformation : updateNewInformation,
+    GetCustomerByUsername: GetCustomerByUsername,
+    UpdatePoint: UpdatePoint
+
 }

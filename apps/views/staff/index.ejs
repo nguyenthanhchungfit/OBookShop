@@ -94,13 +94,8 @@
                             <a class="js-arrow" href="#">
                                 <i class="fab fa-leanpub"></i>Quản lý nhà xuất bản</a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
-<<<<<<< HEAD
-                                <li id="them_nha_xuat_ban">
-                                    <a href="/staff/create_publisher">Thêm nhà xuất bản</a>
-=======
                                 <li>
                                     <a>Thêm nhà xuất bản</a>
->>>>>>> test
                                 </li>
                                 <li>
                                     <a>Xóa nhà xuất bản</a>
@@ -120,6 +115,11 @@
                                     <p>Cập nhật trạng thái đơn hàng</p>
                                 </li>
                             </ul>
+                        </li>
+
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="/change_password">
+                                <i class="fas fa-user-circle"></i>Đổi mật khẩu</a>
                         </li>
                     </ul>
                 </nav>
@@ -171,7 +171,7 @@
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="content">
                                             <!-- Link thông tin user -->
-                                            <a class="js-acc-btn"></a>
+                                            <a class="js-acc-btn"><%= data%></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="account-dropdown__body">
@@ -181,7 +181,7 @@
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="/login">
+                                                <a href="/staff/logout">
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>

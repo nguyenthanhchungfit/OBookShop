@@ -152,6 +152,7 @@ exports.UpDateStateCart = function(req, res){
                             var DiemThuong = TongTien/10000;
                             console.log("--> Diem thuong: " + DiemThuong);
                             
+                           
                             var Khach_hang = customerModel.GetCustomerByUsername(don_hang.nguoi_gui);
                             Khach_hang.then(function(data){
                                 var diem = data[0].diem_tich_luy;
