@@ -28,12 +28,11 @@ $("#don_hang").on("click","p", function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                
+                alert(this.responseText);
             }
         };
         xhttp.open("GET", "/staff/update_cart/"+ id_don_hang + "/?trang_thai=" + trang_thai, true);
         xhttp.send();
-        alert("Cập nhật thành công")
     }
  });
 

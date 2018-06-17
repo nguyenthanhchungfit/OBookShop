@@ -1,6 +1,7 @@
 var cartModel = require("../models/cartModel")
 var cartDetail = require("../controllers/cart")
 var bookModel = require("../models/bookModel")
+var customerModel = require("../models/customerModel");
 
 exports.getDetailCardPage = function(req, res){
     res.render("detail_cart");
@@ -43,8 +44,14 @@ exports.GetPayPage = function(req, res){
 }
 
 exports.GetPostPay = function(req, res){
+    var NguoiGui;
+    if(req.session.user != null){
+        NguoiGui = req.session.user.username;
+    }
+    else{
+        NguoiGui = req.body.nguoigui
+    }
     var NguoiNhan = req.body.nguoinhan
-    var NguoiGui = req.body.nguoigui
     var SDT = req.body.sdt
     var DiaChi = req.body.diachi
     var Ma_Don_Hang;
@@ -121,7 +128,42 @@ exports.GetUpdateCart = function(req, res){
 }
 
 exports.UpDateStateCart = function(req, res){
+    var id_don_hang = req.params.id;
     if(req.query.trang_thai){
-        cartModel.UpdateCartToDatabase(req.params.id, req.query.trang_thai)
+        
+        var DonHang = cartModel.getCartByID(id_don_hang);
+        DonHang.then(function(data){
+            var don_hang = data[0];
+            if(don_hang.trang_thai == 3){
+                res.send("Không thể cập nhật đơn hàng đã giao");
+            }
+            else{
+                cartModel.UpdateCartToDatabase(id_don_hang, req.query.trang_thai);
+                if(req.query.trang_thai == 3){
+                    if(customerModel.checkUserIsExisted(don_hang.nguoi_gui)){
+                        var ChiTietDH = cartModel.GetDeTailCartsByID(id_don_hang);
+                        ChiTietDH.then(function(data){
+                            var len = data.length;
+                            var TongTien = 0;
+                            for(var i = 0; i < len; ++i){
+                                TongTien += data[i].thanh_tien;
+                            }
+                            console.log(TongTien);
+                            var DiemThuong = TongTien/10000;
+                            console.log("--> Diem thuong: " + DiemThuong);
+                            
+                            var Khach_hang = customerModel.GetCustomerByUsername(don_hang.nguoi_gui);
+                            Khach_hang.then(function(data){
+                                var diem = data[0].diem_tich_luy;
+                                diem += DiemThuong;
+                                customerModel.UpdatePoint(don_hang.nguoi_gui, diem);
+                            })
+                        });
+                    }
+                }
+                res.send("Cập nhật thành công");
+            }
+        });
+        
     }
 }
