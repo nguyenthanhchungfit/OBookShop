@@ -22,3 +22,8 @@ MODIFY password varchar(70) not null;
 -- 16-06
 ALTER TABLE chi_tiet_don_hang
 DROP FOREIGN KEY FK_CTDH_Sach
+
+-- 17-06
+ALTER TABLE danh_sach_ban_hang
+DROP FOREIGN KEY FK_DsBanHang_Sach;
+
