@@ -169,11 +169,9 @@ exports.get_create_book = function (req, res) {
 }
 
 exports.update_delete_book = function(req, res){
-    
-        var listSach = bookModel.getInforBooksForHome()
-        listSach.then(function(list){
-            res.render("staff/update_delete_book", {data: list});
-        })
+    bookModel.getInforBooksForHome().then(function (data) {
+        res.render("staff/update_delete_book", { items: data.arr });
+    })
     
 }
 

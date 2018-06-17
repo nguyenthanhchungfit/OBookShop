@@ -72,6 +72,13 @@ exports.post_create_publisher = function (req, res) {
     });
 
 }
+
+exports.update_delete_publisher = function(req, res){
+    publisherModel.getPublisher().then(function (data) {
+        res.render("staff/update_delete_publisher", { items: data.arr });
+    })
+    
+}
 exports.get_update_publisher = function (req, res) {
 
     // Lấy chi tiết của tác giả

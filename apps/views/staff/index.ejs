@@ -37,16 +37,148 @@
 
 <body class="animsition">
     <div class="page-wrapper">
-        <%- include menu%>
+        <!-- MENU SIDEBAR-->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <h3>TRANG NHÂN VIÊN</h3>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <!-- Quản lý sách -->
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-book"></i>Quản lý sách</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li id="them_sach">
+                                    <p>Thêm sách</p>
+                                </li>
+                                <li id="xoa_sua_sach">
+                                    <p>Xóa, chỉnh sửa sách</p>
+                                </li>
+                                </li>
+                                <li id="ds_dac_biet">
+                                    <p>Thêm sách vào danh sách đặc biệt</p>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Quản lý tác giả -->
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-user-circle"></i>Quản lý tác giả</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li id="them_tac_gia">
+                                    <p>Thêm tác giả</p>
+                                </li>
+                                <li id="xoa_sua_tac_gia">
+                                    <p>Xóa, sửa tác giả</p>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
+                        <!-- Quản lý nhà xuất bản -->
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fab fa-leanpub"></i>Quản lý nhà xuất bản</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li id="them_nha_xuat_ban">
+                                    <p>Thêm nhà xuất bản</p>
+                                </li>
+                                <li id="xoa_sua_nha_xuat_ban">
+                                    <p>Xóa, sửa nhà xuất bản</p>
+                                </li>
+                                
+                            </ul>
+                        </li>
+
+                        <!-- Quản lý đơn hàng -->
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-cart-arrow-down"></i>Quản lý đơn hàng</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li id="don_hang">
+                                    <p>Cập nhật thông tin đơn hàng</p>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- END MENU SIDEBAR-->
 
         <!-- PAGE CONTAINER-->
         <div class="page-container">
-            
-            <%- include header_user%>
+            <!-- HEADER DESKTOP-->
+            <header class="header-desktop">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="header-wrap">
+                            <form class="form-header" action="">
+                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Tìm thông tin..." />
+                                <button class="au-btn--submit">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+                            </form>
+                            <div class="header-button">
+                                <div class="noti-wrap">
+                                    <div class="noti__item js-item-menu">
+                                        <i class="zmdi zmdi-comment-more"></i>
+                                        <div class="mess-dropdown js-dropdown">
+                                            <div class="mess__title">
+                                                <p>You have 0 news message</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="noti__item js-item-menu">
+                                        <i class="zmdi zmdi-email"></i>
+                                        <div class="email-dropdown js-dropdown">
+                                            <div class="email__title">
+                                                <p>You have 0 New Emails</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="noti__item js-item-menu">
+                                        <i class="zmdi zmdi-notifications"></i>
+                                        <div class="notifi-dropdown js-dropdown">
+                                            <div class="notifi__title">
+                                                <p>You have 0 Notifications</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="account-wrap">
+                                    <div class="account-item clearfix js-item-menu">
+                                        <div class="content">
+                                            <!-- Link thông tin user -->
+                                            <a class="js-acc-btn">Username</a>
+                                        </div>
+                                        <div class="account-dropdown js-dropdown">
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="#">
+                                                        <i class="zmdi zmdi-account"></i>Account</a>
+                                                </div>
+                                            </div>
+                                            <div class="account-dropdown__footer">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-power"></i>Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- HEADER DESKTOP-->
+
             <!-- MAIN CONTENT -->
-            <div class="main-content">
-                <p style="text-align: center">Hello Heo</p>
-            </div>
+            <div class="main-content" id="main_view">
+                <!-- Nơi hiển thị chính -->
             <!-- END MAIN CONTENT-->
         </div>
 
@@ -75,7 +207,7 @@
 
     <!-- Main JS-->
     <script src="static/js/main_admin.js"></script>
-
+    <script src="static/js/staff_book.js"></script>
 </body>
 
 </html>

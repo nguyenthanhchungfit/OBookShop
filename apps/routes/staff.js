@@ -53,7 +53,11 @@ router.get("/update_book", booksController.get_update_book);
 
 router.post("/update_book", booksController.post_update_book);
 
-router.get("/update_delete_book", booksController.update_delete_book)
+router.get("/update_delete_book", booksController.update_delete_book);
+
+router.get("/update_delete_author", authorsController.update_delete_author);
+
+router.get("/update_delete_publisher", publisherController.update_delete_publisher);
 
 router.get("/update_delete_book/update/:id")
 
