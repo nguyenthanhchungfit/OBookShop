@@ -25,8 +25,16 @@ function getAuthorbyIDBook(ID) {
             if (err) {
                 defer.reject(err)
             }
-            else {
-                defer.resolve(result)
+            else
+            {   
+                if(result[0]){
+                    defer.resolve(result);
+                }
+                else{
+                    var result = "Không xác định";
+                    defer.resolve(result);
+                }
+                
             }
         })
         return defer.promise
@@ -57,8 +65,9 @@ function getAuthorbyID(ID) {
             if (err) {
                 defer.reject(err)
             }
-            else {
-                defer.resolve(result)
+            else
+            {
+                defer.resolve(result);
             }
         })
         return defer.promise
@@ -131,7 +140,7 @@ function Delete_Author(ID_TG){
                 throw err;
             }
         })
-        // Xóa ID TG trong bảng sach
+        // Xóa ID sách trong bảng sach
         var query = connection.query("DELETE FROM tac_gia WHERE ?",{id_tac_gia: ID_TG}, function(err, result){
             if(err){
                 throw err;
@@ -139,6 +148,24 @@ function Delete_Author(ID_TG){
         })
         console.log("Deleted Author " + ID_TG);
     }
+}
+
+// Kiểm tra mã sách có tồn tại trong sach_tac_gia không
+function CheckIDBook_IDAuthor(IDBook){
+    var query = connection.query("SELECT * FROM tac_gia", function(err, result){
+        if(err){
+            defer.reject(err)
+        }
+        else
+        {
+            var len = result.length;
+            for(var i = 0; i < len; ++i){
+                if(IDBook == result[i].id_sach)
+                    return true;
+            }
+        }
+    })
+    return fasle;
 }
 
 module.exports = {
@@ -149,5 +176,6 @@ module.exports = {
     updateAuthor: updateAuthor,
     getAuthor: getAuthor,
     addNewAuthorofBook: addNewAuthorofBook,
+    CheckIDBook_IDAuthor: CheckIDBook_IDAuthor,
     Delete_Author: Delete_Author
 }

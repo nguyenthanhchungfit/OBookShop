@@ -128,7 +128,7 @@ function getBookbyNamePublihser(Name){
     return false
 }
 
-// Giàm số lượng sách
+// Giảm số lượng sách
 function UpdateNumberBook(IDbook, newNuber){
     var query = connection.query("UPDATE sach SET so_luong_ton = ? WHERE id_sach = ?", [newNuber, IDbook], (err, result) => {
         if(err) {
@@ -137,57 +137,23 @@ function UpdateNumberBook(IDbook, newNuber){
     })
 }
 
-function checkIDIsExisted(id) {
-    if (id) {
-        var defer = q.defer();
-        var sql = `SELECT * FROM ${tableName} WHERE id_sach = ?`;
-        var query = connection.query(sql, [id], function (err, result, fields) {
-            if (err) defer.reject(err);
-            if (result.length == 0) {
-                console.log(0);
-                defer.resolve(false);
-
-            } else {
-                console.log(1);
-                defer.resolve(true);
+// Xóa sách khỏi database
+function DeleteBook(IDBook){
+    if(IDBook){
+        // Xóa ID sách trong bang sach_tac_gia:
+        var query = connection.query("DELETE FROM sach_tac_gia WHERE ?",{id_sach: IDBook}, function(err, result){
+            if(err){
+                throw err;
             }
-        });
-        return defer.promise;
-
-    }
-    return false;
-}
-
-// Insert
-function addNewBook(book) {
-    if (book) {
-        var defer = q.defer();
-        var sql = `INSERT INTO ${tableName} values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        var query = connection.query(sql, [book.id_sach, book.ten_sach, book.the_loai, book.nha_xuat_ban, book.nam_xuat_ban, book.khuyen_mai, book.gia, book.so_luong_ton, book.chat_luong, book.image_sach_url, book.doc_truoc], function (err, result) {
-            if (err) {
-                defer.reject(err);
-            } else {
-                defer.resolve(result);
+        })
+        // Xóa ID sách trong bảng sach
+        var query = connection.query("DELETE FROM sach WHERE ?",{id_sach: IDBook}, function(err, result){
+            if(err){
+                throw err;
             }
-        });
-        return defer.promise;
+        })
+        console.log("Deleted book " + IDBook);
     }
-    return false;
-}
-function updateBook(id, bookNew) {
-    if (id && bookNew) {
-        var defer = q.defer();
-        var sql = `UPDATE ${tableName} SET ten_sach = ? , the_loai = ? , nha_xuat_ban = ?, nam_xuat_ban = ?, khuyen_mai = ?, gia = ?, so_luong_ton = ? WHERE id_sach = ?`;
-        var query = connection.query(sql, [bookNew.ten_sach, bookNew.the_loai, bookNew.nha_xuat_ban, bookNew.nam_xuat_ban, bookNew.khuyen_mai, bookNew.gia, bookNew.so_luong_ton, id], function (err, result) {
-            if (err) {
-                defer.reject(err);
-            } else {
-                defer.resolve(result);
-            }
-        });
-        return defer.promise;
-    }
-    return false;
 }
 
 // Xóa sách khỏi database

@@ -162,6 +162,10 @@ exports.post_update_publisher = function (req, res) {
         res.render("update_publisher", { data: result });
     })
 }
+// Xóa NXB
+exports.Delete_Publisher = function(req, res){
+    publisherModel.Delete_Publisher(req.params.Name);
+}
 
 exports.delete_publisher = function(req, res){
     console.log(req.params.Name)

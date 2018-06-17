@@ -21,6 +21,24 @@ function getCustomerDataFromDB(){
     return defer.promise;
 }
 
+function GetCustomerByUsername(user){
+    if(user){
+        var defer = q.defer();
+        
+        var query = conn.query("SELECT * FROM khach_hang WHERE ?",{username: user}, function(err, result){
+            if(err){
+                defer.reject(err)
+            }
+            else
+            {
+                console.log(result);
+                defer.resolve(result)
+            }
+        })
+        return defer.promise
+    }
+}
+
 function updateCustomerDataCaching(){
     customerDataCaching = [];
     getCustomerDataFromDB().then(function(data){       
@@ -132,7 +150,43 @@ function getInforDanhSachNguoiDung(){
     return defer.promise;
 }
 
+function getInforCustomerByUsername(username){
+    var defer = q.defer();
+    var user;
+    var sql = `SELECT * FROM ${tableName} WHERE username = '${username}'`;
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{
+            user = element;
+        });
+        defer.resolve({user});
+    });
+    return defer.promise;
+}
+
+function getImageUrlByUsername(username){
+    var defer = q.defer();
+    var user;
+    var sql = `SELECT image_url FROM ${tableName} WHERE username = '${username}'`;
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{
+            user = element;
+        });
+        defer.resolve({user});
+    });
+    return defer.promise;
+}
+
+
 // Insert
+function addNewCustomerToCaching(customer){
+    var customerCache = {username: customer.username, email : customer.email, so_dien_thoai : customer.so_dien_thoai};
+    if(customerDataCaching){
+        customerDataCaching.push(customerCache);
+    }
+}
+
 function addNewCustomer(customer){
     if(customer){
         customer.password = pw_encrypt.encrypt_password(customer.password);
@@ -142,6 +196,7 @@ function addNewCustomer(customer){
             if(err){
                 defer.reject(err);
             }else{
+                addNewCustomerToCaching(customer);
                 defer.resolve(result);
             }
         });
@@ -150,7 +205,31 @@ function addNewCustomer(customer){
 }
 
 // Update
-
+function updateNewPassword(username, password){
+    var defer = q.defer();
+    if(username && password){
+        var en_password = pw_encrypt.encrypt_password(password);
+        var sql = `UPDATE ${tableName} SET password='${en_password}' WHERE username='${username}'`;
+        conn.query(sql, function(err, result, fields){
+            if(err) defer.reject(err);
+            if(result.affectedRows == 1){
+                defer.resolve(true);
+            }else{
+                defer.resolve(false);
+            } 
+        });
+        return defer.promise;
+    }else{
+        return false;
+    }
+}
+function UpdatePoint(user, diem){
+    var query = conn.query("UPDATE khach_hang SET diem_tich_luy = ? WHERE username = ?", [diem, user], (err) => {
+        if(err) {
+            throw err;
+        }
+    })
+}
 
 // Delete
 
@@ -160,5 +239,11 @@ module.exports = {
     checkUserIsExisted : checkUserIsExisted,
     addNewCustomer : addNewCustomer,
     isValidAccount : isValidAccount,
-    getInforDanhSachNguoiDung : getInforDanhSachNguoiDung
+    getInforDanhSachNguoiDung : getInforDanhSachNguoiDung,
+    getInforCustomerByUsername : getInforCustomerByUsername,
+    updateNewPassword : updateNewPassword,
+    GetCustomerByUsername: GetCustomerByUsername,
+    UpdatePoint: UpdatePoint,
+    updateNewPassword : updateNewPassword,
+    getImageUrlByUsername : getImageUrlByUsername
 }

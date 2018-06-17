@@ -1,0 +1,204 @@
+<% var link_avt = "/static/imgs/users/customer/";%>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>Customer page</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="../static/css/font-face.css" rel="stylesheet" media="all">
+    <link href="../static/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="../static/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="../static/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="../static/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="../static/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="../static/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="../static/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="../static/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="../static/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="../static/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="../static/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="../static/css/theme.css" rel="stylesheet" media="all">
+
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <!-- MENU SIDEBAR-->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="../../" title="Trang chủ">
+                    <img src="../static/imgs/icon/logo.png" alt="Trang chủ"/>
+                </a>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <%- include customer_funcs%>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- END MENU SIDEBAR-->
+
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+            <!-- HEADER DESKTOP-->
+            <header class="header-desktop">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="header-wrap">
+                            <form class="form-header" action="">
+                                <input class="au-input au-input--xl" type="text" name="search" placeholder="Tìm thông tin..." />
+                                <button class="au-btn--submit">
+                                    <i class="zmdi zmdi-search"></i>
+                                </button>
+                            </form>
+                            <div class="header-button">
+                                <div class="noti-wrap">
+                                    <div class="noti__item js-item-menu">
+                                        <i class="zmdi zmdi-comment-more"></i>
+                                        <div class="mess-dropdown js-dropdown">
+                                            <div class="mess__title">
+                                                <p>You have 0 news message</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="noti__item js-item-menu">
+                                        <i class="zmdi zmdi-email"></i>
+                                        <div class="email-dropdown js-dropdown">
+                                            <div class="email__title">
+                                                <p>You have 0 New Emails</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="noti__item js-item-menu">
+                                        <i class="zmdi zmdi-notifications"></i>
+                                        <div class="notifi-dropdown js-dropdown">
+                                            <div class="notifi__title">
+                                                <p>You have 0 Notifications</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%- include acc_customer_thumbnail%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- HEADER DESKTOP-->
+
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+                <form id="signupform" class="form-horizontal" role="form" method="POST" action="/signup">
+
+                    <div class="form-group">
+                        <label for="email" class="text-success font-weight-bold col-md-3 control-label">Email</label>
+                        <div class="col-md-9">
+                            <input type="text" required="true" class="form-control" value="<%= data.user.email%>" name="email" placeholder="Nhập Email">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ho_ten" class="text-success font-weight-bold col-md-3 control-label">Họ tên</label>
+                        <div class="col-md-9">
+                            <input type="text" required="true" class="form-control" value="<%= data.user.ho_ten%>" name="ho_ten" placeholder="Nhập họ tên">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gioi_tinh" class="text-success font-weight-bold col-md-3 control-label">Giới tính</label>
+                        <div class="col-md-3">
+                            <select name="gioi_tinh" class="form-control">
+                                <option value="nam" <%= data.select.nam%>>Nam</option>
+                                <option value="nữ" <%= data.select.nu%>>Nữ</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="so_dien_thoai" class="text-success font-weight-bold col-md-3 control-label">Số điện thoại</label>
+                        <div class="col-md-4">
+                            <input type="number" required="true" name="so_dien_thoai" value="<%= data.user.so_dien_thoai%>" class="form-control" placeholder="Nhập số điện thoại">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dia_chi" class="text-success font-weight-bold col-md-3 control-label">Địa chỉ</label>
+                        <div class="col-md-9">
+                            <input type = "text" class="form-control" value="<%= data.user.dia_chi%>" name="dia_chi" placeholder="Nhập địa chỉ">
+                        </div>
+                    </div>
+
+                    <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" 
+                        class="alert alert-danger">
+                        <p><strong>Error:</strong></p>
+                        <%if (data && data.error){%>
+                        <p><%- data.error%></p>
+                        <%}%>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- Button -->
+                        <div class="col-md-offset-3 col-md-9">
+                            <input id="btn-signup" type="submit" class="btn btn-success" value="Cập nhật" />
+                        </div>
+                    </div>
+
+                    <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
+                        class="alert alert-success">
+                        <p><strong>Success:</strong></p>
+                        <p><%= data.success%></p>
+                    </div>
+
+                </form>
+            </div>
+            <!-- END MAIN CONTENT-->
+        </div>
+
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="../static/vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="../static/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="../static/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="../static/vendor/slick/slick.min.js">
+    </script>
+    <script src="../static/vendor/wow/wow.min.js"></script>
+    <script src="../static/vendor/animsition/animsition.min.js"></script>
+    <script src="../static/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="../static/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="../static/vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="../static/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="../static/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../static/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="../static/vendor/select2/select2.min.js">
+    </script>
+
+    <!-- Main JS-->
+    <script src="../static/js/main_admin.js"></script>
+
+</body>
+
+</html>
+<!-- end document-->

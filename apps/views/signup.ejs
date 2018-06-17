@@ -19,20 +19,6 @@
                 <div class="panel-body" >
                     <form id="signupform" class="form-horizontal" role="form" method="POST" action="/signup">
 
-                        <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" 
-                        class="alert alert-danger">
-                            <p><strong>Error:</strong></p>
-                            <%if (data && data.error){%>
-                            <p><%- data.error%></p>
-                            <%}%>
-                        </div>
-
-                        <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
-                        class="alert alert-success">
-                            <p><strong>Success:</strong></p>
-                            <p><%= data.success%></p>
-                        </div>
-
                         <div class="form-group">
                             <label for="username" class="col-md-3 control-label">Tài khoản</label>
                             <div class="col-md-9">
@@ -97,6 +83,20 @@
                             <div class="col-md-offset-3 col-md-9">
                                 <input id="btn-signup" type="submit" class="btn btn-info" value="Sign Up" />
                             </div>
+                        </div>
+
+                        <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" 
+                        class="alert alert-danger">
+                            <p><strong>Error:</strong></p>
+                            <%if (data && data.error){%>
+                            <p><%- data.error%></p>
+                            <%}%>
+                        </div>
+
+                        <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
+                            class="alert alert-success">
+                            <p><strong>Success:</strong></p>
+                            <p><%= data.success%></p>
                         </div>
 
                     </form>

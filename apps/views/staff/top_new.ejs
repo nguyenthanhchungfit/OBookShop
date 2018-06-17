@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="/static/css/staff_book.css" />
+</head>
+<body>
+    <div id="CONTENT">
+        <div>
+            <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" 
+                class="alert alert-danger">
+                    <p><strong>Error:</strong></p>
+                    <%if (data && data.error){%>
+                    <p><%- data.error%></p>
+                    <%}%>
+                </div>
+            <div>
+            <table id="delete_new">
+                <thead>
+                    <tr>
+                        <th>ID sách</th>
+                        <th>Ngày phát hành</th>
+                        <th></th>
+                    </tr>
+                    <%for(var i = 0; i < data.DS_MoiPhatHanh.list.length; ++i){%>
+                    <tr>
+                        <td><%= data.DS_MoiPhatHanh.list[i].id%></td>
+                        <td><%= data.DS_MoiPhatHanh.list[i].ngay_phat_hanh%></td>
+                        <td>
+                            <button class="btn btn-success" id="<%= data.DS_MoiPhatHanh.list[i].id%>" style="background-color: rgb(238, 106, 45);">Xóa</button>
+                        </td>
+                    </tr>
+                    <%}%>
+                </thead>
+            </table>
+
+            <div id="them_moi_phat_hanh" class="row" style="margin-left: 300px; margin-bottom:30px">
+                <div class="col-sm-2">
+                    <p>ID sách</p>
+                    <select id="id_sach_ban_chay">
+                        <%for(var i = 0; i < data.sach.arr.length; ++i){%>
+                        <option><%= data.sach.arr[i].id_sach%></option>
+                        <%}%>
+                    </select>
+                </div>
+                <div class="col-sm-3" style="margin-left: 10px">
+                    <p>Ngày phát hành</p>
+                    <input type="date" id="ngay_phat_hanh"/>
+                </div>
+                <div class="col-sm-3" style="margin-left: 20px">
+                    <button class="btn btn-success" style="margin-top: 20px">Thêm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="static/js/staff_book.js"></script>
+</body>
+</html>

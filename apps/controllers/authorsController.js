@@ -188,7 +188,6 @@ exports.post_update_author = function (req, res) {
     })
 }
 
-
 exports.delete_author = function(req, res){
     authorModel.Delete_Author(req.params.id);
     authorModel.getAuthor().then(function (data) {

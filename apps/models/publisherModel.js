@@ -56,6 +56,25 @@ function checkNameIsExisted(name) {
     }
     return false;
 }
+// Xóa nhà xuất bản
+function Delete_Publisher(Name){
+    if(Name){
+        // Xóa nxb trong bang sach
+        var query = connection.query("UPDATE sach SET nha_xuat_ban = ? WHERE nha_xuat_ban = ?",["Không xác định", Name], function(err, result){
+            if(err){
+                throw err;
+            }
+        })
+        // Xóa tên nxb trong bảng nxb
+        var query = connection.query("DELETE FROM nha_xuat_ban WHERE ?",{ten_nxb: Name}, function(err, result){
+            if(err){
+                throw err;
+            }
+        })
+        console.log("Deleted publisher " + Name);
+    }
+}
+
 // Insert
 function addNewPublisher(publisher) {
     if (publisher) {

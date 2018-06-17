@@ -53,6 +53,24 @@ function getFinalCart(){
         return defer.promise
 }
 
+function GetDeTailCartsByID(ID){
+    if(ID){
+        var defer = q.defer();
+        
+        var query = connection.query("SELECT * FROM chi_tiet_don_hang WHERE ?",{ma_don_hang: ID}, function(err, result){
+            if(err){
+                defer.reject(err)
+            }
+            else
+            {
+                defer.resolve(result)
+            }
+        })
+        return defer.promise
+    }
+    return false
+}
+
 function AddCartToDatabase(Cart){
     var sql = "INSERT INTO don_hang SET ?"
     var query = connection.query(sql, Cart, (err, result) => {
@@ -86,5 +104,6 @@ module.exports = {
     AddCartToDatabase: AddCartToDatabase,
     AddDetailCartToDatabase: AddDetailCartToDatabase,
     getCartByID: getCartByID,
-    UpdateCartToDatabase: UpdateCartToDatabase
+    UpdateCartToDatabase: UpdateCartToDatabase,
+    GetDeTailCartsByID: GetDeTailCartsByID
 }

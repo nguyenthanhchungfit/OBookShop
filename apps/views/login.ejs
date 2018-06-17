@@ -23,6 +23,13 @@
                             <div class="form-group">
                                 <input class="form-control" placeholder="Password" name="password" type="password" value="">
                             </div>
+                            <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" 
+                                class="alert alert-danger">
+                                <p><strong>Error:</strong></p>
+                                <%if (data && data.error){%>
+                                <p><%- data.error%></p>
+                                <%}%>
+                            </div>
                             <div class="checkbox">
                                 <label>
                                     <input name="remember" type="checkbox" value="Remember Me"> Remember Me
