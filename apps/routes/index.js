@@ -26,7 +26,6 @@ router.post("/login", homeController.post_login);
 router.get("/books", bookController.index);
 // Chi tiết sách, thêm sách vào giỏ hàng
 router.get("/book/:id", bookController.getBookbyID);
-//router.post("/book/:id", bookController.AddToCart);
 // comment sách
 router.get("/book/comment/:id", bookController.ViewComment)
 

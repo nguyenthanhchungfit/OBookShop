@@ -134,7 +134,7 @@ function updateAuthor(id, authorNew) {
 // Xóa tác giả khỏi database
 function Delete_Author(ID_TG){
     if(ID_TG){
-        // Xóa ID sách trong bang sach_tac_gia:
+        // Xóa ID TG trong bang sach_tac_gia:
         var query = connection.query("DELETE FROM sach_tac_gia WHERE ?",{id_tac_gia: ID_TG}, function(err, result){
             if(err){
                 throw err;
@@ -175,6 +175,7 @@ module.exports = {
     addNewAuthor: addNewAuthor,
     updateAuthor: updateAuthor,
     getAuthor: getAuthor,
+    addNewAuthorofBook: addNewAuthorofBook,
     CheckIDBook_IDAuthor: CheckIDBook_IDAuthor,
     Delete_Author: Delete_Author
 }

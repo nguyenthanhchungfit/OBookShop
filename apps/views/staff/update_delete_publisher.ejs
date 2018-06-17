@@ -1,37 +1,37 @@
-<div class="row">
-    <% items.forEach(function(item){%>
-        <div class="col-sm-4">
-            <div class="product-image-wrapper">
-                <div class="single-products">
-                    <div class="productinfo text-center" id="<%= item.ten_nxb%>">
-                        <a href="/publisher/<%= item.ten_nxb%>">
-                            <img alt="" height="300" />
-                        </a>
-                        <h2>
-                            <%= item.ten_nxb%>
-                        </h2>
-                        <p>
-                            <%= item.nam_thanh_lap%>
-                        </p>
-                        <p>
-                            <%= item.dia_chi%>
-                        </p>
+<table>
+    <thead>
+        <tr>
+            <th>Tên nhà xuất bản</th>
+            <th>Năm thành lập</th>
+            <th>Địa chỉ</th>
+            <th></th>
+        </tr>
+        <% items.forEach(function(item){%>
+            <tr>
+                <td>
+                    <%= item.ten_nxb%>
+                </td>
+                <td>
+                    <%= item.nam_thanh_lap%>
+                </td>
+                <td>
+                    <%= item.dia_chi%>
+                </td>
+                <td>
+                    <div class="choose">
+                        <ul class="nav nav-pills nav-justified">
+                            <li>
+                                <a href="#" id="<%= item.ten_nxb%>" name="nxb">
+                                    <i class="fa fa-plus-square"></i>Xóa</a>
+                            </li>
+                            <li>
+                                <a href="/staff/update_publisher?id=<%= item.ten_nxb %>">
+                                    <i class="fa fa-plus-square"></i>Sửa</a>
+                            </li>
+                        </ul>
                     </div>
-
-                </div>
-                <div class="choose">
-                    <ul class="nav nav-pills nav-justified">
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-plus-square"></i>Xóa</a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-plus-square"></i>Sửa</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <%});%>
-</div>
+                </td>
+            </tr>
+            <%})%>
+    </thead>
+</table>

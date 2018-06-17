@@ -1,25 +1,33 @@
-<div class="row">
-    <% items.forEach(function(item){%>
-        <div class="col-sm-4">
-            <div class="product-image-wrapper">
-                <div class="single-products">
-                    <div class="productinfo text-center" id="<%= item.id_tac_gia%>">
-                        <a href="/author/<%= item.id_tac_gia%>">
-                            <img alt="" height="300" />
-                        </a>
-                        <h2><%= item.ten_tac_gia%></h2>
-                        <p><%= item.nam_sinh%></p>
-                        <p><%= item.que_quan%></p>                  
-                    </div>
-                    
-                </div>
+<table>
+    <thead>
+        <tr>
+            <th>ID tác giả</th>
+            <th>Tên tác giả</th>
+            <th>Năm sinh</th>
+            <th>Quê quán</th>
+            <th></th>
+        </tr>
+        <% items.forEach(function(item){%>
+        <tr>
+            <td><%= item.id_tac_gia%></td>
+            <td><%= item.ten_tac_gia%></td>
+            <td><%= item.nam_sinh%></td>
+            <td><%= item.que_quan%></td>
+            <td>
                 <div class="choose">
                     <ul class="nav nav-pills nav-justified">
-                        <li><a href="#"><i class="fa fa-plus-square"></i>Xóa</a></li>
-                        <li><a href="#"><i class="fa fa-plus-square"></i>Sửa</a></li>
+                        <li>
+                            <a href="#" id="<%= item.id_tac_gia%>" name="tac_gia">
+                                <i class="fa fa-plus-square"></i>Xóa</a>
+                        </li>
+                        <li>
+                            <a href="/staff/update_author?id=<%= item.id_tac_gia %>">
+                                <i class="fa fa-plus-square"></i>Sửa</a>
+                        </li>
                     </ul>
-                    </div>
-            </div>
-        </div>
-    <%});%>
-</div>
+                </div>
+            </td>
+        </tr>
+        <%})%>
+    </thead>
+</table>

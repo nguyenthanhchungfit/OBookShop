@@ -188,11 +188,9 @@ exports.post_update_author = function (req, res) {
     })
 }
 
-// Xóa tac giả
-exports.Delete_Author = function(req, res){
+exports.delete_author = function(req, res){
     authorModel.Delete_Author(req.params.id);
-}
-
-function CheckIDBook_IDAuthor(ID_Book){
-    
+    authorModel.getAuthor().then(function (data) {
+        res.render("staff/update_delete_author", { items: data.arr });
+    })
 }

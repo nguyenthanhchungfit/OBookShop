@@ -46,6 +46,7 @@ router.get("/update_delete_author", authorsController.update_delete_author);
 
 router.get("/update_delete_publisher", publisherController.update_delete_publisher);
 
+// router.get("/update_delete_book/update/:id")
 // Danh sách đặc biệt
 router.get("/top_selling", booksController.Top_Selling_Book);
 router.get("/add_top_selling/:id", booksController.Add_Selling);
@@ -63,6 +64,15 @@ router.get("/top_new", booksController.Top_New_Book);
 router.get("/add_top_new/:id", booksController.Add_New);
 router.get("/delete_new/:id", booksController.Delete_New);
 
+// Xóa sách
+router.get("/delete_book/:id", booksController.delete_book); 
+router.get("/delete_author/:id", authorsController.delete_author)
+router.get("/delete_publisher/:Name", publisherController.delete_publisher)
+
+// Cập nhật thông tin đơn hàng
+// router.get("/updatecart", cartController.UpdateCartPage)
+//router.get("/updatecart/:id", cartController.UpDateCart)
+//router.post("/updatecart/:id", cartController.UpdateCartToDB)
 router.get("/cart_manager", cartController.GetUpdateCart)
 router.get("/update_cart/:id", cartController.UpDateStateCart)
 //router.get("/book/specail_list", booksController.SpecailList)
