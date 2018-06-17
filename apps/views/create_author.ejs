@@ -1,144 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="main-content">
+    <div class="container">
+        <div id="signupbox" style="margin-top:50px" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Create Author</div>
+                </div>
+                <div class="panel-body">
+                    <form id="signupform" class="form-horizontal" role="form" method="POST" action="/staff/create_author">
 
-<head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
-
-    <!-- Title Page-->
-    <title>Staff page</title>
-
-    <!-- Fontfaces CSS-->
-    <link href="../static/css/font-face.css" rel="stylesheet" media="all">
-    <link href="../static/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="../static/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="../static/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-
-    <!-- Bootstrap CSS-->
-    <link href="../static/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-
-    <!-- Vendor CSS-->
-    <link href="../static/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="../static/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="../static/vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="../static/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="../static/vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="../static/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="../static/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-
-    <!-- Main CSS-->
-    <link href="../static/css/theme.css" rel="stylesheet" media="all">
-
-</head>
-
-<body class="animsition">
-    <div class="page-wrapper">
-        <%- include staff/menu%>
-
-        <!-- PAGE CONTAINER-->
-        <div class="page-container">
-            
-            <%- include staff/header_user%>
-            <!-- MAIN CONTENT -->
-            <div class="main-content">
-                    <div class="container">
-                            <div id="signupbox" style="margin-top:50px" class="mainbox col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
-                                <div class="panel panel-info">
-                                    <div class="panel-heading">
-                                        <div class="panel-title">Create Author</div>
-                                    </div>
-                                    <div class="panel-body" >
-                                        <form id="signupform" class="form-horizontal" role="form" method="POST" action="/staff/create_author">
-                    
-                                            <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" 
-                                            class="alert alert-danger">
-                                                <p><strong>Error:</strong></p>
-                                                <%if (data && data.error){%>
-                                                <p><%- data.error%></p>
-                                                <%}%>
-                                            </div>
-                    
-                                            <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
-                                            class="alert alert-success">
-                                                <p><strong>Success:</strong></p>
-                                                <p><%= data.success%></p>
-                                            </div>
-                    
-                                            <div class="form-group">
-                                                <label for="id" class="col-md-3 control-label">ID tác giả</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" name="id" placeholder="TGxxx">
-                                                </div>
-                                            </div>
-                    
-                                            <div class="form-group">
-                                                <label for="ten" class="col-md-3 control-label">Tên tác giả</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" name="ten" placeholder="Tên tác giả">
-                                                </div>
-                                            </div>
-                    
-                                            <div class="form-group">
-                                                <label for="nam_sinh" class="col-md-3 control-label">Năm sinh</label>
-                                                <div class="col-md-9">
-                                                    <input type="number" class="form-control" name="nam_sinh" placeholder="yyyy">
-                                                </div>
-                                            </div>
-                    
-                                            <div class="form-group">
-                                                <label for="que_quan" class="col-md-3 control-label">Quê quán</label>
-                                                <div class="col-md-9">
-                                                    <input type="text" class="form-control" name="que_quan" placeholder="Quê quán">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <!-- Button -->
-                                                <div class="col-md-9 col-md-offset-3">
-                                                    <input id="btn-create" type="submit" class="btn btn-info" value="Create" />
-                                                    <a  href="../"><input id="btn-cancel" type="button" class="btn btn-info" value="Cancel" /></a>
-                                                </div>
-                                            </div>
-                                        </form>
-                                     </div>
-                                </div>
-                    
-                             </div>
+                        <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" class="alert alert-danger">
+                            <p>
+                                <strong>Error:</strong>
+                            </p>
+                            <%if (data && data.error){%>
+                                <p>
+                                    <%- data.error%>
+                                </p>
+                                <%}%>
                         </div>
+
+                        <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" class="alert alert-success">
+                            <p>
+                                <strong>Success:</strong>
+                            </p>
+                            <p>
+                                <%= data.success%>
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id" class="col-md-3 control-label">ID tác giả</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="id" placeholder="TGxxx">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ten" class="col-md-3 control-label">Tên tác giả</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="ten" placeholder="Tên tác giả">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nam_sinh" class="col-md-3 control-label">Năm sinh</label>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control" name="nam_sinh" placeholder="yyyy">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="que_quan" class="col-md-3 control-label">Quê quán</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="que_quan" placeholder="Quê quán">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Button -->
+                            <div class="col-md-9 col-md-offset-3">
+                                <input id="btn-create" type="submit" class="btn btn-info" value="Create" />
+                                <a href="../">
+                                    <input id="btn-cancel" type="button" class="btn btn-info" value="Cancel" />
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <!-- END MAIN CONTENT-->
+
         </div>
-
     </div>
-
-    <!-- Jquery JS-->
-    <script src="../static/vendor/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="../static/vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="../static/vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="../static/vendor/slick/slick.min.js">
-    </script>
-    <script src="../static/vendor/wow/wow.min.js"></script>
-    <script src="../static/vendor/animsition/animsition.min.js"></script>
-    <script src="../static/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="../static/vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="../static/vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="../static/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="../static/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="../static/vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="../static/vendor/select2/select2.min.js">
-    </script>
-
-    <!-- Main JS-->
-    <script src="../static/js/main_admin.js"></script>
-
-</body>
-
-</html>
-<!-- end document-->
+</div>

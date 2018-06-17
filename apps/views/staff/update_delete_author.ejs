@@ -3,13 +3,13 @@
         <div class="col-sm-4">
             <div class="product-image-wrapper">
                 <div class="single-products">
-                    <div class="productinfo text-center" id="<%= item.id_sach%>">
-                        <a href="/book/<%= item.id_sach%>">
-                            <img src="static/imgs/category/books/<%=item.image_sach_url%>" alt="" height="300" />
+                    <div class="productinfo text-center" id="<%= item.id_tac_gia%>">
+                        <a href="/author/<%= item.id_tac_gia%>">
+                            <img alt="" height="300" />
                         </a>
-                        <h2><%= item.gia%></h2>
-                        <p><%= item.ten_sach%></p>
-                        <p><%= item.so_luong_ton%></p>                  
+                        <h2><%= item.ten_tac_gia%></h2>
+                        <p><%= item.nam_sinh%></p>
+                        <p><%= item.que_quan%></p>                  
                     </div>
                     
                 </div>
@@ -23,5 +23,3 @@
         </div>
     <%});%>
 </div>
-
-

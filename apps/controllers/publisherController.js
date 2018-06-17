@@ -73,6 +73,14 @@ exports.post_create_publisher = function (req, res) {
 
 }
 
+exports.update_delete_publisher = function(req, res){
+    publisherModel.getPublisher().then(function (data) {
+        res.render("staff/update_delete_publisher", { items: data.arr });
+    })
+    
+}
+exports.get_update_publisher = function (req, res) {
+}
 // Xóa NXB
 exports.Delete_Publisher = function(req, res){
     publisherModel.Delete_Publisher(req.params.Name);

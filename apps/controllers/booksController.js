@@ -214,7 +214,13 @@ exports.Top_Vote_Book = function(req, res){
             sach: data
         }
         res.render("staff/top_vote", {data: result});
-    })   
+    });  
+} 
+exports.update_delete_book = function(req, res){
+    bookModel.getInforBooksForHome().then(function (data) {
+        res.render("staff/update_delete_book", { items: data.arr });
+    })
+    
 }
 
 exports.Add_Vote = function(req, res){

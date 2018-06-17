@@ -29,6 +29,12 @@ exports.GetAuthorbyID = function (req, res) {
 exports.author_list = function (req, res) {
 };
 
+exports.update_delete_author = function (req, res) {
+    authorModel.getAuthor().then(function (data) {
+        res.render("staff/update_delete_author", { items: data.arr });
+    })
+}
+
 exports.get_create_author = function (req, res) {
     res.render("create_author", { data: {} });
 }

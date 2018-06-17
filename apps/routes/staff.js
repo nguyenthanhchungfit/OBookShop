@@ -8,6 +8,7 @@ const authorsController = require("../controllers/authorsController")
 const categoryController = require("../controllers/categoryController")
 const booksController = require("../controllers/booksController")
 const publisherController = require("../controllers/publisherController");
+
 router.get("/", staffController.index);
 
 router.get("/create_author", authorsController.get_create_author);
@@ -39,8 +40,11 @@ router.get("/book/delete_book/:id", booksController.Delete_Book);
 // Xóa tác giả
 router.get("/author/delete_author/:id", authorsController.Delete_Author);
 
-// Xóa nhà xuất bản
-router.get("/publisher/delete_publisher/:Name", publisherController.Delete_Publisher);
+router.get("/update_delete_book", booksController.update_delete_book);
+
+router.get("/update_delete_author", authorsController.update_delete_author);
+
+router.get("/update_delete_publisher", publisherController.update_delete_publisher);
 
 // Danh sách đặc biệt
 router.get("/top_selling", booksController.Top_Selling_Book);
