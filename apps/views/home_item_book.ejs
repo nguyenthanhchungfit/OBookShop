@@ -6,18 +6,18 @@
                     <a href="/book/<%= item.id_sach%>">
                         <img src="static/imgs/category/books/<%=item.image_sach_url%>" alt="" height="300" />
                     </a>
-                    <h2><%= item.gia%></h2>
+                    <h2><%= item.gia%> đ</h2>
                     <p><%= item.ten_sach%></p>
                     <p><%= item.so_luong_ton%></p>                  
                 </div>
                 
             </div>
-            <div class="choose">
-                <ul class="nav nav-pills nav-justified">
-                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                </ul>
-             </div>
+
+            <div class="ml-3">
+                <button class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                
+                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-calendar-check"></i>Watch later</a>
+            </div>
         </div>
     </div>
 <%});%>

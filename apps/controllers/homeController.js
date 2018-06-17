@@ -22,7 +22,7 @@ exports.index = function(req, res){
         }else if(user.type == 3){
             link = "/manager";
         }
-        res.render("home",{data : {user : user, link : link}});       
+        res.render("home", {data : {user : user, link : link}});       
     }
     
 }
