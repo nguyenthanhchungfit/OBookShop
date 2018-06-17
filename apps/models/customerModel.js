@@ -67,6 +67,23 @@ function checkEmailIsExisted(email){
     return flag;
 }
 
+function checkEmailIsExistedWithUsername(username, email){
+    var flag = false;
+    if(email && username){
+        if(customerDataCaching.length == 0){
+            updateCustomerDataCaching();
+        }
+        customerDataCaching.forEach(element => {
+            if(element.email === email && username != element.username){
+                flag = true;
+                return;
+            }
+        });    
+    }
+    return flag;
+}
+
+
 function checkUserIsExisted(username){
     var flag = false;
     if(username){
@@ -83,6 +100,7 @@ function checkUserIsExisted(username){
     return flag;
 }
 
+
 function checkPhoneNumberIsExisted(phone){
     var flag = false;
     if(phone){
@@ -91,6 +109,22 @@ function checkPhoneNumberIsExisted(phone){
         }
         customerDataCaching.forEach(element => {
             if(element.so_dien_thoai === phone){
+                flag = true;
+                return;
+            }
+        });    
+    }
+    return flag;
+}
+
+function checkPhoneNumberIsExistedWithUsername(username, phone){
+    var flag = false;
+    if(phone && username){
+        if(customerDataCaching.length == 0){
+            updateCustomerDataCaching();
+        }
+        customerDataCaching.forEach(element => {
+            if(element.so_dien_thoai === phone && element.username != username){
                 flag = true;
                 return;
             }
@@ -231,6 +265,25 @@ function UpdatePoint(user, diem){
     })
 }
 
+function updateNewInformation(username, new_user){
+    var defer = q.defer();
+    if(username && new_user){
+        var sql = `UPDATE ${tableName} SET email='${new_user.email}', ho_ten=n'${new_user.ho_ten}', gioi_tinh=${new_user.gioi_tinh}, so_dien_thoai='${new_user.so_dien_thoai}', dia_chi=n'${new_user.dia_chi}'  WHERE username='${username}'`;
+        conn.query(sql, function(err, result, fields){
+            if(err) defer.reject(err);
+            if(result.affectedRows == 1){
+                defer.resolve(true);
+                updateCustomerDataCaching();
+            }else{
+                defer.resolve(false);
+            } 
+        });
+        return defer.promise;
+    }else{
+        return false;
+    }
+}
+
 // Delete
 
 module.exports = {
@@ -242,7 +295,8 @@ module.exports = {
     getInforDanhSachNguoiDung : getInforDanhSachNguoiDung,
     getInforCustomerByUsername : getInforCustomerByUsername,
     updateNewPassword : updateNewPassword,
-    GetCustomerByUsername: GetCustomerByUsername,
-    UpdatePoint: UpdatePoint,
-    getImageUrlByUsername : getImageUrlByUsername
+    getImageUrlByUsername : getImageUrlByUsername,
+    checkEmailIsExistedWithUsername : checkEmailIsExistedWithUsername,
+    checkPhoneNumberIsExistedWithUsername : checkPhoneNumberIsExistedWithUsername,
+    updateNewInformation : updateNewInformation
 }
