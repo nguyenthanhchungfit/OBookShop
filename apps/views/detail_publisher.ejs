@@ -63,10 +63,10 @@
             <div class="col-sm-2">
                 <h3>NXB khác</h3>
                 <div class="product-image-wrapper">
-                    <%for(var i = 0; i < data.listNXB.length; ++i){%>
-                    <%if(data.listNXB[i].ten_nxb != data.nhaxuatban.ten_nxb){%>
-                    <a href="<%= data.listNXB[i].ten_nxb%>">
-                        <p class="font16" style="margin: 10px; margin-left: 25px; color: black"><%= data.listNXB[i].ten_nxb%></p>
+                    <%for(var i = 0; i < data.listNXB.arr.length; ++i){%>
+                    <%if(data.listNXB.arr[i].ten_nxb != data.nhaxuatban.ten_nxb){%>
+                    <a href="<%= data.listNXB.arr[i].ten_nxb%>">
+                        <p class="font16" style="margin: 10px; margin-left: 25px; color: black"><%= data.listNXB.arr[i].ten_nxb%></p>
                     </a>
                     <%}%>
                     <%}%>

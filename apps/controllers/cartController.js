@@ -4,7 +4,20 @@ var bookModel = require("../models/bookModel")
 var customerModel = require("../models/customerModel");
 
 exports.getDetailCardPage = function(req, res){
-    res.render("detail_cart");
+    var user = req.session.user;
+    if(!user){
+        res.render("detail_cart", {data : {}});
+    }else{
+        var link = "";
+        if(user.type == 1){
+            link = "/customer";
+        }else if(user.type == 2){
+            link = "/staff";
+        }else if(user.type == 3){
+            link = "/manager";
+        }
+        res.render("detail_cart",{data : {user : user, link : link}});       
+    }
 }
 
 exports.getDetailCartItems = function(req, res){
@@ -40,7 +53,20 @@ exports.deleteCartbyIDBook = function(req, res){
 }
 
 exports.GetPayPage = function(req, res){
-    res.render("pay", {data: {}})
+    var user = req.session.user;
+    if(!user){
+        res.render("pay", {data : {}});
+    }else{
+        var link = "";
+        if(user.type == 1){
+            link = "/customer";
+        }else if(user.type == 2){
+            link = "/staff";
+        }else if(user.type == 3){
+            link = "/manager";
+        }
+        res.render("pay",{data : {user : user, link : link}});       
+    }
 }
 
 exports.GetPostPay = function(req, res){
@@ -111,13 +137,38 @@ exports.GetPostPay = function(req, res){
         // Xóa danh sách đơn hàng khỏi cookie
         res.clearCookie("Detail_Cart")
         // Render
-        res.render("pay", {data: {success: "Thanh toán thành công: Chúng tôi sẽ giao hàng đến địa chỉ sớm nhất"}})
+        var user = req.session.user;
+        if(!user){
+            res.render("pay", {data: {success: "Thanh toán thành công: Chúng tôi sẽ giao hàng đến địa chỉ sớm nhất"}});
+        }else{
+            var link = "";
+            if(user.type == 1){
+                link = "/customer";
+            }else if(user.type == 2){
+                link = "/staff";
+            }else if(user.type == 3){
+                link = "/manager";
+            }
+            res.render("pay",{data : {user : user, link : link, success: "Thanh toán thành công: Chúng tôi sẽ giao hàng đến địa chỉ sớm nhất"}});       
+        }
         }) 
     }
     else{
-        res.render("pay", {data: {error: "Chưa nhập đủ thông tin"}})
+        var user = req.session.user;
+        if(!user){
+            res.render("pay", {data: {error: "Chưa nhập đủ thông tin"}});
+        }else{
+            var link = "";
+            if(user.type == 1){
+                link = "/customer";
+            }else if(user.type == 2){
+                link = "/staff";
+            }else if(user.type == 3){
+                link = "/manager";
+            }
+            res.render("pay",{data : {user : user, link : link, error: "Chưa nhập đủ thông tin"}});       
+        }
     }
-    
 }
 
 exports.GetUpdateCart = function(req, res){
@@ -152,6 +203,7 @@ exports.UpDateStateCart = function(req, res){
                             var DiemThuong = TongTien/10000;
                             console.log("--> Diem thuong: " + DiemThuong);
                             
+                           
                             var Khach_hang = customerModel.GetCustomerByUsername(don_hang.nguoi_gui);
                             Khach_hang.then(function(data){
                                 var diem = data[0].diem_tich_luy;

@@ -3,8 +3,12 @@ var authorModel = require("../models/authorModel");
 var categoryModel = require("../models/categoryModel");
 var publisherModel = require("../models/publisherModel");
 var cartDetail = require("../controllers/cart");
-var fs = require("fs");
-var xml2js = require("xml2js");
+var DS_BanChay = require("../common/danh_sach_dac_biet/danh_sach_ban_chay_nhat")
+var DS_BinhChon = require("../common/danh_sach_dac_biet/danh_sach_binh_chon_cao_nhat")
+var DS_GiamGia = require("../common/danh_sach_dac_biet/danh_sach_giam_gia")
+var DS_MoiPhatHanh = require("../common/danh_sach_dac_biet/danh_sach_moi_phat_hanh")
+var fs = require("fs")
+var xml2js = require("xml2js")
 var url = require("url");
 
 exports.getBookbyID = function(req, res){
@@ -16,21 +20,20 @@ exports.getBookbyID = function(req, res){
         sach = dataSach[0]
 
         var IDTacGiaDB = authorModel.getAuthorbyIDBook(id)
-        IDTacGiaDB.then(function (dataSach_TG) {
+        IDTacGiaDB.then(function(dataSach_TG){
             var idtacgia = dataSach_TG[0]
 
             var TacGiaDB = authorModel.getAuthorbyID(idtacgia.id_tac_gia)
-            TacGiaDB.then(function (tac_gia) {
+            TacGiaDB.then(function(tac_gia){
                 var tacgia = tac_gia[0]
 
                 var result = {
-                    sach: sach,
+                    sach:sach,
                     tacgia: tacgia,
                     SoLuong: parseInt(SoLuong),
-                    TongTien: (sach.gia - sach.gia * sach.khuyen_mai / 100) * parseInt(SoLuong)
+                    TongTien: (sach.gia - sach.gia*sach.khuyen_mai/100) * parseInt(SoLuong)
                 }
-
-                if (sach.so_luong_ton >= SoLuong) {
+                if(sach.so_luong_ton >= SoLuong){
 
                     cartDetail.AddToCart(result, req, res)
 
@@ -39,12 +42,12 @@ exports.getBookbyID = function(req, res){
                     }
                     res.render("notification", {data: ThongTin})
                 }
-                else {
+                else{
                     var error = ""
-                    if (sach.so_luong_ton == 0) {
+                    if(sach.so_luong_ton == 0){
                         error = "Sách đã hết hàng, vui lòng quay lại sau"
                     }
-                    else if (sach.so_luong_ton < SoLuong) {
+                    else if(sach.so_luong_ton < SoLuong){
                         error = "Thêm giỏ hàng thất bại: Không đủ số lượng sách yêu cầu"
                     }
                     var ThongTin = {
@@ -519,6 +522,22 @@ exports.ViewComment = function(req, res){
     })
 }
 
+exports.index = function(req, res) {
+    bookModel.getInforBooksForHome().then(function(data){
+        res.render("home_item_book", {items : data.arr});
+    })
+};
+
+exports.index = function(req, res) {
+    bookModel.getInforBooksForHome().then(function(data){
+        res.render("home_item_book", {items : data.arr});
+    })
+};
+
+exports.get_create_book = function(req, res) {
+    res.render("create_book");
+}
+
 function CheckIDBookExistInList(ID, DS){
     var len  = DS.list.length
     for(var i = 0; i < len; ++i){
@@ -531,7 +550,7 @@ function CheckIDBookExistInList(ID, DS){
 function getDataDetailBook(req, res, thongtin){
     // Lấy chi tiết sách theo ID sách
     var sach = bookModel.getBookbyID(thongtin.id)
-    sach.then(function (sach) {
+    sach.then(function(sach){
         Sach = sach[0]
         Sach.gia = Sach.gia - Sach.gia*Sach.khuyen_mai/100
         // Lấy thể loại theo ID thể loại
@@ -541,34 +560,81 @@ function getDataDetailBook(req, res, thongtin){
             // Lấy danh sách các sách cùng thể loại
             var SachCungTheLoai = bookModel.getBookbyIDCategory(theloai.id_the_loai)
             SachCungTheLoai.then(function(sachcungtheloai){
+                
                 // Lấy ID tác giả từ ID sách
                 var IDtacgia = authorModel.getAuthorbyIDBook(Sach.id_sach)
                 IDtacgia.then(function(sach_tac_gia){
                     if(sach_tac_gia == "Không xác định"){
-                        var result = {
-                            Sach: Sach,
-                            tacgia: sach_tac_gia,
-                            theloai: theloai,
-                            sachcungtheloai: sachcungtheloai,
-                            thongtin: thongtin,
-                            isAuthor: false
+                        var user = req.session.user;
+                        if(!user){
+                            var result = {
+                                Sach: Sach,
+                                tacgia: sach_tac_gia,
+                                theloai: theloai,
+                                sachcungtheloai: sachcungtheloai,
+                                thongtin: thongtin,
+                                isAuthor: false
+                            }
+                            res.render("detail_book", {data: result})
+                        }else{
+                            var link = "";
+                            if(user.type == 1){
+                                link = "/customer";
+                            }else if(user.type == 2){
+                                link = "/staff";
+                            }else if(user.type == 3){
+                                link = "/manager";
+                            }
+                            var result = {
+                                Sach: Sach,
+                                tacgia: sach_tac_gia,
+                                theloai: theloai,
+                                sachcungtheloai: sachcungtheloai,
+                                thongtin: thongtin,
+                                isAuthor: false,
+                                user: user,
+                                link: link
+                            }
+                            res.render("detail_book", {data: result})     
                         }
-                        res.render("detail_book", {data: result})
+                        
                     }
                     else{
                         var Tacgia = authorModel.getAuthorbyID(sach_tac_gia[0].id_tac_gia)
                         Tacgia.then(function(tac_gia){
                             tacgia = tac_gia[0];
-                            console.log(tacgia);
-                            var result = {
-                                Sach: Sach,
-                                tacgia: tacgia,
-                                theloai: theloai,
-                                sachcungtheloai: sachcungtheloai,
-                                thongtin: thongtin,
-                                isAuthor: true
+                            var user = req.session.user;
+                            if(!user){
+                                var result = {
+                                    Sach: Sach,
+                                    tacgia: tacgia,
+                                    theloai: theloai,
+                                    sachcungtheloai: sachcungtheloai,
+                                    thongtin: thongtin,
+                                    isAuthor: true
+                                }
+                                res.render("detail_book", {data: result})
+                            }else{
+                                var link = "";
+                                if(user.type == 1){
+                                    link = "/customer";
+                                }else if(user.type == 2){
+                                    link = "/staff";
+                                }else if(user.type == 3){
+                                    link = "/manager";
+                                }
+                                var result = {
+                                    Sach: Sach,
+                                    tacgia: tacgia,
+                                    theloai: theloai,
+                                    sachcungtheloai: sachcungtheloai,
+                                    thongtin: thongtin,
+                                    isAuthor: true,
+                                    user: user,
+                                    link: link
+                                }
+                                res.render("detail_book", {data: result})     
                             }
-                            res.render("detail_book", {data: result})
                         })
                     }
                 })
@@ -587,7 +653,6 @@ function CheckNgayMoiPhatHanh(ngay){
     }
     return true;
 }
-
 
 exports.index = function (req, res) {
     bookModel.getInforBooksForHome().then(function (data) {

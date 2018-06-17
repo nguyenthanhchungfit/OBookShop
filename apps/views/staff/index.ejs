@@ -113,6 +113,11 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="/change_password">
+                                <i class="fas fa-user-circle"></i>Đổi mật khẩu</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -163,7 +168,7 @@
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="content">
                                             <!-- Link thông tin user -->
-                                            <a class="js-acc-btn"></a>
+                                            <a class="js-acc-btn"><%= data%></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="account-dropdown__body">
@@ -173,7 +178,7 @@
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="/login">
+                                                <a href="/staff/logout">
                                                     <i class="zmdi zmdi-power"></i>Logout</a>
                                             </div>
                                         </div>

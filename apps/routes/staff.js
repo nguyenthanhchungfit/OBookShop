@@ -20,6 +20,8 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage})
 router.get("/", staffController.index);
 
+router.get("/logout", staffController.logout);
+
 router.get("/create_author", authorsController.get_create_author);
 
 router.post("/create_author", authorsController.post_create_author);
@@ -55,7 +57,7 @@ router.post("/update_book", booksController.post_update_book);
 
 
 // Xóa sách
-router.get("/book/delete_book/:id", booksController.Delete_Book);
+//router.get("/book/delete_book/:id", booksController.delete_book);
 
 
 // Xóa tác giả

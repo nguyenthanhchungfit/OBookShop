@@ -10,7 +10,21 @@ var pw_encrypt = require("../helpers/password_encryption");
 
 
 exports.index = function(req, res){
-    res.render("home.ejs");
+    var user = req.session.user;
+    if(!user){
+        res.render("home.ejs", {data : {}});
+    }else{
+        var link = "";
+        if(user.type == 1){
+            link = "/customer";
+        }else if(user.type == 2){
+            link = "/staff";
+        }else if(user.type == 3){
+            link = "/manager";
+        }
+        res.render("home",{data : {user : user, link : link}});       
+    }
+    
 }
 
 exports.get_signup = function(req, res){

@@ -13,12 +13,33 @@ exports.GetAuthorbyID = function (req, res) {
 
             var ListTacGia = authorModel.getAuthor()
             ListTacGia.then(function (listTacGia) {
-                var result = {
-                    tacgia: tacgia,
-                    sach: sach,
-                    listTacGia: listTacGia
+
+                var user = req.session.user;
+                if(!user){
+                    var result = {
+                        tacgia: tacgia,
+                        sach: sach,
+                        listTacGia: listTacGia
+                    }
+                    res.render("detail_author", { data: result });
+                }else{
+                    var link = "";
+                    if(user.type == 1){
+                        link = "/customer";
+                    }else if(user.type == 2){
+                        link = "/staff";
+                    }else if(user.type == 3){
+                        link = "/manager";
+                    }
+                    var result = {
+                        tacgia: tacgia,
+                        sach: sach,
+                        listTacGia: listTacGia,
+                        user: user,
+                        link: link
+                    }
+                    res.render("detail_author", { data: result });
                 }
-                res.render("detail_author", { data: result });
             })
         })
 
