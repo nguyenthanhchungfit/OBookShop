@@ -156,25 +156,58 @@ function DeleteBook(IDBook){
     }
 }
 
-// Xóa sách khỏi database
-function DeleteBook(IDBook){
-    if(IDBook){
-        // Xóa ID sách trong bang sach_tac_gia:
-        var query = connection.query("DELETE FROM sach_tac_gia WHERE ?",{id_sach: IDBook}, function(err, result){
-            if(err){
-                throw err;
+function checkIDIsExisted(id) {
+    if (id) {
+        var defer = q.defer();
+        var sql = `SELECT * FROM ${tableName} WHERE id_sach = ?`;
+        var query = connection.query(sql, [id], function (err, result, fields) {
+            if (err) defer.reject(err);
+            if (result.length == 0) {
+                console.log(0);
+                defer.resolve(false);
+
+            } else {
+                console.log(1);
+                defer.resolve(true);
             }
-        })
-        // Xóa ID sách trong bảng sach
-        var query = connection.query("DELETE FROM sach WHERE ?",{id_sach: IDBook}, function(err, result){
-            if(err){
-                throw err;
-            }
-        })
-        console.log("Deleted book " + IDBook);
+        });
+        return defer.promise;
+
     }
+    return false;
 }
 
+// Insert
+function addNewBook(book) {
+    if (book) {
+        var defer = q.defer();
+        var sql = `INSERT INTO ${tableName} values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        var query = connection.query(sql, [book.id_sach, book.ten_sach, book.the_loai, book.nha_xuat_ban, book.nam_xuat_ban, book.khuyen_mai, book.gia, book.so_luong_ton, book.chat_luong, book.image_sach_url, book.doc_truoc], function (err, result) {
+            if (err) {
+                defer.reject(err);
+            } else {
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+}
+function updateBook(id, bookNew) {
+    if (id && bookNew) {
+        var defer = q.defer();
+        var sql = `UPDATE ${tableName} SET ten_sach = ? , the_loai = ? , nha_xuat_ban = ?, nam_xuat_ban = ?, khuyen_mai = ?, gia = ?, so_luong_ton = ? , doc_truoc = ? WHERE id_sach = ?`;
+        var query = connection.query(sql, [bookNew.ten_sach, bookNew.the_loai, bookNew.nha_xuat_ban, bookNew.nam_xuat_ban, bookNew.khuyen_mai, bookNew.gia, bookNew.so_luong_ton, bookNew.doc_truoc, id], function (err, result) {
+            if (err) {
+                defer.reject(err);
+            } else {
+                defer.resolve(result);
+            }
+        });
+        return defer.promise;
+    }
+    return false;
+}
 
 module.exports = {
     getInforBooksForHome : getInforBooksForHome,
@@ -184,5 +217,8 @@ module.exports = {
     getBookbyIDAuthor: getBookbyIDAuthor,
     getBookbyNamePublihser: getBookbyNamePublihser,
     UpdateNumberBook: UpdateNumberBook,
-    DeleteBook: DeleteBook
+    DeleteBook: DeleteBook,
+    checkIDIsExisted: checkIDIsExisted,
+    addNewBook: addNewBook,
+    updateBook: updateBook
 }
