@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // Sách bán chạy
 $("#ban_chay").on("click","p", function () {
     var xhttp = new XMLHttpRequest();
@@ -156,8 +155,6 @@ $("#binh_chon_cao").on("click","p", function () {
     xhttp.open("GET", "/staff/delete_new/" + id_sach, true);
     xhttp.send();
  });
-||||||| merged common ancestors
-=======
 $("#xoa_sua_sach").on("click", "p", function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -309,4 +306,3 @@ $("#main_view").on("click", "a", function () {
 //     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 //     xhttp.send();
 //  });
->>>>>>> tanh

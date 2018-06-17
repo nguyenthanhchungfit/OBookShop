@@ -40,7 +40,7 @@ router.get("/book/delete_book/:id", booksController.Delete_Book);
 // Xóa tác giả
 router.get("/author/delete_author/:id", authorsController.delete_author);
 
-// ERROR
+
 //router.get("/update_delete_book", booksController.update_delete_book);
 
 router.get("/update_delete_author", authorsController.update_delete_author);
