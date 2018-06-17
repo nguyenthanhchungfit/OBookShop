@@ -139,9 +139,7 @@ function getInforCustomerByUsername(username){
     var query = conn.query(sql, function(err, result, fields){
         if(err) defer.reject(err);
         result.forEach(element =>{
-            user = {username : element.username, email : element.email, so_dien_thoai : element.so_dien_thoai,
-                ho_ten: element.ho_ten, dia_chi : element.dia_chi
-            };
+            user = element;
         });
         defer.resolve({user});
     });
@@ -175,7 +173,24 @@ function addNewCustomer(customer){
 }
 
 // Update
-
+function updateNewPassword(username, password){
+    var defer = q.defer();
+    if(username && password){
+        var en_password = pw_encrypt.encrypt_password(password);
+        var sql = `UPDATE ${tableName} SET password='${en_password}' WHERE username='${username}'`;
+        conn.query(sql, function(err, result, fields){
+            if(err) defer.reject(err);
+            if(result.affectedRows == 1){
+                defer.resolve(true);
+            }else{
+                defer.resolve(false);
+            } 
+        });
+        return defer.promise;
+    }else{
+        return false;
+    }
+}
 
 // Delete
 
@@ -186,5 +201,6 @@ module.exports = {
     addNewCustomer : addNewCustomer,
     isValidAccount : isValidAccount,
     getInforDanhSachNguoiDung : getInforDanhSachNguoiDung,
-    getInforCustomerByUsername : getInforCustomerByUsername
+    getInforCustomerByUsername : getInforCustomerByUsername,
+    updateNewPassword : updateNewPassword
 }
