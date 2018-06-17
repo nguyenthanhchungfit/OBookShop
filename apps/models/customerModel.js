@@ -164,6 +164,20 @@ function getInforCustomerByUsername(username){
     return defer.promise;
 }
 
+function getImageUrlByUsername(username){
+    var defer = q.defer();
+    var user;
+    var sql = `SELECT image_url FROM ${tableName} WHERE username = '${username}'`;
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{
+            user = element;
+        });
+        defer.resolve({user});
+    });
+    return defer.promise;
+}
+
 
 // Insert
 function addNewCustomerToCaching(customer){
@@ -229,5 +243,7 @@ module.exports = {
     getInforCustomerByUsername : getInforCustomerByUsername,
     updateNewPassword : updateNewPassword,
     GetCustomerByUsername: GetCustomerByUsername,
-    UpdatePoint: UpdatePoint
+    UpdatePoint: UpdatePoint,
+    updateNewPassword : updateNewPassword,
+    getImageUrlByUsername : getImageUrlByUsername
 }

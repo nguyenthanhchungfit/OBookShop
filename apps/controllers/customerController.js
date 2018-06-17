@@ -10,8 +10,12 @@ exports.dashboard = function(req, res){
     if(!user){
         res.redirect("../login");
     }else{
-        var image_link = "../static/imgs/users/customer/" + user.username + ".jpg";
-        res.render("customer/index", {data : {user : user, image_link : image_link}}); 
+        customerModel.getImageUrlByUsername(user.username).then(function(userimg){
+            console.log(userimg);
+            var image_link = "../static/imgs/users/customer/" + userimg.user.image_url;
+            console.log(image_link);
+            res.render("customer/index", {data : {user : user, image_link : image_link}});
+        });
     }
 }
 
