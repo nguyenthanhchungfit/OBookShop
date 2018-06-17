@@ -244,6 +244,5 @@ module.exports = {
     updateNewPassword : updateNewPassword,
     GetCustomerByUsername: GetCustomerByUsername,
     UpdatePoint: UpdatePoint,
-    updateNewPassword : updateNewPassword,
     getImageUrlByUsername : getImageUrlByUsername
 }
