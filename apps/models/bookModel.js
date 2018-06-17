@@ -184,8 +184,5 @@ module.exports = {
     getBookbyIDAuthor: getBookbyIDAuthor,
     getBookbyNamePublihser: getBookbyNamePublihser,
     UpdateNumberBook: UpdateNumberBook,
-    checkIDIsExisted: checkIDIsExisted,
-    addNewBook: addNewBook,
-    updateBook: updateBook,
     DeleteBook: DeleteBook
 }
