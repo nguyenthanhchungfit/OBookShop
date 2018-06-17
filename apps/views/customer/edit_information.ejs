@@ -106,7 +106,7 @@
 
             <!-- MAIN CONTENT -->
             <div class="main-content">
-                <form id="signupform" class="form-horizontal" role="form" method="POST" action="/signup">
+                <form id="signupform" class="form-horizontal" role="form" method="POST" action="./edit_information">
 
                     <div class="form-group">
                         <label for="email" class="text-success font-weight-bold col-md-3 control-label">Email</label>
@@ -161,11 +161,23 @@
                         </div>
                     </div>
 
-                    <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
-                        class="alert alert-success">
-                        <p><strong>Success:</strong></p>
-                        <p><%= data.success%></p>
+                    <div class="row mt-4">
+                        <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
+                            class="alert alert-success col-md-5 mx-auto text-center">
+                            <p><strong>Success</strong></p>
+                            <p><%= data.success%></p>
+                        </div>
                     </div>
+                    
+                    <div class="row mt-4">
+                        <div id="signupalerterror" style="<%if (!data || !data.esuccess){%>display:none<%}%>" 
+                            class="alert alert-danger col-md-5 mx-auto text-center">
+                                <p><strong>Error</strong></p>
+                                <%if (data && data.esuccess){%>
+                                <p><%- data.esuccess%></p>
+                                <%}%>
+                        </div>
+                    </div>    
 
                 </form>
             </div>
