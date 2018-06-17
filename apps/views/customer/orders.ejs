@@ -106,7 +106,34 @@
 
             <!-- MAIN CONTENT -->
             <div class="main-content">
-                <p style="text-align: center">Hello Heo</p>
+            <div class="container-fluid">
+            <div class="row">
+                <div class="table-responsive table--no-card m-b-30">
+                    <table class="table table-borderless table-striped table-earning">
+                    <thead>
+                        <tr>
+                            <th>Mã đơn hàng</th>
+                            <th>Danh sách sách</th>
+                            <th>Ngày mua</th>
+                            <th class="text-right">Tổng tiền</th>
+                            <th class="text-right">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% data.items.forEach(function(item){%>
+                            <tr>
+                                <td><%=item.ma_don_hang%></td>
+                                <td><%=item.ten_sach%></td>
+                                <td><%=item.ngay_mua%></td>
+                                <td class="text-right"><%=item.thanh_tien%></td>
+                                <td class="text-right"><%=item.trang_thai%></td>
+                            </tr>
+                        <%});%>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
             </div>
             <!-- END MAIN CONTENT-->
         </div>

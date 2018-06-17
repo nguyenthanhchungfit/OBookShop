@@ -65,3 +65,6 @@ $("#accordian").on("click","h4", function () {
     xhttp.open("GET", query, true);
     xhttp.send();
  });
+
+
+

@@ -1,4 +1,5 @@
 var customerModel = require("../models/customerModel");
+var orderModel = require("../models/orderModel");
 
 exports.index = function(req, res){
     res.redirect("/customer/dashboard");
@@ -10,6 +11,9 @@ exports.dashboard = function(req, res){
     if(!user){
         res.redirect("../login");
     }else{
+        if(user.type != 1){
+            res.send("Not customer");
+        }
         customerModel.getImageUrlByUsername(user.username).then(function(userimg){
             var image_link = "../static/imgs/users/customer/" + userimg.user.image_url;
             res.render("customer/index", {data : {user : user, image_link : image_link}});
@@ -23,6 +27,9 @@ exports.information = function(req, res){
     if(!user_session){
         res.redirect("../login");
     }else{
+        if(user_session.type != 1){
+            res.send("Not customer");
+        }
         customerModel.getInforCustomerByUsername(user_session.username).then(function(user){
             var image_link = "../static/imgs/users/customer/" + user.user.image_url;
             if(user.user.gioi_tinh == 0){
@@ -42,6 +49,9 @@ exports.edit_information = function(req, res){
     if(!user_session){
         res.redirect("../login");
     }else{
+        if(user_session.type != 1){
+            res.send("Not customer");
+        }
         customerModel.getInforCustomerByUsername(user_session.username).then(function(user){
             var select = {nam : '', nu : ''};
             if(user.user.gioi_tinh == 0){
@@ -62,6 +72,9 @@ exports.edit_information_post = function(req, res){
     if(!user_session){
         res.redirect("../login");
     }else{
+        if(user_session.type != 1){
+            res.send("Not customer");
+        }
         var user_body = {
             email : req.body.email.trim(),
             ho_ten : req.body.ho_ten.trim(),
@@ -144,6 +157,9 @@ exports.change_password = function(req, res){
     if(!user){
         res.redirect("../login");
     }else{
+        if(user.type != 1){
+            res.send("Not customer");
+        }
         var image_link = "../static/imgs/users/customer/" + user.username + ".jpg";
         res.render("customer/change_password", {data : {user : user, image_link : image_link}}); 
     }
@@ -154,6 +170,9 @@ exports.change_password_post = function(req, res){
     if(!user_session){
         res.redirect("../login");
     }else{
+        if(user_session.type != 1){
+            res.send("Not customer");
+        }
         var old_password = req.body.old_password.trim();
         var new_password = req.body.new_password.trim();
         var re_new_password = req.body.re_new_password.trim();
@@ -189,12 +208,49 @@ exports.change_password_post = function(req, res){
 }
 
 exports.orders = function(req, res){
-    var user = req.session.user;
-    if(!user){
+    var user_session = req.session.user;
+    if(!user_session){
         res.redirect("../login");
     }else{
-        var image_link = "../static/imgs/users/customer/" + user.username + ".jpg";
-        res.render("customer/orders", {data : {user : user, image_link : image_link}}); 
+        if(user_session.type != 1){
+            res.send("Not customer");
+        }
+        customerModel.getInforCustomerByUsername(user_session.username).then(function(user){
+            var image_link = "../static/imgs/users/customer/" + user.user.image_url;
+
+            orderModel.getDataFrom2DB(user_session.username).then(function(data){
+                var result = [];
+                var flag;
+                var element;
+                var ele;
+                for(var i = 0; i < data.length; i++){
+                    flag = false;
+                    element = data[i];
+                    for(var j = 0; j < result.length; j++){
+                        ele = result[j];
+                        if(element.ma_don_hang == ele.ma_don_hang){
+                            ele.thanh_tien += element.thanh_tien;
+                            ele.ten_sach += " - " + element.ten_sach; 
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(flag == false){
+                        if(element.trang_thai == 0){
+                            element.trang_thai = "Xác nhận đóng gói";
+                        }else if(element.trang_thai == 1){
+                            element.trang_thai = "Lấy hàng từ kho";
+                        }else if(element.trang_thai == 2){
+                            element.trang_thai = "Bắt đầu giao hàng";
+                        }else if(element.trang_thai == 3){
+                            element.trang_thai = "Hoàn tất giao hàng";
+                        }
+                        result.push(element);
+                    }
+                };
+                res.render("customer/orders", {data : {user : user.user, image_link : image_link, items : result}}); 
+            });
+        });
     }
 }
 
