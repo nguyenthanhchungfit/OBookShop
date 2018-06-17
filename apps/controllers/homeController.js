@@ -31,7 +31,7 @@ exports.post_signup = function(req, res){
         so_dien_thoai : body.so_dien_thoai,
         gioi_tinh : sex,
         dia_chi : body.dia_chi,
-        image_url : "default.jpg",
+        image_url : "../default.jpg",
         diem_tich_luy : 0
     }
 

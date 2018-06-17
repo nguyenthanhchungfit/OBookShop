@@ -28,7 +28,6 @@ exports.information = function(req, res){
             }else{
                 user.user.gioi_tinh = "Nữ";
             }
-            console.log(user);
             res.render("customer/information", {data : {user : user.user, image_link : image_link}});
         }).catch(function(err){
 
@@ -37,6 +36,27 @@ exports.information = function(req, res){
 }
 
 exports.edit_information = function(req, res){
+    var user_session = req.session.user;
+    if(!user_session){
+        res.redirect("../login");
+    }else{
+        customerModel.getInforCustomerByUsername(user_session.username).then(function(user){
+            console.log(user);
+            var select = {nam : '', nu : ''};
+            if(user.gioi_tinh == 0){
+                select.nam = 'selected';
+            }else{
+                select.nu = 'selected';
+            }
+            var image_link = "../static/imgs/users/customer/" + user.user.image_url;
+            res.render("customer/edit_information", {data : {user : user.user, image_link : image_link, select : select}}); 
+        }).catch(function(err){
+            res.send(err);
+        }); 
+    }
+}
+
+exports.edit_information_post = function(req, res){
     var user = req.session.user;
     if(!user){
         res.redirect("../login");

@@ -15,6 +15,8 @@ router.get("/information", customerController.information);
 // Chỉnh sửa thông tin người dùng
 router.get("/edit_information", customerController.edit_information);
 
+router.post("/edit_information", customerController.edit_information_post);
+
 // Đổi mật khẩu người dùng
 router.get("/change_password", customerController.change_password);
 
