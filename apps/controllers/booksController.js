@@ -432,3 +432,9 @@ exports.post_update_book = function (req, res) {
         })
     })
 }
+exports.delete_book = function(req, res){
+    bookModel.DeleteBook(req.params.id);
+    bookModel.getInforBooksForHome().then(function (data) {
+        res.render("staff/update_delete_book", { items: data.arr });
+    })
+}

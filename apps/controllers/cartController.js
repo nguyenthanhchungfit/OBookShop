@@ -2,7 +2,16 @@ var cartModel = require("../models/cartModel")
 var cartDetail = require("../controllers/cart")
 var bookModel = require("../models/bookModel")
 
-exports.getDetailCard = function(req, res){
+exports.getDetailCardPage = function(req, res){
+    res.render("detail_cart");
+}
+
+exports.getDetailCartItems = function(req, res){
+    if(req.query.id){
+        var ID = req.query.id
+        cartDetail.deleteCartbyIDBook(ID, req, res)
+    }
+
     var GioHang = cartDetail.GetCart(req, res)
     var TongTienPhaiTra = cartDetail.GetSumMoney(req, res)
 
@@ -10,7 +19,8 @@ exports.getDetailCard = function(req, res){
         GioHang: GioHang,
         TongTienPhaiTra: TongTienPhaiTra
     }
-    res.render("detail_card", {data: result});
+
+    res.render("detail_cart_items", {data: result});
 }
 
 exports.deleteCartbyIDBook = function(req, res){
@@ -37,14 +47,21 @@ exports.GetPostPay = function(req, res){
     var NguoiGui = req.body.nguoigui
     var SDT = req.body.sdt
     var DiaChi = req.body.diachi
-    var Now = new Date()
+    var Ma_Don_Hang;
 
     if(NguoiNhan != "" && NguoiGui != "" && SDT != "" && DiaChi != ""){
-        var SoLuongGioHang = cartModel.getNumberCart()
-        SoLuongGioHang.then(function(so_luong){
+        var GioHangCuoi = cartModel.getFinalCart()
+        GioHangCuoi.then(function(data){
         // Tạo mã đơn hàng
-        var Ma_Don_Hang = so_luong + 1
-        
+        if(data != null){
+            Ma_Don_Hang = parseInt(data.ma_don_hang) + 1;
+        }
+        else{
+            Ma_Don_Hang = 1;
+        }
+        var now = new Date()
+        var ngayMua = now.getDay() + "-" + now.getMonth()  + "-" + now.getFullYear()
+
         // Tạo đối tượng ghi vào đơn hàng
         var resultCart = {
             ma_don_hang: Ma_Don_Hang,
@@ -52,7 +69,7 @@ exports.GetPostPay = function(req, res){
             nguoi_gui: NguoiGui,
             dia_chi: DiaChi,
             so_dien_thoai: SDT,
-            ngay_mua: Now,
+            ngay_mua: new Date(),
             trang_thai: 0
         }
         cartModel.AddCartToDatabase(resultCart)
@@ -72,11 +89,22 @@ exports.GetPostPay = function(req, res){
             }
             cartModel.AddDetailCartToDatabase(resultDetail_Cart)
         }
+        // Giảm số lượng sách ở database
+        for(var i = 0; i < len; ++i){
+            var k = 0;
+            var Sach = bookModel.getBookbyID(Detail_Cart[i].sach.id_sach);
+            Sach.then(function(data){
+                sach = data[0];
+                var SoLuongMoi = sach.so_luong_ton -  Detail_Cart[k].SoLuong;
+                bookModel.UpdateNumberBook(sach.id_sach, SoLuongMoi);
+                k++;
+            })
+        }
 
         // Xóa danh sách đơn hàng khỏi cookie
         res.clearCookie("Detail_Cart")
         // Render
-        res.render("pay", {data: {success: "Chúng tôi sẽ giao hàng đến địa chỉ sớm nhất"}})
+        res.render("pay", {data: {success: "Thanh toán thành công: Chúng tôi sẽ giao hàng đến địa chỉ sớm nhất"}})
         }) 
     }
     else{
@@ -85,81 +113,15 @@ exports.GetPostPay = function(req, res){
     
 }
 
-exports.UpdateCartPage = function(req, res){
+exports.GetUpdateCart = function(req, res){
     var listCart = cartModel.GetCart()
     listCart.then(function(don_hang){
         res.render("update_cartPage", {data: don_hang})
     })
 }
 
-exports.UpDateCart = function(req, res){
-    var DonHang = cartModel.getCartByID(req.params.id)
-    DonHang.then(function(don_hang){
-        donhang = don_hang[0]
-        var result = {
-            ma_don_hang: donhang.ma_don_hang,
-            nguoi_gui: donhang.nguoi_gui,
-            nguoi_nhan: donhang.nguoi_nhan,
-            so_dien_thoai: donhang.so_dien_thoai,
-            dia_chi: donhang.dia_chi,
-            ngay_mua: donhang.ngay_mua,
-            trang_thai: donhang.trang_thai
-        }
-        res.render("update_cart", {data: result})
-    })
-}
-
-exports.UpdateCartToDB = function(req, res){
-    var NguoiNhan = req.body.nguoinhan
-    var NguoiGui = req.body.nguoigui
-    var SoDienThoai = req.body.sdt
-    var DiaChi = req.body.diachi
-    var NgayMua = req.body.ngaymua
-    var Gender = req.body.gender
-    var TrangThai = 0
-
-    if(NguoiGui != "" && NguoiNhan != "" && SoDienThoai != "" && DiaChi != "" && NgayMua != ""){
-        if(Gender == "XNDG"){
-            TrangThai = 0
-        }
-        else if(Gender == "LHTK"){
-            TrangThai = 1
-        }
-        else if(Gender == "BDGH"){
-            TrangThai = 2
-        }
-        else{
-            TrangThai = 3
-        }
-        var result = {
-            ma_don_hang: req.params.id,
-            nguoi_gui: NguoiGui,
-            nguoi_nhan: NguoiNhan,
-            so_dien_thoai: SoDienThoai,
-            dia_chi: DiaChi,
-            ngay_mua: NgayMua,
-            trang_thai: TrangThai
-        }
-        cartModel.UpdateCartToDatabase(result)
-        res.redirect("/staff/updatecart")
+exports.UpDateStateCart = function(req, res){
+    if(req.query.trang_thai){
+        cartModel.UpdateCartToDatabase(req.params.id, req.query.trang_thai)
     }
-    else{
-        var DonHang = cartModel.getCartByID(req.params.id)
-        DonHang.then(function(don_hang){
-            donhang = don_hang[0]
-            var result = {
-                ma_don_hang: donhang.ma_don_hang,
-                nguoi_gui: donhang.nguoi_gui,
-                nguoi_nhan: donhang.nguoi_nhan,
-                so_dien_thoai: donhang.so_dien_thoai,
-                dia_chi: donhang.dia_chi,
-                ngay_mua: donhang.ngay_mua,
-                trang_thai: donhang.trang_thai,
-                error: "Không được để thông tin trống"
-            }
-            res.render("update_cart", {data: result})
-        })
-    }
-    
-
 }

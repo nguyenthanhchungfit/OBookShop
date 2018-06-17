@@ -33,15 +33,6 @@ function deleteCartbyIDBook(ID, req, res){
                     Cart2.push(Cart[j])
             }
             Cart = Cart2
-
-            // Tăng số lượng sách ở database
-            Sach = bookModel.getBookbyID(ID)
-            Sach.then(function(data){
-                sach = data[0]
-                SoLuongMoi = sach.so_luong_ton + Cart[i].SoLuong
-                bookModel.UpdateNumberBook(ID, SoLuongMoi)
-            })
-
             // Ghi lại vào trong cookie
             res.cookie("Detail_Cart", Cart)
             break;

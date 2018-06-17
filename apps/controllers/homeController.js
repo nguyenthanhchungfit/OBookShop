@@ -4,7 +4,7 @@ var managerModel = require("../models/managerModel");
 var categoryModel = require("../models/categoryModel");
 var bookModel = require("../models/bookModel");
 var validator = require("../helpers/validator");
-var pw = require("../helpers/password_encryption");
+var pw_encrypt = require("../helpers/password_encryption");
 
 
 
@@ -140,8 +140,7 @@ exports.post_login = function(req, res){
                 if(isValidCustomer){
                     req.session.user = {username : body.username, type : 1};
                     console.log(req.session.user);
-                    res.send("Customer");
-                    //res.redirect("/customer");
+                    res.redirect("/customer");
                 }else{
                     staffModel.isValidAccount(body.username, body.password).then(function(isValidStaff){
                         if(isValidStaff){

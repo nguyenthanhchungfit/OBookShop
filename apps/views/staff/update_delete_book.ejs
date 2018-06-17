@@ -7,21 +7,31 @@
                         <a href="/book/<%= item.id_sach%>">
                             <img src="static/imgs/category/books/<%=item.image_sach_url%>" alt="" height="300" />
                         </a>
-                        <h2><%= item.gia%></h2>
-                        <p><%= item.ten_sach%></p>
-                        <p><%= item.so_luong_ton%></p>                  
+                        <h2>
+                            <%= item.gia%>
+                        </h2>
+                        <p>
+                            <%= item.ten_sach%>
+                        </p>
+                        <p>
+                            <%= item.so_luong_ton%>
+                        </p>
                     </div>
-                    
+
                 </div>
                 <div class="choose">
                     <ul class="nav nav-pills nav-justified">
-                        <li><a href="#"><i class="fa fa-plus-square"></i>Xóa</a></li>
-                        <li><a href="#"><i class="fa fa-plus-square"></i>Sửa</a></li>
+                        <li>
+                            <a id="<%= item.id_sach%>" href="#" name="sach">
+                                <i class="fa fa-plus-square"></i>Xóa</a>
+                        </li>
+                        <li>
+                            <a href="/staff/update_book?id=<%= item.id_sach %>">
+                                <i class="fa fa-plus-square"></i>Sửa</a>
+                        </li>
                     </ul>
-                    </div>
+                </div>
             </div>
         </div>
-    <%});%>
+        <%});%>
 </div>
-
-

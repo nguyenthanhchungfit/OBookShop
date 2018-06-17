@@ -189,6 +189,27 @@ function updateBook(id, bookNew) {
     }
     return false;
 }
+
+// Xóa sách khỏi database
+function DeleteBook(IDBook){
+    if(IDBook){
+        // Xóa ID sách trong bang sach_tac_gia:
+        var query = connection.query("DELETE FROM sach_tac_gia WHERE ?",{id_sach: IDBook}, function(err, result){
+            if(err){
+                throw err;
+            }
+        })
+        // Xóa ID sách trong bảng sach
+        var query = connection.query("DELETE FROM sach WHERE ?",{id_sach: IDBook}, function(err, result){
+            if(err){
+                throw err;
+            }
+        })
+        console.log("Deleted book " + IDBook);
+    }
+}
+
+
 module.exports = {
     getInforBooksForHome : getInforBooksForHome,
     getInforBooksForHomeByCategory : getInforBooksForHomeByCategory,
@@ -199,5 +220,6 @@ module.exports = {
     UpdateNumberBook: UpdateNumberBook,
     checkIDIsExisted: checkIDIsExisted,
     addNewBook: addNewBook,
-    updateBook: updateBook
+    updateBook: updateBook,
+    DeleteBook: DeleteBook
 }

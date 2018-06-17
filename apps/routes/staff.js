@@ -59,17 +59,21 @@ router.get("/update_delete_author", authorsController.update_delete_author);
 
 router.get("/update_delete_publisher", publisherController.update_delete_publisher);
 
-router.get("/update_delete_book/update/:id")
+// router.get("/update_delete_book/update/:id")
 
 router.get("/create_author", authorsController.get_create_author);
 
 router.get("/create_publisher", publisherController.post_create_publisher)
 
+// Xóa sách
+router.get("/delete_book/:id", booksController.delete_book); 
+router.get("/delete_author/:id", authorsController.delete_author)
+router.get("/delete_publisher/:Name", publisherController.delete_publisher)
 
 // Cập nhật thông tin đơn hàng
-router.get("/updatecart", cartController.UpdateCartPage)
-router.get("/updatecart/:id", cartController.UpDateCart)
-router.post("/updatecart/:id", cartController.UpdateCartToDB)
+// router.get("/updatecart", cartController.UpdateCartPage)
+//router.get("/updatecart/:id", cartController.UpDateCart)
+//router.post("/updatecart/:id", cartController.UpdateCartToDB)
 
 
 module.exports = router;

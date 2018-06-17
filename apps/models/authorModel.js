@@ -122,6 +122,25 @@ function updateAuthor(id, authorNew) {
     return false;
 }
 
+// Xóa tác giả khỏi database
+function Delete_Author(ID_TG){
+    if(ID_TG){
+        // Xóa ID TG trong bang sach_tac_gia:
+        var query = connection.query("DELETE FROM sach_tac_gia WHERE ?",{id_tac_gia: ID_TG}, function(err, result){
+            if(err){
+                throw err;
+            }
+        })
+        // Xóa ID TG trong bảng sach
+        var query = connection.query("DELETE FROM tac_gia WHERE ?",{id_tac_gia: ID_TG}, function(err, result){
+            if(err){
+                throw err;
+            }
+        })
+        console.log("Deleted Author " + ID_TG);
+    }
+}
+
 module.exports = {
     getAuthorbyIDBook: getAuthorbyIDBook,
     getAuthorbyID: getAuthorbyID,
@@ -129,5 +148,6 @@ module.exports = {
     addNewAuthor: addNewAuthor,
     updateAuthor: updateAuthor,
     getAuthor: getAuthor,
-    addNewAuthorofBook: addNewAuthorofBook
+    addNewAuthorofBook: addNewAuthorofBook,
+    Delete_Author: Delete_Author
 }

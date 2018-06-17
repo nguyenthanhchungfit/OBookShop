@@ -81,7 +81,7 @@ exports.update_delete_publisher = function(req, res){
 }
 exports.get_update_publisher = function (req, res) {
 
-    // Lấy chi tiết của tác giả
+    // Lấy chi tiết của nhà xuất bản
     // Lấy đường link trang web
     var web = req.url;
     var q = url.parse(web, true);
@@ -150,15 +150,23 @@ exports.post_update_publisher = function (req, res) {
 
     // Get lại dữ liệu
     var id_publisher = publisherModel.getPublisherbyName(qdata.id);
-    id_publisher.then(function (publisher) {
-        nxb = publisher[0];
+    id_publisher.then(function (pub) {
+        nxb = pub[0];
         var result;
-        console.log(tac_gia);
+        console.log(nxb);
         result = {
             nxb: nxb,
             success: "Câp nhật nhà xuất bản thành công",
             id: qdata.id
         }
         res.render("update_publisher", { data: result });
+    })
+}
+
+exports.delete_publisher = function(req, res){
+    console.log(req.params.Name)
+    publisherModel.Delete_Publisher(req.params.Name);
+    publisherModel.getPublisher().then(function (data) {
+        res.render("staff/update_delete_publisher", { items: data.arr });
     })
 }
