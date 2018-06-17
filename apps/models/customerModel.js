@@ -21,6 +21,24 @@ function getCustomerDataFromDB(){
     return defer.promise;
 }
 
+function GetCustomerByUsername(user){
+    if(user){
+        var defer = q.defer();
+        
+        var query = conn.query("SELECT * FROM khach_hang WHERE ?",{username: user}, function(err, result){
+            if(err){
+                defer.reject(err)
+            }
+            else
+            {
+                console.log(result);
+                defer.resolve(result)
+            }
+        })
+        return defer.promise
+    }
+}
+
 function updateCustomerDataCaching(){
     customerDataCaching = [];
     getCustomerDataFromDB().then(function(data){       
@@ -191,6 +209,13 @@ function updateNewPassword(username, password){
         return false;
     }
 }
+function UpdatePoint(user, diem){
+    var query = conn.query("UPDATE khach_hang SET diem_tich_luy = ? WHERE username = ?", [diem, user], (err) => {
+        if(err) {
+            throw err;
+        }
+    })
+}
 
 // Delete
 
@@ -202,5 +227,7 @@ module.exports = {
     isValidAccount : isValidAccount,
     getInforDanhSachNguoiDung : getInforDanhSachNguoiDung,
     getInforCustomerByUsername : getInforCustomerByUsername,
-    updateNewPassword : updateNewPassword
+    updateNewPassword : updateNewPassword,
+    GetCustomerByUsername: GetCustomerByUsername,
+    UpdatePoint: UpdatePoint
 }

@@ -140,7 +140,8 @@ exports.post_login = function(req, res){
                 if(isValidCustomer){
                     req.session.user = {username : body.username, type : 1};
                     console.log(req.session.user);
-                    res.redirect("/customer");
+                    res.redirect("/");
+                    //res.redirect("/customer");
                 }else{
                     staffModel.isValidAccount(body.username, body.password).then(function(isValidStaff){
                         if(isValidStaff){

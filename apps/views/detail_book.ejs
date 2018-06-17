@@ -43,9 +43,15 @@
                 <!-- Tên sách -->
                 <h4>Tên sách: <%= data.Sach.ten_sach%></h4>
                 
+                <%if(data.isAuthor == true){%>
                 <p class="font16">Tác giả: <a href="/author/<%= data.tacgia.id_tac_gia%>">
                     <%= data.tacgia.ten_tac_gia%>
                 </a></p>
+                <%}%>
+
+                <%if(data.isAuthor == false){%>
+                <p class="font16">Tác giả: <%= data.tacgia%> </p>
+                <%}%>
                 
                 <hr />
                 <p class="font16">Giá: <%= data.Sach.gia%> (Khuyến mãi <%= data.Sach.khuyen_mai%>%)</p>
