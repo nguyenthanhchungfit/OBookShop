@@ -15,13 +15,34 @@ exports.getPublisherByName = function (req, res) {
             // Lấy danh sách nhà xuất bản
             var listNXB = publisherModel.getPublisher()
             listNXB.then(function (listNXB) {
-                var result = {
-                    nhaxuatban: nhaxuatban,
-                    sach: sach,
-                    listNXB: listNXB
+                var user = req.session.user;
+                if(!user){
+                    var result = {
+                        nhaxuatban: nhaxuatban,
+                        sach: sach,
+                        listNXB: listNXB
+                    }
+                    res.render("detail_publisher", { data: result })
+                }else{
+                    var link = "";
+                    if(user.type == 1){
+                        link = "/customer";
+                    }else if(user.type == 2){
+                        link = "/staff";
+                    }else if(user.type == 3){
+                        link = "/manager";
+                    }
+                    var result = {
+                        nhaxuatban: nhaxuatban,
+                        sach: sach,
+                        listNXB: listNXB,
+                        user: user,
+                        link: link
+                    }
+    
+                    res.render("detail_publisher", { data: result })  
                 }
-
-                res.render("detail_publisher", { data: result })
+                
             })
 
         })

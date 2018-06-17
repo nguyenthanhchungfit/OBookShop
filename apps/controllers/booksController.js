@@ -558,34 +558,81 @@ function getDataDetailBook(req, res, thongtin){
             // Lấy danh sách các sách cùng thể loại
             var SachCungTheLoai = bookModel.getBookbyIDCategory(theloai.id_the_loai)
             SachCungTheLoai.then(function(sachcungtheloai){
+                
                 // Lấy ID tác giả từ ID sách
                 var IDtacgia = authorModel.getAuthorbyIDBook(Sach.id_sach)
                 IDtacgia.then(function(sach_tac_gia){
                     if(sach_tac_gia == "Không xác định"){
-                        var result = {
-                            Sach: Sach,
-                            tacgia: sach_tac_gia,
-                            theloai: theloai,
-                            sachcungtheloai: sachcungtheloai,
-                            thongtin: thongtin,
-                            isAuthor: false
+                        var user = req.session.user;
+                        if(!user){
+                            var result = {
+                                Sach: Sach,
+                                tacgia: sach_tac_gia,
+                                theloai: theloai,
+                                sachcungtheloai: sachcungtheloai,
+                                thongtin: thongtin,
+                                isAuthor: false
+                            }
+                            res.render("detail_book", {data: result})
+                        }else{
+                            var link = "";
+                            if(user.type == 1){
+                                link = "/customer";
+                            }else if(user.type == 2){
+                                link = "/staff";
+                            }else if(user.type == 3){
+                                link = "/manager";
+                            }
+                            var result = {
+                                Sach: Sach,
+                                tacgia: sach_tac_gia,
+                                theloai: theloai,
+                                sachcungtheloai: sachcungtheloai,
+                                thongtin: thongtin,
+                                isAuthor: false,
+                                user: user,
+                                link: link
+                            }
+                            res.render("detail_book", {data: result})     
                         }
-                        res.render("detail_book", {data: result})
+                        
                     }
                     else{
                         var Tacgia = authorModel.getAuthorbyID(sach_tac_gia[0].id_tac_gia)
                         Tacgia.then(function(tac_gia){
                             tacgia = tac_gia[0];
-                            console.log(tacgia);
-                            var result = {
-                                Sach: Sach,
-                                tacgia: tacgia,
-                                theloai: theloai,
-                                sachcungtheloai: sachcungtheloai,
-                                thongtin: thongtin,
-                                isAuthor: true
+                            var user = req.session.user;
+                            if(!user){
+                                var result = {
+                                    Sach: Sach,
+                                    tacgia: tacgia,
+                                    theloai: theloai,
+                                    sachcungtheloai: sachcungtheloai,
+                                    thongtin: thongtin,
+                                    isAuthor: true
+                                }
+                                res.render("detail_book", {data: result})
+                            }else{
+                                var link = "";
+                                if(user.type == 1){
+                                    link = "/customer";
+                                }else if(user.type == 2){
+                                    link = "/staff";
+                                }else if(user.type == 3){
+                                    link = "/manager";
+                                }
+                                var result = {
+                                    Sach: Sach,
+                                    tacgia: tacgia,
+                                    theloai: theloai,
+                                    sachcungtheloai: sachcungtheloai,
+                                    thongtin: thongtin,
+                                    isAuthor: true,
+                                    user: user,
+                                    link: link
+                                }
+                                res.render("detail_book", {data: result})     
                             }
-                            res.render("detail_book", {data: result})
                         })
                     }
                 })
