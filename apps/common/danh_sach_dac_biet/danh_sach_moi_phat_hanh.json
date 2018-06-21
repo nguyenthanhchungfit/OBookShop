@@ -1,13 +1,1 @@
-{
-    "list":[
-        {"id":"IS0001","ngay_phat_hanh":"2018-06-01"},
-        {"id":"IS0002","ngay_phat_hanh":"2018-05-01"}
-    ],
-    "NV_Capnhat":[
-        {"username":"nttuananh","ThoiGian":"2018-6-17 10:15:06","ID_Sach":"IS0001","type":"Thêm"},
-        {"username":"nttuananh","ThoiGian":"2018-6-17 10:15:31","ID_Sach":"IS0002","type":"Thêm"},
-        {"username":"nttuananh","ThoiGian":"2018-6-17 10:18:46","ID_Sach":"IS0003","type":"Thêm"},
-        {"username":"nttuananh","ThoiGian":"2018-6-17 10:21:09","ID_Sach":"IS0003","type":"Xóa"}
-    ]
-}
-
+{"list":[{"id":"IS0001","ngay_phat_hanh":"2018-06-01"},{"id":"IS0002","ngay_phat_hanh":"2018-05-01"},{"id":"IS0017","ngay_phat_hanh":"2018-06-01"}],"NV_Capnhat":[{"username":"nttuananh","ThoiGian":"2018-6-17 10:15:06","ID_Sach":"IS0001","type":"Thêm"},{"username":"nttuananh","ThoiGian":"2018-6-17 10:15:31","ID_Sach":"IS0002","type":"Thêm"},{"username":"nttuananh","ThoiGian":"2018-6-17 10:18:46","ID_Sach":"IS0003","type":"Thêm"},{"username":"nttuananh","ThoiGian":"2018-6-17 10:21:09","ID_Sach":"IS0003","type":"Xóa"},{"username":"nttuananh","ThoiGian":"2018-6-18 09:21:26","ID_Sach":"IS0017","type":"Thêm"}]}
