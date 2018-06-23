@@ -22,6 +22,26 @@ function AddToCart(detail_book, req, res){
     res.cookie("Detail_Cart", Cart)
 }
 
+function ModifyCartNumber(req, res){
+    setCartFromCookie(req, res)
+    var len = Cart.length;
+    
+    for(var i = 0; i < len; ++i){
+        if(Cart[i].sach.id_sach == req.params.id){
+            if(req.query.loai == "them"){
+                Cart[i].SoLuong++;
+                Cart[i].TongTien = Cart[i].SoLuong * Cart[i].sach.gia;
+            }
+            else if(req. query.loai == "tru"){
+                Cart[i].SoLuong--;
+                Cart[i].TongTien = Cart[i].SoLuong * Cart[i].sach.gia;
+            }
+        }
+    }
+    // Ghi lại vào trong cookie
+    res.cookie("Detail_Cart", Cart)
+}
+
 function deleteCartbyIDBook(ID, req, res){
     setCartFromCookie(req, res)
     var len = Cart.length;
@@ -70,6 +90,7 @@ module.exports = {
     GetCart: GetCart,
     GetSumMoney: GetSumMoney,
     deleteCartbyIDBook: deleteCartbyIDBook,
-    setCartFromCookie: setCartFromCookie
+    setCartFromCookie: setCartFromCookie,
+    ModifyCartNumber: ModifyCartNumber
 }
 

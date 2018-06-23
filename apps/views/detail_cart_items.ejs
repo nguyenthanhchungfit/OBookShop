@@ -19,9 +19,15 @@
                                     <input type="button" id="<%= data.GioHang[i].sach.id_sach%>" class="btn btn-success" style="background-color: rgb(235, 93, 57)" value="Xóa"/>
                                 </div>
 
-                                <div class="col-sm-3">
-                                    <p class="font16">Số lượng: <%= data.GioHang[i].SoLuong%></p>
-                                    <p class="font16">Tiền: <%= data.GioHang[i].TongTien%></p>
+                                <div class="col-sm-4">
+                                    <div></div>
+                                    <p class="font16">Số lượng:</p>
+                                    <div class="row" style="margin-left: 0px">
+                                        <button class="col-sm-1" name="tru" id="<%= data.GioHang[i].sach.id_sach%>" style="text-align: center; width: 40px">-</button>
+                                        <input class="col-sm-4" value="<%= data.GioHang[i].SoLuong%>" name="<%= data.GioHang[i].sach.id_sach%>" id="so_luong" style="width: 60px"/>
+                                        <button class="col-sm-1" name="them" id="<%= data.GioHang[i].sach.id_sach%>" style="text-align: center; width: 40px">+</button>
+                                    </div>
+                                    <p class="font16" style="margin-top: 10px">Tiền: <%= data.GioHang[i].TongTien%></p>
                                 </div>
                             </div>
                     </div>
@@ -34,10 +40,18 @@
                 </div>
                 <div>
                     <a href="/customer/pay">
+                        <%if(data.isUser){%>
                         <button class="btn btn-success" id="NUT_XEM_THU">Thanh toán</button>
+                    <%} else {%>
+                    <a href="/login">
+                        <button class="btn btn-success" id="NUT_XEM_THU">Đăng nhập để thanh toán</button>
+                    </a>
+                    <%}%>
                     </a>
                 </div>
             <%}%>
             <%if(data.GioHang.length == 0){%>
-                <h4 class="Chitiet" style="text-align: center">Giỏ hàng của bạn trống</h4>
+            <div style="height: 200px">
+                <h4 class="Chitiet" style="text-align: center; margin-top: 50px">Giỏ hàng của bạn trống</h4>
+            </div>
             <%}%>

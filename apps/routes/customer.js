@@ -33,6 +33,10 @@ router.get("/cart", cartController.getDetailCardPage);
 router.get("/detail_cart", cartController.getDetailCartItems)
 // Xóa một sản phẩm trong giỏ hàng
 router.get("/cart/delete/:id", cartController.deleteCartbyIDBook);
+
+// Thêm, giảm số lượng sản phẩm trong giỏ hàng
+router.get("/add_number_book/:id", cartController.ChangeNumberCart)
+
 // Thanh toán
 router.get("/pay", cartController.GetPayPage);
 router.post("/pay", cartController.GetPostPay);

@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 </head>
-<body>
+<body class="wrapper">
     <%- include header%>   <!-- header -->
     <hr />
     <div>
@@ -29,7 +29,7 @@
         <div class="row">
             <!-- Hình ảnh và nút xem trước nội dung sách -->
             <div class="col-sm-5">
-                <div class="product-image-wrapper">
+                <div class="product-image-wrapper" style="margin: 15px">
                     <div style="height:440px;">
                         <img id="ANH_SACH" src="/static/imgs/category/books/<%= data.Sach.image_sach_url%>"/>
                     </div>
@@ -97,21 +97,21 @@
         </div>
 
         <h3>BÌNH LUẬN</h3>
-        <div class="product-image-wrapper" style="margin: 30px" id="comments" name="<%= data.Sach.id_sach%>">
+        <div style="margin: 30px" id="comments" name="<%= data.Sach.id_sach%>">
             
         </div>
 
         <%if(data.thongtin.isUser == true){%>
-        <div class="row" style="margin: 30px;" id="write_comment">
-            <input class="col-sm-6" id="binh_luan" type="text" placeholder="Viết bình luận" />
-            <button class="btn btn-success" style="margin-left: 10px; margin-top:3px">Bình luận</button>
+        <div class="row" style="margin: 30px; margin-left: 350px" id="write_comment">
+            <input class="col-sm-6" id="binh_luan" type="text" placeholder="Nhập nội dung bình luận" />
+            <button class="btn btn-success" style="margin-top:3px">Bình luận</button>
         </div>
         <%}%>
         <%if(data.thongtin.isUser == false){%>
-        <div style="text-align: center; margin: 20px">
-            <a href="/login">
-                <button class="btn btn-success">Đăng nhập để bình luận</button>
-            </a>
+        <div class="row" style="margin: 30px; margin-left: 250px" id="write_comment_noUser">
+            <input class="col-sm-2" id="ten_binh_luan" type="text" placeholder="Nhập tên bình luận" />
+            <input class="col-sm-6" id="binh_luan" type="text" placeholder="Nhập nội dung bình luận" />
+            <button class="btn btn-success" style="margin-top:3px">Bình luận</button>
         </div>
         <%}%>
     </div>
