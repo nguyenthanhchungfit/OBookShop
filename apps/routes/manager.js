@@ -9,4 +9,8 @@ router.get("/account_staff", managerController.getDanhSachNhanVien);
 
 router.get("/account_customer", managerController.getDanhSachKhachHang);
 
+router.get("/edit_customer_information", managerController.edit_customer_information);
+
+router.post("/edit_customer_information", managerController.edit_customer_information_post);
+
 module.exports = router;

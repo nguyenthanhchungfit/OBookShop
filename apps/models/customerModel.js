@@ -175,7 +175,7 @@ function getInforDanhSachNguoiDung(){
         if(err) defer.reject(err);
         result.forEach(element =>{
             arr.push({username : element.username, email : element.email, so_dien_thoai : element.so_dien_thoai,
-                ho_ten: element.ho_ten, dia_chi : element.dia_chi
+                ho_ten: element.ho_ten, dia_chi : element.dia_chi, gioi_tinh : element.gioi_tinh
             });
         });
         defer.resolve({arr});
