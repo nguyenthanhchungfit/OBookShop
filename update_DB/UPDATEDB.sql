@@ -27,3 +27,4 @@ DROP FOREIGN KEY FK_CTDH_Sach
 ALTER TABLE danh_sach_ban_hang
 DROP FOREIGN KEY FK_DsBanHang_Sach;
 
+
