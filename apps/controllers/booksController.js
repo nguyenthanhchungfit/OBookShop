@@ -494,15 +494,28 @@ exports.ViewComment = function(req, res){
             
             // Ghi file comment nếu có bình luận mới
             if(req.query.binh_luan){
-                var cont = req.query.binh_luan
-                var cmt = {
-                    comment: {
-                        content: cont,
-                        username: req.session.user.username, // session
-                        datetime: new Date().toLocaleString()
+                if(req.query.ten_cmt){
+                    var cont = req.query.binh_luan
+                    var cmt = {
+                        comment: {
+                            content: cont,
+                            username: req.query.ten_cmt,
+                            datetime: new Date().toLocaleString()
+                        }
                     }
+                    listCmt.push(cmt)
                 }
-                listCmt.push(cmt)
+                else{  // Bình luận bằng tài khoản đã login
+                    var cont = req.query.binh_luan
+                    var cmt = {
+                        comment: {
+                            content: cont,
+                            username: req.session.user.username, // session
+                            datetime: new Date().toLocaleString()
+                        }
+                    }
+                    listCmt.push(cmt)
+                }
                 var builder = new xml2js.Builder({rootName: "comments"});
                 xml = builder.buildObject(listCmt)
                 fs.writeFile(__dirname +  "/../common/comments/" + id_sach + ".xml",xml, function(err) {

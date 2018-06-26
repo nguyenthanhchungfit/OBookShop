@@ -1,3 +1,8 @@
+.wrapper{
+    margin-right: auto;
+    margin-left:  auto;
+    max-width: 1300px;
+}
 
 #NUT_XEM_THU{
     margin-left: auto;
@@ -83,7 +88,7 @@ td, th {
 th{
     background: rgba(94, 170, 233, 0.596);
 }
-#binh_luan{
+#binh_luan, #ten_binh_luan{
     color: #696763;
     display: block;
     font-family: 'Roboto', sans-serif;
@@ -93,4 +98,12 @@ th{
     margin-bottom: 10px;
     outline: medium none;
     padding-left: 10px;
+    margin-right: 15px;
+}
+#Hien_thi_cmt{
+    background-color: rgb(247, 251, 252);
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
 }

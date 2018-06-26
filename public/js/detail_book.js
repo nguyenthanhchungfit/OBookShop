@@ -40,3 +40,22 @@ $("#write_comment").on("click","button", function () {
     xhttp.open("GET", query, true);
     xhttp.send();
  });
+
+ $("#write_comment_noUser").on("click","button", function () {
+    var id_sach = $("#comments").attr('name');
+    var ten_cmt = document.getElementById("ten_binh_luan").value;
+    var comment = document.getElementById("binh_luan").value;
+
+    if(ten_cmt != "" && comment != ""){
+        var query = "/book/comment/" + id_sach + "/?binh_luan=" + comment + "&ten_cmt=" + ten_cmt;
+    
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            $('#comments').html(this.responseText);
+        }
+        };
+        xhttp.open("GET", query, true);
+        xhttp.send();
+    }
+ });

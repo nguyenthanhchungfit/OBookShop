@@ -29,9 +29,18 @@ exports.getDetailCartItems = function(req, res){
     var GioHang = cartDetail.GetCart(req, res)
     var TongTienPhaiTra = cartDetail.GetSumMoney(req, res)
 
+    var isUser;
+    if(req.session.user != null) {
+        isUser = true;
+    }
+    else{
+        isUser = false;
+    }
+
     var result = {
         GioHang: GioHang,
-        TongTienPhaiTra: TongTienPhaiTra
+        TongTienPhaiTra: TongTienPhaiTra,
+        isUser: isUser
     }
 
     res.render("detail_cart_items", {data: result});
@@ -40,15 +49,15 @@ exports.getDetailCartItems = function(req, res){
 exports.deleteCartbyIDBook = function(req, res){
     var idBook = req.params.id
     cartDetail.deleteCartbyIDBook(idBook, req, res)
-
-    var GioHang = cartDetail.GetCart(req, res)
-    var TongTienPhaiTra = cartDetail.GetSumMoney(req, res)
-
-    var result = {
-        GioHang: GioHang,
-        TongTienPhaiTra: TongTienPhaiTra
-    }
     
+    res.redirect("/customer/cart");
+}
+
+exports.ChangeNumberCart = function(req, res){
+    if(req.params.id && req.query.loai){
+        cartDetail.ModifyCartNumber(req, res);
+    }
+
     res.redirect("/customer/cart");
 }
 
