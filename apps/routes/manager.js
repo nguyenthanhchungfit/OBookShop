@@ -13,4 +13,5 @@ router.get("/edit_customer_information", managerController.edit_customer_informa
 
 router.post("/edit_customer_information", managerController.edit_customer_information_post);
 
+router.get("/top_10_book", managerController.getTop10Book);
 module.exports = router;

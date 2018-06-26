@@ -1,11 +1,19 @@
 const customerModel = require("../models/customerModel");
 const staffModel = require("../models/staffModel");
+const orderModel = require("../models/orderModel");
 const url = require("url");
 exports.index = function (req, res) {
     res.render("manager/index");
 }
 
-
+exports.getTop10Book = function (req, res) {
+    orderModel.top10Book().then(function (data) {
+        console.log(data);
+        res.render("manager/top10", { items: data.arr });
+    }).catch(function (err) {
+        res.send(err);
+    });
+}
 exports.getDanhSachNhanVien = function (req, res) {
     staffModel.getInforDanhSachNhanvien().then(function (data) {
         console.log(data);
@@ -86,7 +94,7 @@ exports.edit_customer_information_post = function (req, res) {
                 if (customerModel.checkPhoneNumberIsExistedWithUsername(user_real.username, user_body.so_dien_thoai)) {
                     err += "<br/>Số điện thoại này đã tồn tại!";
                 }
-            }  
+            }
             if (err != "") {
                 res.render("manager/edit_customer_information", { data: { username: qdata.username, user: user.user, image_link: image_link, select: select, esuccess: esuccess, err: err } });
             } else {
