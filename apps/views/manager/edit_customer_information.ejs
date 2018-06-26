@@ -447,42 +447,84 @@
             </header>
             <!-- HEADER DESKTOP-->
 
-            <!-- MAIN CONTENT-->
+            <!-- MAIN CONTENT -->
             <div class="main-content">
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="table-responsive table--no-card m-b-30">
-                                <table class="table table-borderless table-striped table-earning">
-                                <thead>
-                                    <tr>
-                                        <th>Username</th>
-                                        <th>Họ tên</th>
-                                        <th>Email</th>
-                                        <th>Giới tính</th> 
-                                        <th class="text-right">Phone</th>
-                                        <th class="text-right">Địa chỉ</th>
-                                        <th>Cập Nhật</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% items.forEach(function(item){%>
-                                        <tr>
-                                            <td><%=item.username%></td>
-                                            <td><%=item.ho_ten%></td>
-                                            <td><%=item.email%></td>
-                                            <td><%=item.gioi_tinh%></td>
-                                            <td class="text-right"><%=item.so_dien_thoai%></td>
-                                            <td class="text-right"><%=item.dia_chi%></td>
-                                            <td><a href="/manager/edit_customer_information?username=<%= item.username %>">Sửa</a></td>
-                                        </tr>
-                                    <%});%>
-                                </tbody>
-                                </table>
-                            </div>
+                <form id="signupform" class="form-horizontal" role="form" method="POST" action="./edit_customer_information?username=<%= data.username %>">
+
+                    <div class="form-group">
+                        <label for="email" class="text-success font-weight-bold col-md-3 control-label">Email</label>
+                        <div class="col-md-9">
+                            <input type="text" required="true" class="form-control" value="<%= data.user.email%>" name="email" placeholder="Nhập Email">
                         </div>
                     </div>
-                </div>
+
+                    <div class="form-group">
+                        <label for="ho_ten" class="text-success font-weight-bold col-md-3 control-label">Họ tên</label>
+                        <div class="col-md-9">
+                            <input type="text" required="true" class="form-control" value="<%= data.user.ho_ten%>" name="ho_ten" placeholder="Nhập họ tên">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gioi_tinh" class="text-success font-weight-bold col-md-3 control-label">Giới tính</label>
+                        <div class="col-md-3">
+                            <select name="gioi_tinh" class="form-control">
+                                <option value="nam" <%= data.select.nam%>>Nam</option>
+                                <option value="nữ" <%= data.select.nu%>>Nữ</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="so_dien_thoai" class="text-success font-weight-bold col-md-3 control-label">Số điện thoại</label>
+                        <div class="col-md-4">
+                            <input type="number" required="true" name="so_dien_thoai" value="<%= data.user.so_dien_thoai%>" class="form-control" placeholder="Nhập số điện thoại">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dia_chi" class="text-success font-weight-bold col-md-3 control-label">Địa chỉ</label>
+                        <div class="col-md-9">
+                            <input type = "text" class="form-control" value="<%= data.user.dia_chi%>" name="dia_chi" placeholder="Nhập địa chỉ">
+                        </div>
+                    </div>
+
+                    <div id="signupalerterror" style="<%if (!data || !data.error){%>display:none<%}%>" 
+                        class="alert alert-danger">
+                        <p><strong>Error:</strong></p>
+                        <%if (data && data.error){%>
+                        <p><%- data.error%></p>
+                        <%}%>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- Button -->
+                        <div class="col-md-offset-3 col-md-9" >
+                            <input  id="btn-signup" type="submit" class="btn btn-success" value="Cập nhật" />
+                            <a href="/manager/account_customer"><input id="btn-cancel" type="button" class="btn btn-success" value="Trở về" /></a>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div id="signupalertsuccess" style="<%if (!data || !data.success){%>display:none<%}%>" 
+                            class="alert alert-success col-md-5 mx-auto text-center">
+                            <p><strong>Success</strong></p>
+                            <p><%= data.success%></p>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div id="signupalerterror" style="<%if (!data || !data.esuccess){%>display:none<%}%>" 
+                            class="alert alert-danger col-md-5 mx-auto text-center">
+                                <p><strong>Error</strong></p>
+                                <%if (data && data.esuccess){%>
+                                <p><%- data.esuccess%></p>
+                                <p><%- data.err %></p>
+                                <%}%>
+                        </div>
+                    </div>    
+
+                </form>
             </div>
             <!-- END MAIN CONTENT-->
             <!-- END PAGE CONTAINER-->

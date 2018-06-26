@@ -21,7 +21,89 @@ function getDataFrom2DB(username){
     });
     return defer.promise;
 }
+function top10Book() {
+    var defer = q.defer();
+    var sql = `SELECT id_sach, SUM(so_luong) so_luong_sach, thanh_tien FROM ${tableChiTiet} GROUP BY id_sach ORDER BY so_luong_sach DESC LIMIT 10;`;
+    var arr = [];
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{
+            arr.push({id_sach : element.id_sach, so_luong_sach : element.so_luong_sach, thanh_tien : element.thanh_tien});
+        });
+        defer.resolve({arr});
+    });
+    return defer.promise;
+}
+function statisticsYear(year) {
+    var defer = q.defer();
+    var sql = `SELECT SUM(thanh_tien) tong_nam FROM ${tableDonHang} dh JOIN ${tableChiTiet} ct ON dh.ma_don_hang = ct.ma_don_hang WHERE YEAR(ngay_mua) = ${year};`;
+    var arr = [];
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{
+            arr.push({tong_nam : element.tong_nam});
+        });
+        defer.resolve({arr});
+    });
+    return defer.promise;
+}
 
+function statisticsMonth(month, year) {
+    var defer = q.defer();
+    var sql = `SELECT SUM(thanh_tien) tong_thang FROM ${tableDonHang} dh JOIN ${tableChiTiet} ct ON dh.ma_don_hang = ct.ma_don_hang WHERE MONTH(ngay_mua) = ${month} AND YEAR(ngay_mua) = ${year};`;
+    var arr = [];
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{  
+            arr.push({tong_thang : element.tong_thang});
+        });
+        defer.resolve({arr});
+    });
+    return defer.promise;
+}
+function statisticsDay(date) {
+    var defer = q.defer();
+    var sql = `SELECT SUM(thanh_tien) tong_ngay FROM ${tableDonHang} dh JOIN ${tableChiTiet} ct ON dh.ma_don_hang = ct.ma_don_hang WHERE DATE(ngay_mua) = '${date}';`;
+    var arr = [];
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{  
+            arr.push({tong_ngay : element.tong_ngay});
+        });
+        defer.resolve({arr});
+    });
+    return defer.promise;
+}
+function statisticsWeek(week, year) {
+    var defer = q.defer();
+    var sql = `SELECT SUM(thanh_tien) tong_tuan FROM ${tableDonHang} dh JOIN ${tableChiTiet} ct ON dh.ma_don_hang = ct.ma_don_hang WHERE WEEK(ngay_mua) = ${week} AND YEAR(ngay_mua) = ${year};`;
+    var arr = [];
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{  
+            arr.push({tong_tuan : element.tong_tuan});
+        });
+        defer.resolve({arr});
+    });
+    return defer.promise;
+}
+// Quý: nhận 1,2,3,4
+function statisticsTrimester(trimester, year) {
+    var defer = q.defer();
+    // Tháng cuối của quý 3 6 9 12 
+    var max = trimester * 3;
+    var min = max - 2;
+    var sql = `SELECT SUM(thanh_tien) tong_quy FROM ${tableDonHang} dh JOIN ${tableChiTiet} ct ON dh.ma_don_hang = ct.ma_don_hang WHERE MONTH(ngay_mua) >= ${min} AND MONTH(ngay_mua) <= ${max};`;
+    var arr = [];
+    var query = conn.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element =>{  
+            arr.push({tong_quy : element.tong_quy});
+        });
+        defer.resolve({arr});
+    });
+    return defer.promise;
+}
 function returnData(username){
     var result = [];
     var flag;
@@ -59,5 +141,11 @@ function returnData(username){
 }
 module.exports = {
     getDataFrom2DB : getDataFrom2DB,
-    returnData : returnData
+    returnData : returnData,
+    top10Book : top10Book,
+    statisticsYear : statisticsYear,
+    statisticsMonth : statisticsMonth,
+    statisticsDay : statisticsDay,
+    statisticsWeek : statisticsWeek,
+    statisticsTrimester : statisticsTrimester
 };
