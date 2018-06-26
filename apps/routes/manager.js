@@ -14,4 +14,14 @@ router.get("/edit_customer_information", managerController.edit_customer_informa
 router.post("/edit_customer_information", managerController.edit_customer_information_post);
 
 router.get("/top_10_book", managerController.getTop10Book);
+
+router.get("/statistics_year", managerController.getStatisticsYear);
+
+router.get("/statistics_month", managerController.getStatisticsMonth);
+
+router.get("/statistics_day", managerController.getStatisticsDay);
+
+router.get("/statistics_week", managerController.getStatisticsWeek);
+
+router.get("/statistics_trimester", managerController.getStatisticsTrimester);
 module.exports = router;

@@ -14,6 +14,48 @@ exports.getTop10Book = function (req, res) {
         res.send(err);
     });
 }
+exports.getStatisticsYear = function (req, res) {
+    orderModel.statisticsYear(2018).then(function (data) {
+        console.log(data);
+        res.render("manager/statistics_year", { items: data.arr });
+    }).catch(function (err) {
+        res.send(err);
+    });
+}
+exports.getStatisticsMonth = function (req, res) {
+    orderModel.statisticsMonth(6,2018).then(function (data) {
+        console.log(data);
+        res.render("manager/statistics_year", { items: data.arr });
+    }).catch(function (err) {
+        res.send(err);
+    });
+}
+exports.getStatisticsDay = function (req, res) {
+    orderModel.statisticsDay('2018-6-17').then(function (data) {
+        console.log(data);
+        res.render("manager/statistics_year", { items: data.arr });
+    }).catch(function (err) {
+        res.send(err);
+    });
+}
+exports.getStatisticsWeek = function (req, res) {
+    // 17/6/2018 là tuần 24
+    orderModel.statisticsWeek(24,2018).then(function (data) {
+        console.log(data);
+        res.render("manager/statistics_year", { items: data.arr });
+    }).catch(function (err) {
+        res.send(err);
+    });
+}
+exports.getStatisticsTrimester = function (req, res) {
+    // Tháng 4 - Tháng 6
+    orderModel.statisticsTrimester(2,2018).then(function (data) {
+        console.log(data);
+        res.render("manager/statistics_year", { items: data.arr });
+    }).catch(function (err) {
+        res.send(err);
+    });
+}
 exports.getDanhSachNhanVien = function (req, res) {
     staffModel.getInforDanhSachNhanvien().then(function (data) {
         console.log(data);
