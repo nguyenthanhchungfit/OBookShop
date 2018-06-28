@@ -15,12 +15,17 @@ exports.getTop10Book = function (req, res) {
     });
 }
 exports.getStatisticsYear = function (req, res) {
-    orderModel.statisticsYear(2018).then(function (data) {
-        console.log(data);
-        res.render("manager/statistics_year", { items: data.arr });
+    res.render("manager/statistics_year");
+}
+exports.postStatisticsYear = function (req, res) {
+    var nam = req.body.nam;
+    orderModel.statisticsYear(nam).then(function (data) {
+        var i  = String(data.arr[0].tong_nam);
+        res.send(i);
+        
     }).catch(function (err) {
         res.send(err);
-    });
+    });  
 }
 exports.getStatisticsMonth = function (req, res) {
     orderModel.statisticsMonth(6,2018).then(function (data) {

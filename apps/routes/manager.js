@@ -17,6 +17,8 @@ router.get("/top_10_book", managerController.getTop10Book);
 
 router.get("/statistics_year", managerController.getStatisticsYear);
 
+router.post("/statistics_year", managerController.postStatisticsYear);
+
 router.get("/statistics_month", managerController.getStatisticsMonth);
 
 router.get("/statistics_day", managerController.getStatisticsDay);
