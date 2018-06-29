@@ -1,6 +1,7 @@
 var publisherModel = require("../models/publisherModel")
 var bookModel = require("../models/bookModel")
 var url = require("url")
+
 exports.getPublisherByName = function (req, res) {
     // Lấy danh sách nxb từ tên nxb
     var ListNXB = publisherModel.getPublisherbyName(req.params.Name)
@@ -194,4 +195,65 @@ exports.delete_publisher = function(req, res){
     publisherModel.getPublisher().then(function (data) {
         res.render("staff/update_delete_publisher", { items: data.arr });
     })
+}
+
+// Lấy dan sách nhà xuất bản cho trang chủ
+exports.get_publishers_for_Home = function(req, res){
+    if(req.query.ten_nxb){
+        var ten_nxb = req.query.ten_nxb;
+        if(ten_nxb == "Tất cả"){
+            bookModel.getInforBooksForHome().then(function(data){
+                bookModel.getInforBooksForHome().then(function (data) {
+                    var step = 0;
+                    if (req.query.step) {
+                        step = req.query.step;
+                    }
+                    var pages = [];
+                    var iCur = step * 9;
+                    var size = iCur + 9;
+                    size = (size < data.arr.length) ? size : data.length;
+                    for (var i = iCur; i < size; i++) {
+                        pages.push(data.arr[i]);
+                    }
+    
+                    var length_paging = data.arr.length;
+                    var size_paging = 0;
+                    if (length_paging > 0) {
+                        size_paging = (length_paging % 9);
+                        if (length_paging % 9 != 0) {
+                            size_paging++;
+                        }
+                    }
+                    var paging = [];
+                    for (var i = 1; i <= size_paging; i++) {
+                        paging.push(i);
+                    }
+                    res.render("home_item_book", {
+                        items: pages,
+                        paging: paging,
+                        iCur : step
+                    });
+                });
+            });
+        }else{
+            bookModel.getBookbyNamePublihser(ten_nxb).then(function(data){
+                res.render("home_item_book", { items: data, paging: [] });
+            });
+        }
+        
+    }else{
+        publisherModel.getPublisherForHome().then(function(data){
+            data.arr.unshift({ten_nxb : 'Tất cả'});
+            res.render("home_category_publisher", { items: data.arr })
+        });
+    }
+    
+}
+
+// Lấy danh sách nhà xuất bản option cho trang chủ
+exports.get_publishers_option_for_Home = function(req, res){
+    publisherModel.getPublisherForHome().then(function(data){
+        data.arr.unshift({ten_nxb : 'Tất cả'});
+        res.render("optionNXB", { items: data.arr })
+    });
 }

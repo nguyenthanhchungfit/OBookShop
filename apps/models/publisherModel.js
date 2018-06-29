@@ -17,6 +17,20 @@ function getPublisher() {
     return defer.promise
 }
 
+function getPublisherForHome(){
+    var arr = [];
+    var defer = q.defer();
+    var query = connection.query("SELECT ten_nxb FROM nha_xuat_ban", function (err, result) {
+        if (err) defer.reject(err);
+        result.forEach(element => {
+            if(element.ten_nxb != "Khác")
+            arr.push({ ten_nxb: element.ten_nxb });
+        });
+        defer.resolve({ arr });
+    })
+    return defer.promise
+}
+
 // Lấy thông tin nhà xuất bản từ Tên NXB
 function getPublisherbyName(Name) {
     if (Name) {
@@ -133,5 +147,6 @@ module.exports = {
     checkNameIsExisted: checkNameIsExisted,
     addNewPublisher: addNewPublisher,
     updatePublisher: updatePublisher,
-    Delete_Publisher: Delete_Publisher
+    Delete_Publisher: Delete_Publisher,
+    getPublisherForHome : getPublisherForHome
 }

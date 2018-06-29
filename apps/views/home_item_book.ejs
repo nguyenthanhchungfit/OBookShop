@@ -1,3 +1,4 @@
+<div class="features_items" id="book_items">																
 <% items.forEach(function(item){%>
     <div class="col-sm-4">
         <div class="product-image-wrapper">
@@ -9,16 +10,33 @@
                     <h2><%= item.gia%> đ</h2>
                     <p><%= item.ten_sach%></p>
                     <p><%= item.so_luong_ton%></p>                  
-                </div>
-                
+                </div>            
             </div>
 
             <div class="ml-3">
                 <button class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                 
-                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-calendar-check"></i>Watch later</a>
+                <button href="" class="btn btn-default add-to-cart"><i class="fa fa-calendar-check"></i>Watch later</button>
             </div>
         </div>
     </div>
 <%});%>
+</div>
 
+<% if(paging.length > 0){%>
+    <div class="row" id="my_paging">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <%index = 0%>
+                <% paging.forEach(function(page){%>
+                    <%if(index == iCur){%>
+                        <li class="page-item active"><a href="javascript:void(0)" class="page-link"><%= page%></a></li>
+                    <%}else{%>
+                        <li class="page-item"><a href="javascript:void(0)" class="page-link"><%= page%></a></li>
+                    <%}%>
+                    <% index++%>
+                <%});%>
+            </ul>
+        </nav>
+    </div>
+<%}%>

@@ -36,6 +36,35 @@ function getInforBooksForHomeByCategory(the_loai){
     return defer.promise;
 }
 
+// Lấy danh sách sách
+function getInforBookForSearchHome(ten_sach, nxb, the_loai, gia){
+    var sql;
+    if(gia == 0){
+        sql = `SELECT id_sach, ten_sach, gia, so_luong_ton, image_sach_url FROM ${tableName} WHERE ten_sach like n'%${ten_sach}%' AND nha_xuat_ban like '%${nxb}%' AND the_loai like '%${the_loai}%' AND gia > 0`;
+    }else if(gia == 1){
+        sql = `SELECT id_sach, ten_sach, gia, so_luong_ton, image_sach_url FROM ${tableName} WHERE ten_sach like n'%${ten_sach}%' AND nha_xuat_ban like '%${nxb}%' AND the_loai like '%${the_loai}%' AND gia > 0 AND gia <= 50000`;
+    }else if(gia == 2){
+        sql = `SELECT id_sach, ten_sach, gia, so_luong_ton, image_sach_url FROM ${tableName} WHERE ten_sach like n'%${ten_sach}%' AND nha_xuat_ban like '%${nxb}%' AND the_loai like '%${the_loai}%' AND gia > 50000 AND gia <= 75000`;
+    }else if(gia == 3){
+        sql = `SELECT id_sach, ten_sach, gia, so_luong_ton, image_sach_url FROM ${tableName} WHERE ten_sach like n'%${ten_sach}%' AND nha_xuat_ban like '%${nxb}%' AND the_loai like '%${the_loai}%' AND gia >75000 0 AND gia <= 100000`;
+    }else if(gia == 4){
+        sql = `SELECT id_sach, ten_sach, gia, so_luong_ton, image_sach_url FROM ${tableName} WHERE ten_sach like n'%${ten_sach}%' AND nha_xuat_ban like '%${nxb}%' AND the_loai like '%${the_loai}%' AND gia > 100000`;
+    }
+
+    var defer = q.defer();
+    var arr = [];
+    var query = connection.query(sql, function(err, result, fields){
+        if(err) defer.reject(err);
+        result.forEach(element => {
+            arr.push({id_sach : element.id_sach, ten_sach : element.ten_sach, 
+                gia : element.gia, so_luong_ton : element.so_luong_ton,
+                image_sach_url : element.image_sach_url});
+        });
+        defer.resolve({arr});
+    });
+    return defer.promise;
+}
+
 // Lấy sách từ ID sách
 function getBookbyID(ID){
     if(ID){
@@ -220,5 +249,6 @@ module.exports = {
     DeleteBook: DeleteBook,
     checkIDIsExisted: checkIDIsExisted,
     addNewBook: addNewBook,
-    updateBook: updateBook
+    updateBook: updateBook,
+    getInforBookForSearchHome : getInforBookForSearchHome
 }

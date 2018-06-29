@@ -179,3 +179,7 @@ exports.post_login = function(req, res){
         }
     }
 }
+
+exports.getOptionsGia = function(req, res){
+    res.render("optionGia");
+}

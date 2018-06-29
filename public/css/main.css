@@ -20,6 +20,10 @@ a:hover {
     text-decoration: none;
 }
 
+.my_cursor_point{
+    cursor: pointer;
+}
+
 a:focus {
     outline: none;
     outline-offset: 0;
@@ -28,6 +32,25 @@ a:focus {
 a {
     -webkit-transition: 300ms;
     transition: 300ms;
+}
+
+.my_title_option{
+    font-size:16px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 5px;
+}
+
+.my_content_option{
+    background: #4CAF50;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.my_input_option{
+    background: white;
+    color: #43A047;
+    margin-bottom: 10px;
 }
 
 h1,

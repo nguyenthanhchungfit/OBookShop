@@ -4,6 +4,7 @@ var router = express.Router();
 
 var homeController = require("../controllers/homeController");
 var bookController = require("../controllers/booksController");
+var categoryController = require("../controllers/categoryController");
 var authorController = require("../controllers/authorsController");
 var publisherController = require("../controllers/publisherController");
 var cardController = require("../controllers/cartController");
@@ -24,10 +25,14 @@ router.get("/login", homeController.get_login);
 router.post("/login", homeController.post_login);
 
 router.get("/books", bookController.index);
+
 // Chi tiết sách, thêm sách vào giỏ hàng
 router.get("/book/:id", bookController.getBookbyID);
 // comment sách
 router.get("/book/comment/:id", bookController.ViewComment)
+
+// search tên sách
+router.get("/booksearch", bookController.search_name_book);
 
 // chi tiết tác giả, nxb
 router.get("/author/:id", authorController.GetAuthorbyID);
@@ -40,5 +45,13 @@ router.post("/pay", cardController.GetPostPay);
 router.get("/cart/delete/:id", cardController.deleteCartbyIDBook);
 //router.post("/book/cart/:id", bookController.AddToCart);
 
+router.get("/getPublishers", publisherController.get_publishers_for_Home);
+
+
+router.get("/optionNXB", publisherController.get_publishers_option_for_Home);
+
+router.get("/optionTheLoai", categoryController.getDanhSachTheLoaiOption);
+
+router.get("/optionGia", homeController.getOptionsGia);
 
 module.exports = router;

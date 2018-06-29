@@ -1,5 +1,7 @@
 /*price range*/
 
+var old_pos = 1;
+
 if ($.fn.slider) {
     $('#sl2').slider();
 }
@@ -45,12 +47,57 @@ $(document).ready(function () {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            $('#book_items').html(this.responseText);
+            $('#sanpham').html(this.responseText);
         }
         };
-        xhttp.open("GET", "/books", true);
+        xhttp.open("GET", "/books?step=0", true);
         xhttp.send();
     });
+
+    // Get danh sách publisher
+    $(function(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            $('#NXB').html(this.responseText);
+        }
+        };
+        xhttp.open("GET", "/getPublishers", true);
+        xhttp.send();
+    });
+
+    $(function(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            $('#optionNXB').html(this.responseText);
+        }
+        };
+        xhttp.open("GET", "/optionNXB", true);
+        xhttp.send();
+    })
+
+    $(function(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            $('#optionTheLoai').html(this.responseText);
+        }
+        };
+        xhttp.open("GET", "/optionTheLoai", true);
+        xhttp.send();
+    })
+
+    $(function(){
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            $('#optionGia').html(this.responseText);
+        }
+        };
+        xhttp.open("GET", "/optionGia", true);
+        xhttp.send();
+    })
 });
 
 $("#accordian").on("click","h4", function () {
@@ -59,12 +106,77 @@ $("#accordian").on("click","h4", function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        $('#book_items').html(this.responseText);
+        $('#sanpham').html(this.responseText);
     }
     };
     xhttp.open("GET", query, true);
     xhttp.send();
  });
 
+ $("#NXB").on("click", "h5", function(){
+    var ten_nxb = $(this).text();
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            $('#sanpham').html(this.responseText);
+        }
+    };
+    var linkRequest = "/getPublishers?ten_nxb=" + ten_nxb;
+    xhttp.open("GET", linkRequest, true);
+    xhttp.send();
+ });
 
+ $("#sanpham").on('click', "a", function(){
+     $li = $(this).parent();
+     var classNameAc = liClassName + " active";
+     $li.attr("class", classNameAc);
+     var classNameDi = liClassName;
+     $li.siblings().attr('class', classNameDi);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            $('#sanpham').html(this.responseText);
+        }
+    };
+    var step = $li.text() - 1;
+    var linkRequest = "/books?step=" + step;
+    xhttp.open("GET", linkRequest, true);
+    xhttp.send();
+ });
+
+ const liClassName = "page-item";
+
+ $("#sanpham").on('click', "button", function(){
+    var btnName = $(this).text();
+    if(btnName == "Add to cart"){
+        var id = $(this).parent().prev().children().attr("id");
+        var xhttp = new XMLHttpRequest();
+        var linkRequest = "/book/" + id + "?so_luong=1"
+        xhttp.open("GET", linkRequest, true);
+        xhttp.send();
+    }
+});
+
+$("#btnSearch").on('click', function(){
+    var textSearch = $("#search_name").val();
+    var NXB = $("#optionNXB option:selected").val();
+    if(NXB == "Tất cả"){
+        NXB = 0;
+    }
+    var TheLoai = $("#optionTheLoai option:selected").val();
+    var Gia = $("#optionGia option:selected").val();
+
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            $('#sanpham').html(this.responseText);
+        }
+    };
+    var linkRequest = `/booksearch?ten_sach=${textSearch}&nxb=${NXB}&the_loai=${TheLoai}&gia=${Gia}`
+    xhttp.open("GET", linkRequest, true);
+    xhttp.send();
+
+
+})
 
